@@ -1,0 +1,254 @@
+
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,200i,300,400');
+
+
+body {
+  overflow-x: hidden;
+  background-color: #f0f6ff;
+  font-family: Poppins,sans-serif;
+  --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: rgb(255, 255, 255);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+
+}
+
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #718EB1;
+  font-size: 13px;
+}
+
+.sidebar-nav li a i {
+  font-size: 16px;
+ width: 25px;
+}
+
+.sidebar-nav li a:hover {
+text-decoration: none;
+
+color: #635ebe;
+background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+height: 65px;
+font-size: 18px;
+line-height: 60px;
+
+}
+
+.sidebar-nav>.sidebar-brand a {
+color: #718EB1;
+color: rgba(113,142,177,.6);
+  font-size: 11px;
+  text-transform: uppercase;
+
+}
+
+.sidebar-nav >.sidebar-brand a:hover {
+  color: rgba(113,142,177,.6);
+background: none;
+  cursor: default;
+
+}
+
+.navbar{
+background: linear-gradient(135deg,#736cc7 21%,#3190f0 100%,#3190f0 100%);
+height: 4.0625rem;
+
+}
+
+.navbar-light .navbar-brand{
+color: rgba(255,255,255,.7);
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+color: rgba(255,255,255,.7);
+  font-size: 14px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+color: white;
+}
+.sidebar-nav li a > span{
+margin-left: 25px;
+}
+.navbar-light .navbar-brand{
+color: rgb(255, 255, 255);
+}
+.navbar-light .navbar-brand:hover{
+color: rgb(255, 255, 255);
+
+}
+.logo{
+height: 40px;
+margin-right: 10px;
+}
+
+.page-name{
+  margin: 0;
+  display: inline-block;
+  padding: 7px 20px 7px 0;
+  font-weight: 300;
+  color: #4d5a68;;
+  font-family: Poppins, sans-serif;
+  font-size: 24px;
+}
+
+.card .card-header {
+  padding: 15px 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(234,243,253,.9);
+  background-color: transparent;
+  min-height: 45px;
+  color: #4d5a68;
+}
+.card .card-header, .card .card-header .card-title {
+  font-weight: 300;
+  font-size: 1rem;
+
+}.card .card-header, .card .card-header .card-title {
+   font-weight: 300;
+   font-size: 1rem;
+ }
+
+.card {
+  box-shadow: 0 10px 40px 0 rgba(18,106,211,.07), 0 2px 9px 0 rgba(18,106,211,.06);
+  border: none;
+  margin-bottom: 1.875rem;
+  transition: all .3s ease;
+}
+.card .card-toolbar.top-right {
+   right: 20px;
+   top: 17px;
+ }
+.card .card-toolbar {
+  position: absolute;
+}
+.p-t-25 {
+  padding-top: 25px!important;
+}
+.p-b-20 {
+  padding-bottom: 20px!important;
+}
+
+.card .card-toolbar .nav-pills .nav-link {
+  font-size: .875rem;
+  padding: 7px 16px;
+  border-radius: 25px;
+  color: #4d5a68;
+
+}
+.card .card-toolbar .nav-pills .nav-link.active {
+  background-color: #736cc7;
+  color: white;
+
+}
+
+.card-body {
+  color: #617182;
+  font-size: .875rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+
+
+@media(min-width:768px) {
+  #wrapper {
+  padding-left: 0;
+  }
+  #wrapper.toggled {
+  padding-left: 250px;
+  }
+  #sidebar-wrapper {
+  width: 0;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+    z-index: 100;
+  }
+  #page-content-wrapper {
+  padding: 20px;
+  position: relative;
+  }
+  #wrapper.toggled #page-content-wrapper {
+  position: relative;
+  margin-right: 0;
+  }
+
+}
