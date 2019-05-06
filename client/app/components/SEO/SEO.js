@@ -154,6 +154,8 @@ class SEO extends Component {
       })
     });
 
+
+
     this.socket = openSocket('http://localhost:80');
     console.log('webshotfile-' + obj.uid);
     this.socket.on('webshotfile-' + obj.uid, message => {
@@ -257,7 +259,7 @@ class SEO extends Component {
                             </div>
                             <h5 className='content-title'>Performance</h5>
                                 <ContentDisplay  onLoadedPerformance={this.getPerformanceParameter} />
-                            <h5 className='content-title'>SEO</h5>
+                            <h5 className='content-title'>SEO Report</h5>
                                 <SEOtest/>
                           </div>
                           <div className="tab-pane fadeIn" id="tab-4">
