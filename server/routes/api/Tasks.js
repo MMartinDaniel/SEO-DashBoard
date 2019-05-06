@@ -3,14 +3,44 @@ const Tasks = require('../../models/SEO_tasks');
 module.exports = (app) => {
 
 
-  app.get('/task/h2', (req, res, next) => {
-    const {body} = req;
-    Tasks.gethtml(req);
-    res.send({response: true, error: ''});
-  });
-  app.get('/task/h1', (req, res, next) => {
+  app.get('/task/h2', async (req, res, next) => {
 
-    res.sendStatus(200).json({status:'ok',error:''});
+    let h2_elements = await Tasks.check_h2Tag();
+    res.send({response: true, error: '', data: h2_elements});
+
+  });
+  app.get('/task/h1', async (req, res, next) => {
+
+    let h1_elements = await Tasks.check_h1Tag();
+    res.send({response: true, error: '', data: h1_elements});
+  });
+
+  app.get('/task/title', async (req, res, next) => {
+
+    let data = await Tasks.get_Title();
+    res.send({response: true, error: '', data: data});
+  });
+
+  app.get('/task/description', async (req, res, next) => {
+
+    let data = await Tasks.get_description();
+    res.send({response: true, error: '', data: data});
+  });
+  app.get('/task/keywords', async (req, res, next) => {
+
+    let data = await Tasks.get_keywords();
+    res.send({response: true, error: '', data: data});
+  });
+  app.get('/task/wordFreqency', async (req, res, next) => {
+
+    let data = await Tasks.get_wordFreqency();
+    res.send({response: true, error: '', data: data});
+  });
+
+
+  app.get('/task/h', async (req, res, next) => {
+    let h_elements = await Tasks.get_allHTags();
+    res.send({response: true, error: '', data: h_elements});
 
   });
   app.post('/task/html', (req, res, next) => {
