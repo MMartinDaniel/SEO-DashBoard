@@ -3,32 +3,18 @@ import 'whatwg-fetch';
 import {getFromStorage} from "../utils/storage";
 import openSocket from "socket.io-client";
 import SEO from "./SEO";
+import TitleMetaContainer from './TitleMeta';
+import Report from './Report';
+import ImageAltContainer from "./ImageAlt";
 
-class Report extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render(){
-    return(<>
-      <div className='test-report'>
-        <div className='report-name'>
-          <label><i className="fas fa-check"/></label><strong> {this.props.name} Tag </strong>
-          <ul className='report-importance'>
-            <li className='full'/><li className='full'/>
+/*            <label><i className="fas fa-check"/></label>
+             <li className='full'/><li className='full'/>
             <li className='full'/><li className='full'/>
             <li className=''/>
-          </ul>
-        </div>
-        <div className='report-info'>
-          <p>{this.props.details}</p>
-        </div>
-      </div>
-    </>);
-  }
+*/
 
-}
+
+
 
 class HContainer extends Component {
 
@@ -64,9 +50,9 @@ class HContainer extends Component {
       return(<>
         <h6 className={'chart-name spaced'}>{this.props.name}</h6>
         <div className='seotest-container'>
-          <Report name={"H1"} value={data.h1} details={details.h} />
-          <Report name={"H2"} value={data.h2} details={details.h} />
-          <Report name={"H3"} value={data.h3} details={details.h} />
+          <Report name={"H1 Tag"} value={data.h1} details={details.h} />
+          <Report name={"H2 Tag"} value={data.h2} details={details.h} />
+          <Report name={"H3 Tag"} value={data.h3} details={details.h} />
         </div>
       </>);
     }else{
@@ -91,6 +77,8 @@ class SEOtest extends Component {
       return(<>
         <div className='seotest-container'>
           <HContainer name='H Tags'/>
+          <TitleMetaContainer name='meta and Title'/>
+          <ImageAltContainer name="Missing alternative text on images"/>
         </div>
       </>
       );
@@ -98,7 +86,6 @@ class SEOtest extends Component {
 
 }
 export default SEOtest;
-
 const Tags =[
   {
     h: {h1: '', h2: 'fas fa-home', h3: '',h4:'',info:'Heading Tags are used to define headings in a  page. h1 to h6 determines the importance that a heading has in the hierarchy.'},
