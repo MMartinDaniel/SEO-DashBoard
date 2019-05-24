@@ -37,6 +37,17 @@ module.exports = (app) => {
     res.send({response: true, error: '', data: data});
   });
 
+  app.get('/task/TitleMeta', async (req, res, next) => {
+
+    let data = await Tasks.get_TitleMeta();
+    res.send({response: true, error: '', data: data});
+  });
+  app.get('/task/imgNoAlt', async (req, res, next) => {
+    let data = await Tasks.get_imgAlt();
+    console.log(data);
+    res.send({response: true, error: '', data: data});
+  });
+
 
   app.get('/task/h', async (req, res, next) => {
     let h_elements = await Tasks.get_allHTags();
