@@ -913,9 +913,14 @@ body {
       grid-column: 1/13;
       display: inline-grid;
       grid-template-columns: repeat(12,1fr);
+      width: 100%;
     }
     .report-name{
       grid-column: 1/3;
+      border-left: 3px solid #64da4f;
+      margin-bottom: 5px;
+      padding-left: 15px;
+      padding-top: 15px;
     }
     .report-info{
       grid-column: 3/13;
@@ -954,3 +959,68 @@ body {
   .spaced{
     margin-left: 5px;
   }
+
+
+  .cloud-grid{
+    display: inline-block;
+    width: 100%;
+
+    .cloud-item{
+     background-color: #efefff;
+      border: 1px solid #d2dcff;
+      width: 150px;
+      display: inline-block;
+      margin-left: 10px;
+      padding: 10px;
+      height: 40px;
+
+        p{
+          display: inline-block;
+          float: right;
+          font-weight: 900;
+          color: #36a2eb;
+        }
+
+    }
+
+  }
+
+    .alt-report-grid{
+
+
+      .alt-report{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+
+        background-color: rgba(192, 243, 255, 0.24);
+        height: 40px;
+        font-size: 0.8em;
+      }
+
+      .yes-alt{
+        border-left:3px solid #64da4f;
+      }
+      .no-alt{
+        border-left: 3px solid red;
+      }
+      .alt-report:nth-child(odd){
+        background: #ffffff;
+
+      }
+
+      .alt-name{
+        border-left: 1px solid gray;
+        padding-left: 10px;
+        p{
+          padding-top: 10px;
+          font-size: 1.2em;
+        }
+
+      }
+      .url-name{
+        padding: 10px;
+      }
+
+    }
+
