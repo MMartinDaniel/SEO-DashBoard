@@ -19,6 +19,7 @@ import Signin from './components/Signin/Signin';
 import LoginPage from './components/Auth/LoginPage';
 import SEO from './components/SEO/SEO';
 import './styles/styles.scss';
+import Minifier from './components/Minifier/Minifier';
 
 render((
   <Router>
@@ -28,6 +29,7 @@ render((
         <Route path="/brokenLinks" component={BrokenChecker}/>
         <Route path="/signin" component={Signin}/>
         <Route path="/login" component={LoginPage}/>
+        <Route path="/minifier" component={Minifier} />
         <Route path="/scanner" component={SEO}/>
         <Route component={NotFound}/>
       </Switch>

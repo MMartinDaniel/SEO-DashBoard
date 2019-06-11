@@ -55,6 +55,7 @@ const TABS =[
   {name:'Profile',icon:'fas fa-user',url:'profile'},
   {name:'Broken Link Checker',icon:'fas fa-code',url:'brokenLinks'},
   {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
+  {name:'Minifier',icon:'fas fa-file-alt',url:'Minifier'},
   {name:'Events',icon:'fas fa-sitemap',url:'Events'},
   {name:'Statistics',icon:'far fa-chart-bar',url:'Statistics'},
   {name:'Services',icon:'fas fa-exclamation-triangle',url:'Services'},

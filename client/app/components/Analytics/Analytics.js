@@ -36,6 +36,9 @@ class SiteMapGenerator extends Component{
     });
   }
   componentDidMount() {
+  //  let data = {"token":"5cfe994350a07739181b9dae","website":"http://instantes.net","uid":"5cc709b00d38060c541de48b"};
+   // setInStorage('static',data);
+
     const stat = getFromStorage('static');
     fetch('/library/Sitemap?uid=' + stat.uid,{
       method:'GET',

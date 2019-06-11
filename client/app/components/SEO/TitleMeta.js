@@ -32,6 +32,65 @@ class ReportCloud extends Component {
   }
 
 }
+class ReportFavicon extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render(){
+    console.log(this.props);
+    return(<>
+      <div className='test-report'>
+        <div className='report-name'>
+          <strong>{this.props.name}</strong>
+          <ul className='report-importance'>
+          </ul>
+        </div>
+        <div className='report-info'>
+          <div className='cloud-grid'>
+            {
+              this.props.details.map(function(item, i){
+                return <div className="" key={i}><strong>{item.name}</strong> <img className='favicon-preview' alt="Report favicon preview" src={item.href} /></div>
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </>);
+  }
+
+}
+
+
+class GooglePreview extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render(){
+    console.log(this.props);
+    return(<>
+        <div className='google-preview-container'>
+          <div className='desktop'>
+            <p className='title'>{this.props.details.title.data}</p>
+            <p className='url'>{this.props.url}</p>
+            <p className='description'>{this.props.details.description.data}</p>
+          </div>
+          <div className='mobile'>
+            <p className='title'>{this.props.details.title.data}</p>
+            <p className='url'>{this.props.url}</p>
+            <p className='description'>{this.props.details.description.data}</p>
+          </div>
+        </div>
+    </>);
+  }
+
+}
+
+
+
 class TitleMetaContainer extends Component {
 
   constructor(props){
@@ -72,6 +131,8 @@ class TitleMetaContainer extends Component {
           <Report name={"Description"} details={data.description.data}  />
           <Report name={"Keywords"} details={data.keywords.data}  />
           <ReportCloud name={"Word Cloud"} details={data.cloud.data}  />
+          <ReportFavicon name={'Favicon'} details={data.favicon.data} />
+          <GooglePreview name={'Google Search Preview'} url={this.state.website} details={data} />
 
         </div>
       </>);
