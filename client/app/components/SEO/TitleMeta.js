@@ -51,7 +51,10 @@ class ReportFavicon extends Component {
           <div className='cloud-grid'>
             {
               this.props.details.map(function(item, i){
-                return <div className="" key={i}><strong>{item.name}</strong> <img className='favicon-preview' alt="Report favicon preview" src={item.href} /></div>
+                return <div className="favicon-item" key={i} >
+                  <div className='favicon-strong'> <strong>{item.name}</strong></div>
+                  <div className='favicon-preview'> <img alt="Report favicon preview" src={item.href} /></div>
+                </div>
               })
             }
           </div>
@@ -72,6 +75,10 @@ class GooglePreview extends Component {
   render(){
     console.log(this.props);
     return(<>
+      <div className='google-preview'>
+        <h6 className="chart-name spaced">Desktop Preview</h6>
+        <h6 className="chart-name spaced mobile">Mobile Preview</h6>
+
         <div className='google-preview-container'>
           <div className='desktop'>
             <p className='title'>{this.props.details.title.data}</p>
@@ -84,6 +91,7 @@ class GooglePreview extends Component {
             <p className='description'>{this.props.details.description.data}</p>
           </div>
         </div>
+      </div>
     </>);
   }
 

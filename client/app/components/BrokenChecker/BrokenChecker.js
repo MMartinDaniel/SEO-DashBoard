@@ -73,32 +73,34 @@ class BrokenChecker extends Component {
       accessor: 'where'
     }];
     return (<>
-  <div className="row">
-    <div className='col-lg-8'>
-      <div className="card-deck m-b-30">
-        <div className="card" >
+      <div className='main-tab'>
+    <div className="row">
+      <div className='col-lg-8'>
+        <div className="card-deck m-b-30">
+          <div className="card" >
 
-          <div className="loading-card">
-            { loading
-              ?   <button type="button" id='generate-btn' className="btn btn-info"  disabled>Generating...{percentage}%</button>
-              :   <button type="button" id='generate-btn' onClick={this.checkBrokenLinks} className="btn btn-info" >Generate</button>
-            }
-            <div className={loading ? 'spinner-border float-right text-secondary spinner-activated' : 'spinner-border float-right text-secondary spinner-deactivated' } id="spinner" role="status">
-              <span className="sr-only">Loading...</span>
+            <div className="loading-card">
+              { loading
+                ?   <button type="button" id='generate-btn' className="btn btn-info"  disabled>Generating...{percentage}%</button>
+                :   <button type="button" id='generate-btn' onClick={this.checkBrokenLinks} className="btn btn-info" >Generate</button>
+              }
+              <div className={loading ? 'spinner-border float-right text-secondary spinner-activated' : 'spinner-border float-right text-secondary spinner-deactivated' } id="spinner" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
             </div>
-          </div>
-          <h5 className="card-header">Broken Links Table</h5>
-          <div className="card-body">
-              <ReactTable
-              data={messages}
-              columns={columns}
-              defaultPageSize={10}
-             />
+            <h5 className="card-header">Broken Links Table</h5>
+            <div className="card-body">
+                <ReactTable
+                data={messages}
+                columns={columns}
+                defaultPageSize={10}
+               />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+      </div>
     </>);
 
   }

@@ -57,7 +57,7 @@ class SslCertContainer extends Component {
           {
             (data.serialNumber !== null)
               ?
-              <div>
+              <div className="cert-grid">
                 <SslCertReport name='SerialNumber' details={data.serialNumber}/>
                 <SslCertReport name='CN' details={data.subject.CN}/>
                 <SslCertReport name='Valid from ' details={data.valid_from}/>

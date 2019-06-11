@@ -986,17 +986,24 @@ body {
   }
 
     .alt-report-grid{
-
+      table{
+        width:100%;
+        margin-bottom: 20px;
+      };
+      thead{
+        text-align: center;
+      }
+      tbody tr:nth-child(odd){
+        background-color: #edf4ff;
+      }
 
       .alt-report{
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-
         background-color: rgba(192, 243, 255, 0.24);
-        height: 40px;
         font-size: 0.8em;
-        margin-bottom: 5px;
+        width: 75px;
+      }
+      .alt-name{
+        padding-left: 10px;
       }
 
       .yes-alt{
@@ -1009,15 +1016,14 @@ body {
         background: #ffffff;
 
       }
-
-      .alt-name{
-        border-left: 1px solid gray;
-        padding-left: 10px;
-        p{
-          padding-top: 10px;
-          font-size: 1.2em;
+      .matoi-item{
+        img{
+          margin-left: 10px;
+          width: 75px;
+          height: 75px;
         }
-
+      }
+      .alt-name{
       }
       .url-name{
         padding: 10px;
@@ -1027,16 +1033,30 @@ body {
 
     .cert-report-grid{
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+      grid-template-columns: repeat(12,1fr);
       .SLL-alt{
         padding-left: 10px;
         border-left: 3px solid #64da4f;
         margin-bottom: 5px;
+        grid-column-start: 1;
+        grid-column-end: 4;
+        padding: 10px;
       }
     .cert-report-grid{
       width: 100%;
     }
+      .SLL{
+        grid-column-start: 4;
+        padding: 10px;
+        grid-column-end: 12;
+      }
+
   }
+.cert-grid{
+  display: grid;
+  width: 1000px;
+  grid-template-columns: 1fr 1fr;
+}
 
 
     .google-preview-container {
@@ -1086,9 +1106,16 @@ body {
 
     }
 
-    .favicon-preview{
+    .favicon-item{
+      width: 500px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .favicon-preview > img{
       width: 32px;
       height: 32px;
+
     }
 
 
@@ -1155,3 +1182,29 @@ body {
   }
 
 }
+
+
+.google-preview{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
+  .google-preview-container{
+    display: contents;
+  }
+  .mobile{
+    margin-left: 100px;
+  }
+}
+
+.alt-button{
+  margin: 0 auto;
+  width: 120px;
+  color: #ffffff;
+  border-radius: 2px;
+  background-color: #67a4ff;
+  padding: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
