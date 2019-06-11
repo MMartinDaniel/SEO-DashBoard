@@ -1,7 +1,10 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 const stopword = require('stopword');
+const sslCertificate = require('get-ssl-certificate');
+const relative = require('is-relative-url');
 module.exports = {
+
   async check_Tag(type,html){
     let count = 0;
     try {
@@ -65,7 +68,7 @@ module.exports = {
     }catch(e){
     };
     console.log( "keywords " + count);
-    if(count == 0){
+    if(count === 0){
       keywords = "Keywords meta tag not found on website or is empty";
     }
     return {data:keywords, count:count, status:'success',errors:''};
@@ -139,6 +142,36 @@ module.exports = {
     console.log( "Title " + count);
     return {data:title, count:count, status:'success',errors:''};
   },
+
+  async get_certificate(url){
+    let cert;
+    try {
+    await sslCertificate.get(url).then(function (certificate) {
+        cert = certificate;
+      })
+    }catch (e) {
+      cert = {};
+    }
+    return cert;
+  },
+  async get_favicon(html){
+    let count = 0;
+    let favicon_list = [];
+    let favicon;
+    try {
+      html("link").map( function(){
+        count++;
+        favicon = (html(this).attr('rel').includes('icon')) ? html(this) : null;
+        if(favicon !== null){
+          favicon_list.push({name: favicon.attr('rel'), href: favicon.attr('href')});
+        }
+      }).get();
+
+    }catch(e){
+    };
+    return {data:favicon_list, count:count, status:'success',errors:''};
+  },
+
   async get_TitleMeta(){
 
     const html = await this.loadHtml();
@@ -146,8 +179,39 @@ module.exports = {
     const keywords = await this.get_keywords(html);
     const description = await this.get_description(html);
     const cloud = await this.get_wordFreqency(html);
+    const favicon = await this.get_favicon(html);
 
-    return {title: title,keywords:keywords,description:description,cloud:cloud, status:'success',errors:''};
+    return {title: title,keywords:keywords,favicon:favicon,description:description,cloud:cloud, status:'success',errors:''};
+
+  },
+
+  async get_hyperlinks(url){
+    const html = await this.loadHtml();
+    let hyperlinks = {count: 0, internal : 0,nofollow: 0, external:0, nofe:0};
+    html("a[href]").map( function(){
+      console.log(html(this).attr('href'));
+      if((html(this).attr('href')).includes(url)){
+
+        if(html(this).attr('rel') === 'nofollow'){
+          hyperlinks.nofollow++;
+        }else{
+          hyperlinks.internal++;
+        }
+      }else{
+
+        if(html(this).attr('rel') === 'nofollow'){
+          hyperlinks.nofe++;
+        }else{
+          hyperlinks.external++;
+        }
+      }
+
+      hyperlinks.count++;
+
+    }).get();
+
+    console.log('total count ' + hyperlinks.count);
+    return { hyperlinks: hyperlinks, status:'success',errors:''};
 
   },
 

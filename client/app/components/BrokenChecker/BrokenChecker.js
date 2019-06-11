@@ -28,8 +28,10 @@ class BrokenChecker extends Component {
     this.socket = openSocket('http://localhost:80');
     console.log('brokenLinks-'+obj.uid);
     this.socket.on('brokenLinks-'+obj.uid, message =>{
-      //   this.setState({messages:[message, ...this.state.messages]})
-      if(message.status ==  'finished'){
+      //esto estaba comentado
+         this.setState({messages:[message, ...this.state.messages]});
+         ///
+      if(message.status ===  'finished'){
         this.setState({messages: message.links,loading:false,percentage:message.percentage});
       }else {
         this.setState({messages: message.links,loading:true,percentage:message.percentage});
