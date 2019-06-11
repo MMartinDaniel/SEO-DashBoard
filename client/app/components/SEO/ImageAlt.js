@@ -12,17 +12,30 @@ class ReportImageAlt extends Component {
     console.log(this.props);
     return(<>
       <div className='alt-report-grid'>
-            {
+              <table>
+                <thead>
+                  <tr>
+                    <th>Thumbnail</th>
+                    <th>Alt text</th>
+                    <th>Url</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                  this.props.details.map(function (item, i) {
+                    return <tr className="matoi-item" key={i}>
+                      <td className={(item.alt !== undefined) ? 'alt-report yes-alt' : 'alt-report no-alt'} ><img src={item.url}/></td>
+                      <td className='alt-name'>{item.alt}</td>
+                      <td className='url-name'><a href={item.url}>
+                        <div className="alt-button">Inspect Image</div>
+                      </a></td>
+                    </tr>;
 
-              this.props.details.map(function(item, i){
-                if(item.alt === undefined ||item.alt === "") {
-                  return <div className={(item.alt !== undefined) ? 'alt-report yes-alt' : 'alt-report no-alt'} key={i}>
-                    <div className='url-name'> {item.url}</div>
-                    { (1===2) ? <div className='alt-name'><p>{item.alt}</p></div> : null }
-                  </div>;
+                  })
                 }
-              })
-            }
+                </tbody>
+              </table>
+
       </div>
     </>);
   }
