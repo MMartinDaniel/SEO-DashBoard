@@ -79,7 +79,6 @@ class SiteMapGenerator extends Component{
     let {percentage,alreadyGenerated,loading,uid} = this.state;
     const {bgfill} = style;
     return (<>
-
       <div className="card-deck m-b-30">
         <div className={"card " +  (alreadyGenerated ? "greenS" : "redS")} onClick={ !alreadyGenerated && !loading ? this.onSitemapClick : null }  id="sitemap-widget" >
           <div  className="card-body" >Generate SiteMap
@@ -166,12 +165,14 @@ class Analytics extends Component {
   render() {
     return (
       <>
-        <div className="row">
-          <div className='col-lg-8'>
-            <AnalysisTable/>
-          </div>
-          <div className='col-lg-4'>
-            <SiteMapGenerator/>
+        <div className='main-tab'>
+          <div className="row">
+            <div className='col-lg-8'>
+              <AnalysisTable/>
+            </div>
+            <div className='col-lg-4'>
+              <SiteMapGenerator/>
+            </div>
           </div>
         </div>
       </>
