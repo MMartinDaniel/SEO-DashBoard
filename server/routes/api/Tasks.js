@@ -20,6 +20,17 @@ module.exports = (app) => {
     let data = await Tasks.get_Title();
     res.send({response: true, error: '', data: data});
   });
+  app.get('/task/cert', async (req, res, next) => {
+    let url = "forocoches.com";
+    let data = await Tasks.get_certificate(url);
+    res.send({response: true, error: '', data: data});
+  });
+
+  app.get('/task/hyperlinks', async (req, res, next) => {
+    let url = "instantes.net";
+    let data = await Tasks.get_hyperlinks(url);
+    res.send({response: true, error: '', data: data});
+  });
 
   app.get('/task/description', async (req, res, next) => {
 

@@ -996,6 +996,7 @@ body {
         background-color: rgba(192, 243, 255, 0.24);
         height: 40px;
         font-size: 0.8em;
+        margin-bottom: 5px;
       }
 
       .yes-alt{
@@ -1024,3 +1025,133 @@ body {
 
     }
 
+    .cert-report-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+      .SLL-alt{
+        padding-left: 10px;
+        border-left: 3px solid #64da4f;
+        margin-bottom: 5px;
+      }
+    .cert-report-grid{
+      width: 100%;
+    }
+  }
+
+
+    .google-preview-container {
+
+      .desktop,.mobile{
+        padding: 20px;
+        border: solid 1px #0000001f;
+        width: 634px;
+
+        .title{
+          color: #1a0dab;
+          line-height: 1.33;
+          font-size: 18px;
+          font-weight: 400;
+          margin-bottom: 2px;
+        }
+        .url{
+          color: #006621;
+          font-size: 14px;
+          margin-bottom: 3px;
+          line-height: 1.43;
+        }
+        .description{
+          font-family: arial,"sans-serif";
+          color: #545454;
+          font-size: 13px;
+          line-height: 1.54;
+          margin-bottom: 0;
+        }
+      }
+
+      .mobile{
+        display: block;
+        width: 342px;
+        -webkit-box-shadow: rgba(32,33,36,.28) 0 1px 6px;
+        -moz-box-shadow: rgba(32,33,36,.28) 0 1px 6px;
+        box-shadow: 0 1px 6px rgba(32,33,36,.28);
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        margin: 0 3px 15px;
+        padding: 12px 16px;
+
+        .title{
+          font-size: 16px;
+        }
+      }
+
+    }
+
+    .favicon-preview{
+      width: 32px;
+      height: 32px;
+    }
+
+
+    .main-tab{
+      padding: 15px;
+    }
+
+
+.minifier-table{
+
+  width: 100%;
+  text-align: center;
+  th{
+    background-color: #69c3d121;
+    border: 1px solid #0000001c;
+  }
+  td{
+    padding: 5px;
+    max-width: 50px;
+  }
+  img{
+    height: 30px;
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+
+
+  .minified{
+    margin: 0 auto;
+    width: 100px;
+    color: #ffffffcf;
+    border-color: #f0b81f;
+    border-radius: 2px;
+    padding: 3px;
+    font-size: 13px;
+    font-weight: 500;
+
+  }
+  .yesm{
+    background-color: #7bd25a;
+
+  }
+  .nom{
+    background-color: #ff5959;
+  }
+  .minify-name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50px;
+  }
+  .minify-button{
+    margin: 0 auto;
+    width: 70px;
+    color: #ffffffcf;
+    border-radius: 2px;
+    background-color: #59b2ff;
+    padding: 3px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+}

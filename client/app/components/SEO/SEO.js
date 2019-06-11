@@ -260,7 +260,7 @@ class SEO extends Component {
                             <h5 className='content-title'>Performance</h5>
                                 <ContentDisplay  onLoadedPerformance={this.getPerformanceParameter} />
                             <h5 className='content-title'>SEO Report</h5>
-                                <SEOtest/>
+                                <SEOtest />
                           </div>
                           <div className="tab-pane fadeIn" id="tab-4">
                             <p>Schlitz enamel pin neutra succulents bespoke, dreamcatcher tattooed flannel man bun la
