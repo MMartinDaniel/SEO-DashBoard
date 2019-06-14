@@ -19,10 +19,11 @@ module.exports = {
     return count;
   },
 
-  async loadHtml(){
+  async loadHtml(url){
     let html;
     try {
-      await axios.get('http://instantes.net').then((response)=> {
+
+      await axios.get(url).then((response)=> {
         html = cheerio.load(response.data);
       });
     }catch(e){
@@ -30,8 +31,8 @@ module.exports = {
     return html;
   },
 
-  async get_allHTags(){
-   const html = await this.loadHtml();
+  async get_allHTags(url){
+   const html = await this.loadHtml(url);
    const h1 = await this.check_Tag("h1",html);
    const h2 = await this.check_Tag("h2",html);
    const h3 = await this.check_Tag("h3",html);
@@ -172,9 +173,9 @@ module.exports = {
     return {data:favicon_list, count:count, status:'success',errors:''};
   },
 
-  async get_TitleMeta(){
+  async get_TitleMeta(url){
 
-    const html = await this.loadHtml();
+    const html = await this.loadHtml(url);
     const title = await this.get_Title(html);
     const keywords = await this.get_keywords(html);
     const description = await this.get_description(html);
@@ -186,7 +187,7 @@ module.exports = {
   },
 
   async get_hyperlinks(url){
-    const html = await this.loadHtml();
+    const html = await this.loadHtml(url);
     let hyperlinks = {count: 0, internal : 0,nofollow: 0, external:0, nofe:0};
     html("a[href]").map( function(){
       console.log(html(this).attr('href'));
@@ -215,10 +216,23 @@ module.exports = {
 
   },
 
-  async get_imgAlt(){
-    const html = await this.loadHtml();
+  async get_imgAlt(url){
+
+    const html = await this.loadHtml(url);
     let count = 0;
     let img_no_tag = [];
+    function api_call(item){
+      return new Promise(function(resolve,reject){
+        count++;
+        let obj = {url: item.attr('src'),alt: item.attr('alt')};
+        var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
+        if(isAlready.length > 0){
+        }else{
+          img_no_tag.push(obj);
+        }
+        resolve(item);
+      });
+    }
     try {
       html("img").map( function(){
         count++;
@@ -238,6 +252,31 @@ module.exports = {
     return { imgAlt: img_no_tag, status:'success',errors:''};
 
 
+
+    /*
+        const html = await this.loadHtml(url);
+        let count = 0;
+        let img_no_tag = [];
+
+        try {
+          html("img").map( function(){
+            count++;
+            let obj = {url: html(this).attr('src'),alt: html(this).attr('alt')};
+            var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
+            if(isAlready.length > 0){
+            }else{
+              img_no_tag.push(obj);
+            }
+            count++;
+          }).get();
+
+        }catch(e){
+        };
+
+        console.log('Total images:' + count);
+        return { imgAlt: img_no_tag, status:'success',errors:''};
+
+    */
   }
 
 
