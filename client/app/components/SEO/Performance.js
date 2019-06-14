@@ -28,7 +28,7 @@ class Pagespeed extends Component{
     }
 
     componentWillMount(){
-      fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://instantes.net&category=performance').then(response => response.json())
+      fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+this.props.url+'&category=performance').then(response => response.json())
         .then(data => this.setState({data:data.lighthouseResult.audits}));
     }
 
@@ -72,18 +72,23 @@ class Pagespeed extends Component{
 class ContentDisplay extends Component {
   constructor(props){
     super(props);
+    const obj = getFromStorage('static');
+
     this.state = {
       data: [],
       color:['#FF6384', '#36A2EB', '#FFCE56', '#20c997', '#e083ff'],
       chartData: {},
+      uid: obj.uid,
+      web: obj.website,
     };
   }
   componentWillMount(){
     const obj = getFromStorage('static');
     this.setState({
       uid: obj.uid,
+      web: obj.website,
     });
-    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://instantes.net&category=performance').then(response => response.json())
+    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+this.state.web+'&category=performance').then(response => response.json())
       .then(data => {
         this.setState({data:data.lighthouseResult.audits['network-requests'].details.items});
         this.props.onLoadedPerformance(60);
@@ -126,7 +131,7 @@ class ContentDisplay extends Component {
   }
 
   render(){
-    let {chartData,data} = this.state;
+    let {chartData,data,web} = this.state;
    // console.log(chartData);
    // console.log(data);
 
@@ -165,7 +170,7 @@ class ContentDisplay extends Component {
 
             <div id='pie-speed-container'>
               <h6 className='chart-name'>Speed Metrics</h6>
-              <Pagespeed/>
+              <Pagespeed url={web} />
             </div>
           </div>
     </>);
