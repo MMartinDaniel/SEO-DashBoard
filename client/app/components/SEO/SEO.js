@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import {getFromStorage} from "../utils/storage";
+import {getFromStorage, setInStorage} from "../utils/storage";
 import openSocket from "socket.io-client";
 import ContentDisplay from "./Performance"
 import SEOtest from './SEOtest'
@@ -99,16 +99,34 @@ class SeoSearch extends Component {
     super(props);
     this.state = {
       link: '',
+      web :''
+
     };
+
+    this.handleWebsite = this.handleWebsite.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleWebsite(event){
+      this.setState({web:event.target.value});
+  };
+  handleSubmit(){
+    let item = getFromStorage('static');
+    item.website = this.state.web;
+    setInStorage('static',item);
+  }
   render(){
-    const web = this.props.web;
+    const site = this.props.web;
+    let {web} = this.state;
+    console.log(web);
     return (<>
       <div className='search-wrapper'>
         <i className="fas fa-search seo-search-icon"/>
-         <input id='seo-search-bar' type='search' placeholder={web} />
-    </div>
+        <form onSubmit={this.handleSubmit}>
+         <input id='seo-search-bar' type='search'   onChange={this.handleWebsite} value={web} placeholder={site} />
+        </form>
+        </div>
+
       </>);
   }
 

@@ -45,22 +45,20 @@ class ImageAltContainer extends Component {
 
   constructor(props){
     super(props);
+    const obj = getFromStorage('static');
     this.state = {data:null,
       details:{
         title:'Heading Tags are used to define headings in a  page. h1 to h6 determines the importance that a heading has in the hierarchy.'
-      }
+      },
+      uid: obj.uid,
+      website: obj.website,
+
     };
   }
 
   componentWillMount() {
-    const obj = getFromStorage('static');
-    this.setState({
-      uid: obj.uid,
-      website: obj.website,
-    });
-    console.log(obj.website + " and " + obj.uid);
-
-    fetch('/task/imgNoAlt',{
+    console.log('fetching for:'+ '/task/imgNoAlt?url='+this.state.website);
+    fetch('/task/imgNoAlt?url='+this.state.website,{
       method:'GET',
       headers: {
         'Accept': 'application/json',
