@@ -1,20 +1,73 @@
 const request = require('request');
 const fs = require('fs');
+let UglifyJS = require("uglify-js");
+let CleanCSS = require('clean-css');
 
-var resources = ['http://dnmartin.net/css/style.css'];
 module.exports = {
 
-       minifyCSS(url,callback){
-      let css_string ="";
-      console.log(url);
+      checkIfMinify(data){
+      let data_performance = [];
+      let promises = [];
+
+      function api_call(item){
+          return new Promise(function(resolve,reject){
+            request({url:item.where,time:true}, function (error, response, body) {
+              let options = {};
+              let result = null;
+              let stats = {};
+              if(item.deadlink.resourceType === "Script"){
+                result = UglifyJS.minify(body);
+                var res_size = encodeURI(result.code);
+                if (res_size.indexOf("&#37;") !== -1) {
+                  var count = res_size.split("%").length - 1;
+                  if (count === 0) count++;
+                  var tmp = res_size.length - (count * 3)
+                  count = count + tmp
+                } else {
+                  count = res_size.length
+                }
+                stats = {
+                  minifiedSize: count,
+                  originalSize: item.deadlink.resourceSize,
+                  efficiency: (count/item.deadlink.resourceSize)-1,
+                };
+
+              }else{
+                result =  new CleanCSS(options).minify(body);
+                stats = {
+                  minifiedSize: result.stats.minifiedSize,
+                  originalSize: result.stats.originalSize,
+                  efficiency: result.stats.efficiency
+                };
+              }
+             resolve(stats);
+            });
+          });
+      };
+
+
+      data.forEach(function(item){
+        promises.push(api_call(item));
+      });
+     return Promise.all(promises).then((result)=>{
+        console.log('all solved');
+        console.log(result);
+        return result;
+      });
+
+    },
+
+
+      minifyJSCSS(url,type,callback){
+
+        console.log(url);
 
       return new Promise(function(resolve,reject){
         try {
           request({url:url,time:true}, function (error, response, body) {
-            css_string = body;
-            css_string = css_string.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm,'');
-            css_string = css_string.replace(/\s/g,'');
-            resolve(css_string);
+            let options = {};
+            let result = (type === 1) ? UglifyJS.minify(body) : new CleanCSS(options).minify(body);
+            resolve(result);
           });
         }catch (e){
           console.error(e);
@@ -27,20 +80,5 @@ module.exports = {
         });
         */
   },
-  async minifyCSS_2(){
-    resources.forEach(resource =>{
-      request({url:resource,time:true}, function (error, response, body) {
-        let css_string = body;
-        css_string = css_string.replace(/\s/g,'');
-        css_string = css_string.replace('\/\*[\wа-я\'\-\;\s\r\n\*]*\*\/)|(\/\/[\wа-я\s\'\-\;]*)|(\<![\-\-\sа-я\w\>\/]*\>','');
-        fs.writeFile('./csstest/css.css',css_string,(err)=>{
-          if(err) console.error(err);
-        });
-      });
-
-
-    });
-    return resources;
-  }
 
 };

@@ -12,10 +12,27 @@ class Minifier extends Component {
       uid: '',
       loading: false,
       percentage: '0',
-      data: {}
+      data: {},
+      info_data: {}
     };
 
     this.checkBrokenLinks = this.checkBrokenLinks.bind(this);
+  }
+
+  getResources(){
+
+    fetch('/api/minifier/minified',{
+      method:'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: this.state.data,
+      })
+    }).then(response => response.json()).then(data=>{
+      this.setState({info_data:data});
+    });
   }
 
 
@@ -34,6 +51,7 @@ class Minifier extends Component {
       percentage: '0',
     });
     let parsed_data = [];
+    //Swaped
     fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://instantes.net&category=performance').then(response => response.json())
       .then(data => {
 
@@ -47,23 +65,16 @@ class Minifier extends Component {
         this.setState({data:parsed_data});
 
         console.log(this.state.data);
+        this.getResources();
+
       });
   }
 
   render(){
-    const { messages , loading,percentage,data} = this.state;
+    const { messages , loading,percentage,data,info_data} = this.state;
     console.log(data);
+    console.log(info_data);
 
-    const columns = [ {
-      Header: 'Resource',
-      accessor: 'name' // String-based value accessors!
-    },  {
-      Header: 'Minified?',
-      accessor: 'status'
-    },{
-      Header: 'Minify',
-      accessor: 'status'
-    }];
     return (<>
       <div className='main-tab'>
       <div className="row">
@@ -89,28 +100,33 @@ class Minifier extends Component {
                         <th>Type</th>
                         <th>Resource</th>
                         <th>Size</th>
-                        <th>Status</th>
+                        <th>Minified Size</th>
+                        <th>% Saved</th>
                         <th>Minify</th>
                       </tr>
                       </thead>
                       <tbody>
-                      {(data.length >= 0)?
+                      {(data.length >= 0 && info_data.length >= 0)?
 
                        data.map(function(item, i){
                          let icon = null;
+                         let type = 0;
                          if(item.deadlink.resourceType === 'Stylesheet'){
                            icon = "icons8-css3-48.png"
+                           type =2;
                          }else if(item.deadlink.resourceType === 'Script' ){
                            icon = "icons8-javascript-48.png";
+                           type=1;
                          }
                          return <tr  key={i} >
                            <td><img src={'/assets/img/icon/' + icon }/></td>
                            <td className='minify-name'>{item.name}</td>
 
                            <td>{item.deadlink.resourceSize}</td>
-                           <td><div className="minified yesm">minified</div></td>
+                           <td>{info_data[i].minifiedSize}</td>
+                           <td><div className="minified yesm">{Math.abs(Math.floor((info_data[i].efficiency)*100))}%</div></td>
 
-                           <td><a  href={"/api/minifier?url="+ item.where }><div className="minify-button">Minify</div></a></td>
+                           <td><a  href={"/api/minifier/minify?url="+ item.where+"?type="+type }><div className="minify-button">Minify</div></a></td>
                          </tr>;
                         })
 
