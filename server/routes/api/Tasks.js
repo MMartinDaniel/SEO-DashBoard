@@ -54,7 +54,9 @@ module.exports = (app) => {
     res.send({response: true, error: '', data: data});
   });
   app.get('/task/imgNoAlt', async (req, res, next) => {
-    let data = await Tasks.get_imgAlt();
+    const { query } = req;
+    let {url} = query;
+    let data = await Tasks.get_imgAlt(url);
     console.log(data);
     res.send({response: true, error: '', data: data});
   });

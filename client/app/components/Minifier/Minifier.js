@@ -51,8 +51,8 @@ class Minifier extends Component {
       percentage: '0',
     });
     let parsed_data = [];
-    //Swaped
-    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://instantes.net&category=performance').then(response => response.json())
+
+    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+this.state.website+'&category=performance').then(response => response.json())
       .then(data => {
 
         data.lighthouseResult.audits['network-requests'].details.items.forEach( item =>{

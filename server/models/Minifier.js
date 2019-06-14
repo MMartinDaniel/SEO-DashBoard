@@ -6,7 +6,6 @@ let CleanCSS = require('clean-css');
 module.exports = {
 
       checkIfMinify(data){
-      let data_performance = [];
       let promises = [];
 
       function api_call(item){
@@ -74,11 +73,6 @@ module.exports = {
         }
 
       });
-      /*
-       fs.writeFile('./csstest/css.css',css_string,(err)=>{
-          if(err) console.error(err);
-        });
-        */
   },
 
 };
