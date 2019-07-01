@@ -140,7 +140,7 @@ module.exports = {
     let crawler;
     var parser = new xml2js.Parser();
 
-    let data = fs.readFileSync('./sitemaps/5c548979a878fc105044ac9f-sitemap.xml');
+    let data = fs.readFileSync('./sitemaps/'+uid+'-sitemap.xml');
     parser.parseString(data,function (err,result) {
       console.log(result.urlset.url[0].loc);
       for (var i = 0; i < result.urlset.url.length; i++){
