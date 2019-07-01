@@ -28,7 +28,16 @@ class Pagespeed extends Component{
     }
 
     componentWillMount(){
-      fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+this.props.url+'&category=performance').then(response => response.json())
+
+      let pattern = /^((http|https|ftp):\/\/)/;
+      let url = "";
+      if(!pattern.test(this.props.url)) {
+        url = "http://" + this.props.url;
+      }else{
+        url = this.props.url;
+      }
+
+      fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+url+'&category=performance').then(response => response.json())
         .then(data => this.setState({data:data.lighthouseResult.audits}));
     }
 
@@ -84,11 +93,23 @@ class ContentDisplay extends Component {
   }
   componentWillMount(){
     const obj = getFromStorage('static');
+
+
     this.setState({
       uid: obj.uid,
       web: obj.website,
     });
-    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+this.state.web+'&category=performance').then(response => response.json())
+
+
+    let pattern = /^((http|https|ftp):\/\/)/;
+    let url = "";
+    if(!pattern.test(this.state.web)) {
+      url = "http://" + this.state.web;
+    }else{
+      url = this.state.web;
+    }
+
+    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+url+'&category=performance').then(response => response.json())
       .then(data => {
         this.setState({data:data.lighthouseResult.audits['network-requests'].details.items});
         this.props.onLoadedPerformance(60);

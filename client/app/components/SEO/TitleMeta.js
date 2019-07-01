@@ -103,7 +103,11 @@ class TitleMetaContainer extends Component {
 
   constructor(props){
     super(props);
+    const obj = getFromStorage('static');
+
     this.state = {data:null,
+      uid: obj.uid,
+      website: obj.website,
       details:{
         title:'Heading Tags are used to define headings in a  page. h1 to h6 determines the importance that a heading has in the hierarchy.'
       }
@@ -111,14 +115,8 @@ class TitleMetaContainer extends Component {
   }
 
   componentWillMount() {
-    const obj = getFromStorage('static');
-    this.setState({
-      uid: obj.uid,
-      website: obj.website,
-    });
-    console.log(obj.website + " and " + obj.uid);
 
-    fetch('/task/TitleMeta',{
+    fetch('/task/TitleMeta?url='+this.state.website,{
       method:'GET',
       headers: {
         'Accept': 'application/json',
@@ -129,8 +127,6 @@ class TitleMetaContainer extends Component {
 
   render(){
     const {data,details} = this.state;
-    console.log(data);
-
     if(data){
       return(<>
         <h6 className={'chart-name spaced'}>{this.props.name}</h6>
