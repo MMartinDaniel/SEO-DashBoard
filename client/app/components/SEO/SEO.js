@@ -118,7 +118,7 @@ class SeoSearch extends Component {
   render(){
     const site = this.props.web;
     let {web} = this.state;
-    console.log(web);
+
     return (<>
       <div className='search-wrapper'>
         <i className="fas fa-search seo-search-icon"/>

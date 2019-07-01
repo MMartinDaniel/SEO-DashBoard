@@ -84,7 +84,7 @@ class Minifier extends Component {
 
               <div className="loading-card">
                 { loading
-                  ?   <button type="button" id='generate-btn' className="btn btn-info"  disabled>Generating...{percentage}%</button>
+                  ?   <button type="button" id='generate-btn' className="btn btn-info"  disabled>Generating...</button>
                   :  <button type="button" id='generate-btn' onClick={this.checkBrokenLinks} className="btn btn-info" >Generate</button>
                 }
                 <div className={loading ? 'spinner-border float-right text-secondary spinner-activated' : 'spinner-border float-right text-secondary spinner-deactivated' } id="spinner" role="status">

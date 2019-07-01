@@ -9,7 +9,7 @@ module.exports = (app) => {
 
   app.put('/library/Report',(req,res,next)=>{
     const {body } = req;
-    const {uid} = body;
+    const {uid,} = body;
     brokenLinkTester.discoverWebResources(null,req,uid);
     res.send({response:true,error:''});
   });
@@ -21,7 +21,7 @@ module.exports = (app) => {
 
   app.put('/library/brokenLink',(req,res,next)=>{
     const {body } = req;
-      const {web,uid} = body;
+      const {uid} = body;
     brokenLinkTester.displayBrokenLink(null,req,uid);
     res.send({response:true,error:''});
   });
