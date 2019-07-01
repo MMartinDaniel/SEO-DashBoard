@@ -21,19 +21,23 @@ module.exports = (app) => {
     res.send({response: true, error: '', data: data});
   });
   app.get('/task/cert', async (req, res, next) => {
-    let url = "forocoches.com";
+    const { query } = req;
+    let {url} = query;
     let data = await Tasks.get_certificate(url);
+    console.log(data);
     res.send({response: true, error: '', data: data});
   });
 
   app.get('/task/hyperlinks', async (req, res, next) => {
-    let url = "instantes.net";
+    const { query } = req;
+    let {url} = query;
     let data = await Tasks.get_hyperlinks(url);
     res.send({response: true, error: '', data: data});
   });
 
   app.get('/task/description', async (req, res, next) => {
-
+const { query } = req;
+    let {url} = query;
     let data = await Tasks.get_description();
     res.send({response: true, error: '', data: data});
   });
@@ -49,13 +53,16 @@ module.exports = (app) => {
   });
 
   app.get('/task/TitleMeta', async (req, res, next) => {
-
-    let data = await Tasks.get_TitleMeta();
+    const { query } = req;
+    let {url} = query;
+    console.log('title meta url:' + url);
+    let data = await Tasks.get_TitleMeta(url);
     res.send({response: true, error: '', data: data});
   });
   app.get('/task/imgNoAlt', async (req, res, next) => {
     const { query } = req;
     let {url} = query;
+    console.log('img alt url:' + url);
     let data = await Tasks.get_imgAlt(url);
     console.log(data);
     res.send({response: true, error: '', data: data});
@@ -63,6 +70,7 @@ module.exports = (app) => {
 
 
   app.get('/task/h', async (req, res, next) => {
+    
     let h_elements = await Tasks.get_allHTags();
     res.send({response: true, error: '', data: h_elements});
 

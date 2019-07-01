@@ -3,6 +3,7 @@ const axios = require('axios');
 const stopword = require('stopword');
 const sslCertificate = require('get-ssl-certificate');
 const relative = require('is-relative-url');
+const forbiden  = [ '|','\n', '\n\n', '-' , ':',"ha", ":"];
 module.exports = {
 
   async check_Tag(type,html){
@@ -82,7 +83,12 @@ module.exports = {
     try {
       html("*").map( function(){
         var text = html(this).text().split(" ");
-        const parsed_text = stopword.removeStopwords(text,stopword.es);
+        const parsed_text_nofilt = stopword.removeStopwords(text,stopword.es);
+        
+        let parsed_text = parsed_text_nofilt.filter( function( el ) {
+          return !forbiden.includes( el );
+        } );
+        
         parsed_text.forEach(function (item){
           if( 0 !== item.length) {
             if(words[item] >0){
@@ -123,7 +129,7 @@ module.exports = {
         counter++;
       }
     }
-
+    console.log(selected_words);
     console.log( "keywords " + count);
     return {data:selected_words, status:'success',errors:''};
   },
@@ -146,6 +152,7 @@ module.exports = {
 
   async get_certificate(url){
     let cert;
+    url = url.replace(/(^\w+:|^)\/\//, '');
     try {
     await sslCertificate.get(url).then(function (certificate) {
         cert = certificate;
