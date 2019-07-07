@@ -20,13 +20,14 @@ import LoginPage from './components/Auth/LoginPage';
 import SEO from './components/SEO/SEO';
 import './styles/styles.scss';
 import Minifier from './components/Minifier/Minifier';
-
+import Profile from './components/Profile/Profile';
 render((
   <Router>
     <App>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/brokenLinks" component={BrokenChecker}/>
+        <Route path="/profile" component={Profile}/>
         <Route path="/signin" component={Signin}/>
         <Route path="/login" component={LoginPage}/>
         <Route path="/minifier" component={Minifier} />
