@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { getFromStorage } from '../utils/storage';
 import Header from "./Header/Header"
 import CardGrid from "./CardGrid/CardGrid"
+import ProgressTable from "./ProgressTable/ProgressTable"
+
 import './style.scss';
 class Profile extends Component {
     
@@ -19,10 +21,14 @@ class Profile extends Component {
     }
     render() {
         const basename = "profile";
+        console.log(this.props);
+        const {stats} = this.props;
+        console.log(stats);
         return (
             <div>
-                <Header basename={basename} />
+                <Header basename={basename} stats={stats} />
                 <CardGrid basename={basename}/>
+                <ProgressTable basename={basename}/>
             </div>
         );
     }

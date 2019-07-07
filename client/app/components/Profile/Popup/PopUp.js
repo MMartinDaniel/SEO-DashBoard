@@ -6,11 +6,12 @@ class PopUp extends Component {
         super(props);
         this.state = {
             options:[false,false,false,false,false,false,false,false,false],
-            startDate: new Date(),
+            website: '',
         }
     
         this.selectBox = this.selectBox.bind(this);
-
+        this.sendReport = this.sendReport.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
     }
 
@@ -27,8 +28,31 @@ class PopUp extends Component {
         const {toggle} = this.state;
         this.setState({toggle: !toggle});
     }
+
+    handleChange(event){
+        const {website} = this.state;
+        this.setState({website: event.target.value});
+    }
+    sendReport(){
+       
+        const {stats} = this.props;
+        const {options} = this.state;
+        fetch('/library/fullReport',{
+          method:'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            web: this.state.website,
+            options: options,
+          })
+        });
+    }
+
     render() {
         const {options} = this.state;
+        console.log(this.props);
         let {basename} = this.props; 
         basename = `${basename}__popup`;
         
@@ -38,7 +62,7 @@ class PopUp extends Component {
                 <div className={`${basename}__inner`}>
                     <div className={`${basename}__header`}>
                         <div className={`${basename}__cropped`}><span>New Report</span></div>
-                        <input type='text' placeholder='Website'></input>
+                        <input type='text' onChange={this.handleChange} value={this.state.website} placeholder='Website'></input>
                     </div>
                     <div className={`${basename}__options-body`}>
                         <h3>Options</h3>
@@ -58,8 +82,8 @@ class PopUp extends Component {
                         
                         </div>
                         <div className={`${basename}__button--wrap`}>
-                            <input type='submit' className={`${basename}__button`} value='Generate Report' />
-                            <button   onClick={this.props.toggle} className={`${basename}__button red`}  >Close </button>
+                            <input type='submit' className={`${basename}__button`} onClick={this.sendReport} value='Generate Report' />
+                            <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Close </button>
 
                           
                         </div>
@@ -83,7 +107,9 @@ const TABS =[
     {name:"Performance",  value:5, icon: 'performance.png'},
     {name:"SiteMap",  value:6, icon: 'sitemap.png'},
     {name:"Resources",  value:7, icon: 'resources.png'},
-    {name:"Alternative",  value:9,icon: 'alternative.png'},
+    {name:"Alternative",  value:8,icon: 'alternative.png'},
+    {name:"ScreenShot",  value:9,icon: 'screenshot.png'},
+    
     
   ];
 

@@ -24,12 +24,12 @@ class Header extends Component {
 
     render() {
         const picture = 'avatar.jpg';
-        const {basename} = this.props;
+        const {basename,stats} = this.props;
         const {toggle} = this.state;
         console.log(toggle);
         return (
             <>
-            {(toggle) ? <PopUp toggle={this.toggle.bind(this)}  basename={basename}/> : null }
+            {(toggle) ? <PopUp toggle={this.toggle.bind(this)} stats={stats}  basename={basename}/> : null }
 
             <div className={`${basename}__wrapper` } >
                 <div className={`${basename}__picture`}>

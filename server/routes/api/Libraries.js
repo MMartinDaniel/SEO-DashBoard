@@ -1,11 +1,16 @@
 const brokenLinkTester = require('../../models/SiteMapGenerator');
 const webshot = require('../../models/webshot');
-
+const report = require('../../models/Report');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = (app) => {
 
+  app.post('/library/fullReport',(req,res,next)=>{
+      const {body} = req;
+      const{uid} = body;
+      report.generateReport(body,req);
+  });
 
   app.put('/library/Report',(req,res,next)=>{
     const {body } = req;
