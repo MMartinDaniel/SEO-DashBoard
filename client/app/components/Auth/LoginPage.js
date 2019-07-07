@@ -1,28 +1,7 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { getFromStorage , setInStorage} from "../utils/storage";
-import {Redirect} from "react-router-dom";
-
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-
-    return (
-      <>
-        <h1>Login</h1>
-        <form action='/login' method='post' className="form">
-          <input type="text" placeholder="Username"/>
-          <input  type="password"  placeholder="Password"/>
-          <button type="submit" id="login-button">Login</button>
-        </form>
-      </>
-    );
-  }
-
-}
+import {Redirect,Link} from "react-router-dom";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -35,7 +14,8 @@ class LoginPage extends Component {
       signInEmail:'',
       signInPassword:'',
       signUpEmail:'',
-      signUpPassword:''
+      signUpPassword:'',
+      login: 1
     };
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
@@ -44,6 +24,8 @@ class LoginPage extends Component {
     this.onSignUp = this.onSignUp.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
   this.logout = this.logout.bind(this);
+  this.swapLogin = this.swapLogin.bind(this);
+
 
   }
   componentDidMount(){
@@ -148,6 +130,10 @@ class LoginPage extends Component {
         })
     }
   }
+  swapLogin(event){
+    const {login} = this.state;
+      (login) ? this.setState({login:false}) : this.setState({login:true});
+  }
 
   onSignIn(event){
     const {signInEmail,signInPassword} = this.state;
@@ -185,7 +171,11 @@ class LoginPage extends Component {
       })
   }
   render() {
-    const { isLoading, token,signInPassword,signInEmail,signInError,signUpEmail,signUpError,signUpPassword} = this.state;
+    const {
+      token,signInPassword,signInEmail,signInError,
+      signUpEmail,signUpError,signUpPassword,isLoading,login
+    } = this.state;
+
     let message = "";
     if(isLoading){
       message = <p>Loading...</p>;
@@ -193,53 +183,62 @@ class LoginPage extends Component {
     if(token) {
       return (<Redirect to='/' />);
     }else{
-      return (
+      if(login){
+        return (
 
-        <div className='login-wrapper'>
-          <div>
-              {message}
-            { (signInError) ? ( <p> { signInError }</p> ) : (null)}
-          </div>
-          <div className='container'>
+          <div className='login-wrapper'>
             <div>
-            <h1>Welcome</h1>
-            <input type='email' value={signInEmail} onChange={this.onTextboxChangeSignInEmail} />
-            <input type='password' value={signInPassword} onChange={this.onTextboxChangeSignInPassword} />
-            <button onClick={this.onSignIn}>Signin</button>
-              (<button onClick={this.logout}> logout </button>
-          </div>
-            <div className='invisible' >
-              <div>
-                { (signUpError) ? ( <p> { signUpError }</p> ) : (null)}
-              </div>
-              <p>Signup</p>
-              <input type='email'
-                     value={signUpEmail}
-                     onChange={this.onTextboxChangeSignUpEmail} />
-              <input type='password'
-                     value={signUpPassword}
-                     onChange={this.onTextboxChangeSignUpPassword} />
-              <button onClick={this.onSignUp} id="login-button">Signup</button>
-              <a href='/helloworld'>aa</a>
-
+                {message}
+              { (signInError) ? ( <p> { signInError }</p> ) : (null)}
+              { (signUpError) ? ( <p> { signUpError }</p> ) : (null)}
             </div>
+            <div className='container'>
+            <div className="login-form-div">
+               
+                <input type='email' value={signInEmail} placeholder={"email"} onChange={this.onTextboxChangeSignInEmail} />
+                <input type='password' value={signInPassword} placeholder={"password"} onChange={this.onTextboxChangeSignInPassword} />
+                <input type='submit'  className="loginButton" onClick={this.onSignIn} value='Sign in'/>
+                <p className='dont-account'>don't have an account? <a onClick={this.swapLogin} >sign up</a> </p>
+          
+              </div>
+            </div>
+         
+  
           </div>
-          <ul className="bg-bubbles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
+  
+          );
+      }else{
+        return (
 
-        </div>
+          <div className='login-wrapper'>
+            <div>
+                {message}
+              { (signInError) ? ( <p> { signInError }</p> ) : (null)}
+              { (signUpError) ? ( <p> { signUpError }</p> ) : (null)}
+            </div>
+            <div className='container'>
+            <div className="login-form-div">
+              <input type='email'
+                        placeholder="Register email"
+                        value={signUpEmail}
+                        onChange={this.onTextboxChangeSignUpEmail} />
+                  <input type='password'
+                        placeholder="register password"
+                        value={signUpPassword}
+                        onChange={this.onTextboxChangeSignUpPassword} />
+                  <input type='submit'  className="registerButton" onClick={this.onSignUp} value='Sign Up'/>
 
-        );
+                  <p className='dont-account'>do you have an account? <a onClick={this.swapLogin} >Login</a> </p>
+  
+              </div>
+            </div>
+         
+  
+          </div>
+  
+          );
+      }
+     
     }
 
 

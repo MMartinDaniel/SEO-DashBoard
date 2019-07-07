@@ -167,10 +167,10 @@ class Analytics extends Component {
       <>
         <div className='main-tab'>
           <div className="row">
-            <div className='col-lg-8'>
+            <div className='col-lg-7'>
               <AnalysisTable/>
             </div>
-            <div className='col-lg-4'>
+            <div className='col-lg-5'>
               <SiteMapGenerator/>
             </div>
           </div>

@@ -247,7 +247,7 @@ class SEO extends Component {
         <div className="seo-report">
           <div className="'container-fluid">
             <div className='row'>
-              <div className='col-lg-10 offset-1'>
+              <div className='col-lg-12 '>
                 <div className="card">
                     <div className='card-body'>
 
