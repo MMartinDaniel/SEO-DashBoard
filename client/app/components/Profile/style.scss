@@ -1,5 +1,6 @@
 $colors: #ecc681fc, #82e3ec, #ec8288, #82ecb5, #ec82eaab, #f4beaa;
 
+
 .profile__wrapper{
     display: grid;
     grid-template-columns: repeat(12,1fr);
@@ -312,7 +313,7 @@ p{
 }
 
      
-.red{
+.red-report{
     background-image: linear-gradient(to top, #ff0844 0%, #ff3737 100%);
     box-shadow: 0 4px 15px 0 rgb(255, 18, 74);
     float: left;
@@ -346,4 +347,103 @@ p{
         height: 130px;
     }
 
+}
+
+.profile_ProgressTable{
+    &__wrapper{
+    grid-template-columns: repeat(3,1fr);
+    padding: 20px;
+    width: 100%;
+    background-color:white;
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-left: 30px;
+    margin-top: 30px;
+    
+     
+
+    }
+    &__table{
+        display:grid;
+        grid-template-columns: repeat(3,1fr);
+        padding-left: 30px;
+    }
+    &__heading {
+        width: 100%;
+        font-size: 1.4em;
+        color: #9aabe5;
+        font-weight: 300;
+        padding: 15px;
+        height: 40px;
+    }
+    &__card-wrap{
+        grid-column: 1/2;
+    }
+
+    &__progress-bg{
+    background: #f2efef;
+	width: 700px;
+	margin: 0 auto;
+    }
+    &__delete{
+        text-align: center;
+        margin-top: 23px;
+        button{
+            border: 0;
+            width: 100px;
+            padding: 5px;
+            color: white;
+            font-size: 13px;
+            background-image: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%);
+            box-shadow: 0 4px 15px 0 #dd667c;
+            outline: 0;
+        }
+    }
+    &__progress-bg-html{
+            background: linear-gradient(135deg,
+            #009999 25%, #008283 25%,
+            #008283 50%, #009999 50%,
+            #009999 75%, #008283 75%);
+            box-shadow: 0 4px 15px 0 #9d9d9d;
+            width: 73%;
+            height: 25px;
+            padding-left: 15px;
+            padding-top: 1px;
+            background-size: 50px 50px;
+            -webkit-animation: animasi 3.0s linear infinite;
+            -moz-animation: animasi 3.0s linear infinite;
+
+    }
+    &__name{
+        p{
+            margin-bottom: 0;
+            font-size: 13px;
+            padding-bottom: 4px;
+            padding-top: 6px;
+            color: #898989;
+            margin-bottom: 0;
+        }
+    }
+    &__progress-bg-right{
+        float: right;
+        color: #fff;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+    &__progress-bg-left{
+        float: left;
+        color: #fff;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+}
+@-webkit-keyframes animasi {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px
+    }
 }
