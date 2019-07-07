@@ -7,21 +7,17 @@ import LoginPage from "../Auth/LoginPage";
 import {getFromStorage} from "../utils/storage";
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    const obj = getFromStorage('static');
+    this.state = {
+      stats: obj,
+    }
+
+  }
 render(){
-  const obj = getFromStorage('static');
-  if(obj && obj.token){
-    return (
-      <>
-        <Header/>
-        <div id='wrapper' className="toggled">
-          <Sidebar tabs={TABS}/>
-              <main>
-                {this.props.children}
-              </main>
-        </div>
-        <Footer/>
-      </>);
-  }else if(0 === 0){
+  const {stats} = this.state;
+  if(stats && stats.token){
     return (
       <>
         <Header/>
@@ -29,10 +25,8 @@ render(){
           <Sidebar tabs={TABS}/>
           <div id='page-content-wrapper'>
             <div className="'container-fluid">
-              <h1 className='page-name'>Analytics Dashboard</h1>
-              <br/><br/>
               <main>
-                {this.props.children}
+              {React.cloneElement(this.props.children, { stats: stats })}
               </main>
             </div>
           </div>

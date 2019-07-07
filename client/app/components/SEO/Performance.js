@@ -57,10 +57,8 @@ class Pagespeed extends Component{
 
       </>);
     }
-
-
-
      if(data && false){
+       
        return (<><ul>
          {
            data.lighthouseResult.audits['network-requests'].details.items.map(function (items, i) {
@@ -120,7 +118,6 @@ class ContentDisplay extends Component {
 
   }
   loadCharts(){
-  console.log('hello');
     let {data} = this.state;
     let total = 0;
     var index = 0;
