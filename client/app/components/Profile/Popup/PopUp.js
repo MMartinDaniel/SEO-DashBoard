@@ -55,8 +55,6 @@ class PopUp extends Component {
         console.log(this.props);
         let {basename} = this.props; 
         basename = `${basename}__popup`;
-        
-
         return (<>
             <div className={`${basename}__wrapper` } >
                 <div className={`${basename}__inner`}>
@@ -78,20 +76,14 @@ class PopUp extends Component {
                                     </div>
                                     );
                                 })
-                            }
-                        
+                            }    
                         </div>
                         <div className={`${basename}__button--wrap`}>
                             <input type='submit' className={`${basename}__button`} onClick={this.sendReport} value='Generate Report' />
-                            <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Close </button>
-
-                          
-                        </div>
-                       
+                            <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Close </button>       
+                        </div>                   
                     </div>
-
-                </div>
-                
+                </div>      
             </div>
             </>
         );

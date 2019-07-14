@@ -1,31 +1,44 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../style.scss';
+import ItemProgress from "./ItemProgress";
 
 class ProgressTable extends Component {
     constructor(props) {
         super(props);
+        this.state= {
+            onProgress:[],
+        };
 
     }
-
     componentWillMount() {
-
+        const {uid} = this.props.stats;
+        const {onProgress} = this.state;
+        console.log(uid);
+        fetch('/library/user/onProgress?uid='+ uid).then(response => response.json())
+        .then(data => {
+            this.setState({onProgress:data.data});
+        });
+        
     }
 
     render() {
         let {basename} = this.props;
+        let {onProgress} = this.state;
         basename = `${basename}_ProgressTable__`;
+        console.log(onProgress);
         return (
             <>
             <div className={`${basename}wrapper` } >
                 <h2 className={`${basename}heading`}>Reports in progress</h2>
                 <div className={`${basename}table`}>
-                    <ItemProgress basename={basename}/>   
-                    <ItemProgress basename={basename}/>   
-                    <ItemProgress basename={basename}/>   
-                    <ItemProgress basename={basename}/>   
-                    <ItemProgress basename={basename}/>   
-                    <ItemProgress basename={basename}/>   
+                { 
+                         (onProgress.length > 0) ?
+                        onProgress.map((item,i)=>{
+                          return <ItemProgress basename={basename} key={i} data={item}/>  
+                        })
+                        : null
+                    }
                 </div>
 
             </div>
@@ -33,30 +46,6 @@ class ProgressTable extends Component {
         );
     }
 }
-const ItemProgress = (props) => {
-    const {basename} = props;
-    return (
-        <>
-        <div className={`${basename}card-wrap`}>
-            <div className={`${basename}name`}>
-                <p>Instantes.net</p>
-            </div>
-            <div className={`${basename}item-progress`}>
-                <div className={`${basename}progress-bg`}>
-                    <div className={`${basename}progress-bg-html`}>
-                        <span  className={`${basename}progress-bg-left`}>HTML</span>
-                        <span  className={`${basename}progress-bg-right`}>78%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className={`${basename}delete`}>
-               <button>Delete</button>
-        </div>
-
-        </>
-    );
-};
 
 ProgressTable.propTypes = {
     

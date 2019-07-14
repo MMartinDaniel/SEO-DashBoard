@@ -9,41 +9,43 @@ class CardGrid extends Component {
     }
 
     componentWillMount() {
-
     }
 
     render() {
+        const {cards} = this.props;
         let {basename} = this.props;
         basename = `${basename}__CardGrid__`;
         return (
             <>
             <div className={`${basename}wrapper` } >
                 <h2 className={`${basename}heading`}>Your Reports</h2>
-               <Card basename={basename}/>   
-               <Card basename={basename}/>   
-               <Card basename={basename}/>   
-               <Card basename={basename}/>   
-               <Card basename={basename}/>   
-               <Card basename={basename}/>   
-
+                {   (cards.length > 0) ?
+                    cards.map(function(item, i){
+                       return <Card key={i} data={item} basename={basename}/>   
+                    }) : null
+                }
+             
             </div>
             </>
         );
     }
 }
 const Card = (props) => {
-    const {basename} = props;
+    const {basename,data} = props;
+    let date = new Date(data.date);
+    let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+
     return (
         <>
         <div className={`${basename}card-wrap`}>
             <i className="fas fa-times left"></i>
             <i className="fas fa-arrow-right right"></i>
             <div className={`${basename}name`}>
-                <strong>Instantes.com</strong>
-                <p>2 febrero 2019</p>
+                <strong>{data.website.replace(/(^\w+:|^)\/\//, '')}</strong>
+                <p>{formatted_date}</p>
             </div>
             <div className={`${basename}favicon`}>
-                <img src="https://cdn.dribbble.com/assets/dribbble-ball-192-ec064e49e6f63d9a5fa911518781bee0c90688d052a038f8876ef0824f65eaf2.png"/>
+                 {(data.metadata.favicon.length > 0 ) ? <img src={data.metadata.favicon[0].href}/> : null }
             </div>
         </div>
         </>
