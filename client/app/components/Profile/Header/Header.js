@@ -26,7 +26,6 @@ class Header extends Component {
         const picture = 'avatar.jpg';
         const {basename,stats} = this.props;
         const {toggle} = this.state;
-        console.log(toggle);
         return (
             <>
             {(toggle) ? <PopUp toggle={this.toggle.bind(this)} stats={stats}  basename={basename}/> : null }

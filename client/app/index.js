@@ -21,6 +21,7 @@ import SEO from './components/SEO/SEO';
 import './styles/styles.scss';
 import Minifier from './components/Minifier/Minifier';
 import Profile from './components/Profile/Profile';
+import StaticReport from './components/StaticReport/StaticReport';
 render((
   <Router>
     <App>
@@ -32,8 +33,10 @@ render((
         <Route path="/login" component={LoginPage}/>
         <Route path="/minifier" component={Minifier} />
         <Route path="/scanner" component={SEO}/>
+        <Route path="/report" component={StaticReport}/>
         <Route component={NotFound}/>
       </Switch>
     </App>
+
   </Router>
 ), document.getElementById('app'));
