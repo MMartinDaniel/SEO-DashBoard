@@ -4,33 +4,56 @@ import { getFromStorage } from '../utils/storage';
 import Header from "./Header/Header"
 import CardGrid from "./CardGrid/CardGrid"
 import ProgressTable from "./ProgressTable/ProgressTable"
+import socketIOClient  from "socket.io-client";
+
 
 import './style.scss';
 class Profile extends Component {
     
     constructor(props) {
         super(props);
+        const obj = getFromStorage('static');
+        this.state = {
+            stats: obj,
+            cards: [],
+            percentage: null,
+            endpoint: "http://127.0.0.1:80",
+            response: false,
+            in_progress_sate: [],            
+        }
     }
+
+    componentDidMount() {
+        const { endpoint,stats,in_progress_sate } = this.state;
+        const { uid } = stats;
+        const socket = socketIOClient(endpoint);
+        socket.on(uid, data =>{
+            if(in_progress_sate)
+            this.setState({ in_progress_sate:[...in_progress_sate, {item: data.item, index:data.index} ] });
+
+        
+        });
+      }
 
     componentWillMount() {
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-
+        const {uid} = this.state.stats;
+        fetch('/library/user/reports?uid='+ uid).then(response => response.json())
+        .then(data => {
+          this.setState({cards:data.data});
+        });
     }
     render() {
+        
+        const {cards,stats,in_progress_sate} = this.state;
+        console.log(in_progress_sate);
         const basename = "profile";
-        console.log(this.props);
-        const {stats} = this.props;
-        console.log(stats);
         return (
             <div>
                 <Header basename={basename} stats={stats} />
-                <CardGrid basename={basename}/>
-                <ProgressTable basename={basename}/>
+                <CardGrid cards={cards} basename={basename}/>
+                <ProgressTable stats={stats}  basename={basename}/>
             </div>
-        );
+        )
     }
 }
 

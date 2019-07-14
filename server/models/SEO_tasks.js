@@ -4,6 +4,8 @@ const stopword = require('stopword');
 const sslCertificate = require('get-ssl-certificate');
 const relative = require('is-relative-url');
 const forbiden  = [ '|','\n', '\n\n', '-' , ':',"ha", ":"];
+const fetch = require('node-fetch');
+
 module.exports = {
 
   async check_Tag(type,html){
@@ -21,6 +23,13 @@ module.exports = {
   },
 
   async loadHtml(url){
+
+    
+    let pattern = /^((http|https|ftp):\/\/)/;
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
+
     let html;
     try {
 
@@ -180,8 +189,23 @@ module.exports = {
     return {data:favicon_list, count:count, status:'success',errors:''};
   },
 
-  async get_TitleMeta(url){
+  async get_performance(url){
 
+    let pattern = /^((http|https|ftp):\/\/)/;
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
+    return fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+url+'&category=performance').then(response => response.json())
+      .then(data => {return data.lighthouseResult.audits});
+    },
+
+
+  async get_TitleMeta(url){
+    
+    let pattern = /^((http|https|ftp):\/\/)/;
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
     const html = await this.loadHtml(url);
     const title = await this.get_Title(html);
     const keywords = await this.get_keywords(html);

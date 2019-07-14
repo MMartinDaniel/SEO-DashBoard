@@ -27,6 +27,7 @@ const io = require('socket.io')(server);
 server.listen(80);
 app.set('socketio',io);
 io.on('connection', function (socket) {
+    socket.emit("MyApp",{response:'saludos hermano'});
   //socket.emit('news', { hello: 'worldbb' });
   socket.on('my other event', function (data) {
     console.log(data);

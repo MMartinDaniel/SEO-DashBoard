@@ -7,12 +7,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3105b4e8-4492-40e9-98d7-cd4420a56c78" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/App/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/Profile/CardGrid/CardGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/Profile/CardGrid/CardGrid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/Profile/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/Profile/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/Profile/Popup/PopUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/Profile/Popup/PopUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/Profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/Profile/ProgressTable/ProgressTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/Profile/ProgressTable/ProgressTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/components/SEO/Performance.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/SEO/Performance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/app/components/SEO/SEO.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/SEO/SEO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/app/components/SEO/TitleMeta.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/SEO/TitleMeta.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/components/Template/Template.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/components/Template/Template.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/app/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/app/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/img/desktop-5d175f070a5abe1ad0109a4d.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/img/desktop-5d175f070a5abe1ad0109a4d.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/img/desktop-5d2070323703791afc92804d.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/img/desktop-5d2070323703791afc92804d.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/img/phone-5d175f070a5abe1ad0109a4d.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/img/phone-5d175f070a5abe1ad0109a4d.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/img/phone-5d2070323703791afc92804d.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/img/phone-5d2070323703791afc92804d.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/img/tablet-5d175f070a5abe1ad0109a4d.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/img/tablet-5d175f070a5abe1ad0109a4d.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/img/tablet-5d2070323703791afc92804d.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/assets/img/tablet-5d2070323703791afc92804d.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/api/Tasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/api/Tasks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/Report.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/Report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/SEO_tasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/SEO_tasks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/api/Libraries.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/api/Libraries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,39 +39,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/routes/api/Libraries.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/components/SEO/Report.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/app/components/SEO/SEO.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1768">
-              <caret line="109" column="23" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/components/SEO/SEOtest.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -88,11 +72,34 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/routes/api/Tasks.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+            <state relative-caret-position="510">
+              <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/app/components/Profile/Profile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-204">
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/app/components/Profile/ProgressTable/ItemProgress.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,7 +120,7 @@
         <entry file="file://$PROJECT_DIR$/server/models/SEO_tasks.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3876">
-              <caret line="228" column="30" selection-start-line="228" selection-start-column="30" selection-end-line="228" selection-end-column="30" />
+              <caret line="228" column="14" selection-start-line="228" selection-start-column="14" selection-end-line="228" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -121,7 +128,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/app/components/SEO/Performance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1751">
+            <state relative-caret-position="1734">
               <caret line="108" selection-start-line="108" selection-end-line="108" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
@@ -258,69 +265,54 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="MERN-boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MERN-boilerplate" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="MERN-boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MERN-boilerplate" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="MERN-boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MERN-boilerplate" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
+              <item name="MERN-boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MERN-boilerplate" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="SEO" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="MERN-boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MERN-boilerplate" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Profile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SEO-DashBoard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SEO-DashBoard" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="MERN-boilerplate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MERN-boilerplate" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Profile" type="462c0819:PsiDirectoryNode" />
+              <item name="ProgressTable" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -447,11 +439,12 @@
       <workItem from="1560436319293" duration="10220000" />
       <workItem from="1560506982338" duration="7580000" />
       <workItem from="1561810843119" duration="1401000" />
+      <workItem from="1563104884335" duration="92000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="441022000" />
+    <option name="totallyTimeSpent" value="441114000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -465,7 +458,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22617246" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22919819" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -483,7 +476,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49253732" weight="0.32827735" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5074627" side_tool="true" visible="true" weight="0.3268921" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="11" sideWeight="0.5074627" side_tool="true" visible="true" weight="0.3268921" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -529,12 +522,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.editorconfig">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/har.json" />
     <entry file="file://$PROJECT_DIR$/server/models/flickr-laptop.jpeg">
       <provider selected="true" editor-type-id="images" />
@@ -542,9 +529,7 @@
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/sitemaps/5c548979a878fc105044ac9f-sitemap.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/sitemaps/5c548979a878fc105044ac9f-sitemap.xml" />
     <entry file="file://$PROJECT_DIR$/LICENSE">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -565,9 +550,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/config/webpack.prod.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/config/config.js">
@@ -805,8 +787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/components/SEO/SEO.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="109" column="23" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
+        <state relative-caret-position="1751">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -853,13 +835,13 @@
     <entry file="file://$PROJECT_DIR$/server/models/SEO_tasks.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3876">
-          <caret line="228" column="30" selection-start-line="228" selection-start-column="30" selection-end-line="228" selection-end-column="30" />
+          <caret line="228" column="14" selection-start-line="228" selection-start-column="14" selection-end-line="228" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app/components/SEO/Performance.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1751">
+        <state relative-caret-position="1734">
           <caret line="108" selection-start-line="108" selection-end-line="108" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
@@ -869,8 +851,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/api/Tasks.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+        <state relative-caret-position="510">
+          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/components/Profile/Profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app/components/Profile/ProgressTable/ItemProgress.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
