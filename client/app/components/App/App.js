@@ -5,6 +5,9 @@ import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 import LoginPage from "../Auth/LoginPage";
 import {getFromStorage} from "../utils/storage";
+import ReportTemplate from '../Template/ReportTemplate';
+import Template from '../Template/Template';
+import StaticReport from '../StaticReport/StaticReport';
 
 class App extends Component {
   constructor(props){
@@ -12,26 +15,24 @@ class App extends Component {
     const obj = getFromStorage('static');
     this.state = {
       stats: obj,
+      report: null,
     }
+
+    
 
   }
 render(){
   const {stats} = this.state;
-  if(stats && stats.token){
+  const {children} = this.props;
+  const url = window.location.pathname;
+  if(url.includes("/Report")){
+    return(<>
+    <StaticReport children={children} stats={stats}/>
+    </>);
+  }else if(stats && stats.token){
     return (
       <>
-        <Header/>
-        <div id='wrapper' className="toggled">
-          <Sidebar tabs={TABS}/>
-          <div id='page-content-wrapper'>
-            <div className="'container-fluid">
-              <main>
-              {React.cloneElement(this.props.children, { stats: stats })}
-              </main>
-            </div>
-          </div>
-        </div>
-        <Footer/>
+         <Template tabs={TABS} stats={stats} children={children}/>
       </>);
   }else{
     return(

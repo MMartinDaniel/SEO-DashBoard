@@ -4,20 +4,7 @@ import {Pie} from 'react-chartjs-2';
 import openSocket from "socket.io-client";
 import {getFromStorage} from "../utils/storage";
 import  ReactTable from 'react-table';
-
-class Tile extends Component{
-  constructor(props){
-    super(props);
-  };
-
-  render(){
-    const {data} = this.props;
-    return(
-      <>
-        <div className="speed-item"><div className='tile-data'> <h6>{data.title}</h6><p>{data.displayValue}</p></div></div>
-    </>);
-  }
-}
+import Tile from './block/Tile';
 
 class Pagespeed extends Component{
   constructor(props){
