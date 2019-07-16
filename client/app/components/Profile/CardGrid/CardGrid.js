@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import '../style.scss';
 
-class CardGrid extends Component {
+class CardGrid extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,6 +33,21 @@ const Card = (props) => {
     const {basename,data} = props;
     let date = new Date(data.date);
     let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+    let pattern = /^((http|https|ftp):\/\/)/;
+    let fav;
+     data.metadata.favicon.map((item)=>{
+         if(!pattern.test(item.href)) {
+             if(item.href.slice(0, -4).includes(".")){
+                 fav = item.href;
+             }else if(!pattern.test(data.website)){
+                fav =  `http://${data.website}${item.href}`;
+            }else{
+              fav =  `${data.website}${item.href}`;
+  
+            }
+          
+        }
+    });
 
     return (
         <>
@@ -45,7 +59,7 @@ const Card = (props) => {
                 <p>{formatted_date}</p>
             </div>
             <div className={`${basename}favicon`}>
-                 {(data.metadata.favicon.length > 0 ) ? <img src={data.metadata.favicon[0].href}/> : null }
+                 {(data.metadata.favicon.length > 0 ) ? <img src={(fav) ? fav : data.metadata.favicon[0].href}/> : null }
             </div>
         </div>
         </>

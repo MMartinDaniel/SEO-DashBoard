@@ -1,36 +1,57 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import socketIOClient  from "socket.io-client";
 
-class ItemProgress extends Component {
+class ItemProgress extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
-            id: null,
-            progress_step: 0,
+            progress_step: [false,false,false,false,false,false,false,false,false,false],
+            current: 0,
             start_formated: new Date(props.data.start_date),
-
+            elapsed_time: null,
+            percentage: null,
+            endpoint: "http://127.0.0.1:80",
+            response: false,
         }
  
     }
     componentWillMount() {
 
+        const { endpoint,current } = this.state;
+        const {id} = this.props.data;
+        const socket = socketIOClient(endpoint);
+        socket.on(id, data =>{
+            console.log(data);
+            this.setState({current: current+1 });  
+        });
+    }
+
+    tick() {
+        const {start_formated}= this.state;
+        var seconds = Math.floor(( (new Date() -start_formated ) )/1000);
+        var minutes = Math.floor(seconds/60);
+        var hours = Math.floor(minutes/60);
+        var days = Math.floor(hours/24);
+        
+        hours = hours-(days*24);
+        minutes = minutes-(days*24*60)-(hours*60);
+        seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
+        this.setState({elapsed_time: `${hours} Hours, ${minutes} Minutes, ${seconds} seconds` });
     }
 
     componentDidMount() {
-
+        clearInterval(this.timer);
+        this.timer = setInterval(this.tick.bind(this), 1000);
     }
+    componentWillUnmount () {
+        clearInterval(this.timer)
+      }
+
 
     render() {
-        const {start_formated} = this.state;
-        let endTime = new Date();
-        var timeDiff = endTime - start_formated; //in ms
-        timeDiff /= 1000;
-        var seconds = Math.round(timeDiff);
-        let minutes = Math.round(seconds / 60);
-        seconds -= minutes * 60;
-
-        const {basename} = this.props;
-        const {website} = this.props;
+        const {elapsed_time,current} = this.state;
+        const {website,basename} = this.props;
         return (
             <>
             <div className={`${basename}card-wrap`}>
@@ -40,8 +61,8 @@ class ItemProgress extends Component {
                 <div className={`${basename}item-progress`}>
                     <div className={`${basename}progress-bg`}>
                         <div className={`${basename}progress-bg-html`}>
-                            <span  className={`${basename}progress-bg-left`}>Elapsed Time: {minutes}:{seconds} </span>
-                            <span  className={`${basename}progress-bg-right`}>(1/6)</span>
+                            <span  className={`${basename}progress-bg-left`}>Elapsed Time: {elapsed_time} </span>
+                            <span  className={`${basename}progress-bg-right`}>({current}/6)</span>
                         </div>
                     </div>
                 </div>

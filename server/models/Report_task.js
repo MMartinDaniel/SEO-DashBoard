@@ -80,7 +80,7 @@ module.exports = {
 
               //      newReport.performance = data_get['speed-index'];
                   //  newReport.resources = data_get['network-requests'];
-                  io.emit(uid,{item:id, index: item_index});
+                  io.emit(id,1);
                 resolve(result);
             });
         };
