@@ -30,12 +30,10 @@ class PopUp extends Component {
     }
 
     handleChange(event){
-        const {website} = this.state;
         this.setState({website: event.target.value});
     }
     sendReport(){
        
-        const {stats} = this.props;
         const {options} = this.state;
         fetch('/library/fullReport',{
           method:'POST',
@@ -46,8 +44,11 @@ class PopUp extends Component {
           body: JSON.stringify({
             web: this.state.website,
             options: options,
+            uid: this.props.stats.uid
           })
-        });
+        }).then(
+            window.location.reload()
+        )
     }
 
     render() {
