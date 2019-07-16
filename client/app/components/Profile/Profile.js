@@ -24,15 +24,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        const { endpoint,stats,in_progress_sate } = this.state;
-        const { uid } = stats;
-        const socket = socketIOClient(endpoint);
-        socket.on(uid, data =>{
-            if(in_progress_sate)
-            this.setState({ in_progress_sate:[...in_progress_sate, {item: data.item, index:data.index} ] });
-
-        
-        });
+   
       }
 
     componentWillMount() {
@@ -49,7 +41,7 @@ class Profile extends Component {
         const basename = "profile";
         return (
             <div>
-                <Header basename={basename} stats={stats} />
+                <Header basename={basename} history={this.props.history} stats={stats} />
                 <CardGrid cards={cards} basename={basename}/>
                 <ProgressTable stats={stats}  basename={basename}/>
             </div>
