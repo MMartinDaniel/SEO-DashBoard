@@ -28,7 +28,7 @@ class Header extends Component {
         const {toggle} = this.state;
         return (
             <>
-            {(toggle) ? <PopUp toggle={this.toggle.bind(this)} stats={stats}  basename={basename}/> : null }
+            {(toggle) ? <PopUp  toggle={this.toggle.bind(this)} stats={stats}  basename={basename}/> : null }
 
             <div className={`${basename}__wrapper` } >
                 <div className={`${basename}__picture`}>
