@@ -14,7 +14,8 @@ class ItemProgress extends React.Component {
             endpoint: "http://127.0.0.1:80",
             response: false,
         }
- 
+        this.removeFromJobsQueue = this.removeFromJobsQueue.bind(this);
+
     }
     componentWillMount() {
 
@@ -47,6 +48,10 @@ class ItemProgress extends React.Component {
     componentWillUnmount () {
         clearInterval(this.timer)
       }
+      removeFromJobsQueue(){
+        const {id} = this.props.data;
+          fetch('/library/user/jobs/'+id,{method:'DELETE',}).then( window.location.reload())
+      }
 
 
     render() {
@@ -68,7 +73,7 @@ class ItemProgress extends React.Component {
                 </div>
             </div>
             <div className={`${basename}delete`}>
-                   <button>Delete</button>
+                   <button onClick={this.removeFromJobsQueue}>Delete</button>
             </div>
     
             </>

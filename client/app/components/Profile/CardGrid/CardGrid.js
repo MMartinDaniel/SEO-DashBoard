@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style.scss';
+import {Link} from 'react-router-dom'
 
 class CardGrid extends React.Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class CardGrid extends React.Component {
                 <h2 className={`${basename}heading`}>Your Reports</h2>
                 {   (cards.length > 0) ?
                     cards.map(function(item, i){
-                       return <Card key={i} data={item} basename={basename}/>   
+                     //  return <Link key={i} className={`${basename}__item`} to={"Report/"+ item.id} target="_blank" ><Card key={i} data={item} basename={basename}/></Link>
+                    return <Card key={i} data={item} basename={basename}/>   
                     }) : null
                 }
              
@@ -51,17 +53,18 @@ const Card = (props) => {
 
     return (
         <>
-        <div className={`${basename}card-wrap`}>
-            <i className="fas fa-times left"></i>
-            <i className="fas fa-arrow-right right"></i>
-            <div className={`${basename}name`}>
-                <strong>{data.website.replace(/(^\w+:|^)\/\//, '')}</strong>
-                <p>{formatted_date}</p>
+            <div className={`${basename}card-wrap`}>
+            <Link className={`left`} to={"Report/"+ data.id}><i className="fas fa-times"></i></Link>
+            <i className="fas fa-envelope right mail" ></i>
+                <Link className={`right`}  to={"Report/"+ data.id}><i className="fas fa-arrow-right"></i></Link>
+                <div className={`${basename}name`}>
+                    <strong>{data.website.replace(/(^\w+:|^)\/\//, '')}</strong>
+                    <p>{formatted_date}</p>
+                </div>
+                <div className={`${basename}favicon`}>
+                    {(data.metadata.favicon.length > 0 ) ? <img src={(fav) ? fav : data.metadata.favicon[0].href}/> : null }
+                </div>
             </div>
-            <div className={`${basename}favicon`}>
-                 {(data.metadata.favicon.length > 0 ) ? <img src={(fav) ? fav : data.metadata.favicon[0].href}/> : null }
-            </div>
-        </div>
         </>
     );
 };
