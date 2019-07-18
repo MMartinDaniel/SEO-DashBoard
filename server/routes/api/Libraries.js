@@ -44,10 +44,21 @@ module.exports = (app) => {
     });
   });
 
+  app.delete('/library/user/jobs/:id',(req,res,next)=>{
+    const { id } = req.params;
+    
+    Job.remove({ id: id }, function(err) {
+      if (!err) {
+        return res.send({success:true,message: "Error: Server Error",});
+      }else {
+        return res.send({success:true,message: "Success: Deleted",});
+      }
+   });
+  });
   app.get('/library/user/reports',(req,res,next)=>{
     const { uid } = req.query;
     //,{website:true}).populate({path:'metadata'}
-    Report.find({user: uid},{website:true, date:true}).populate({path:'metadata'}).exec((err,reports)=>{
+    Report.find({user: uid},{website:true, date:true, id:true}).populate({path:'metadata'}).exec((err,reports)=>{
       if(err){
         return res.send({success:false,message:"Error: Server error",data:[]});
       }else if( reports.length > 0){

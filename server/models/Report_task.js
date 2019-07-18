@@ -53,7 +53,7 @@ module.exports = {
                         result = (options[item_index]) ?  seo_tasks.get_certificate(web) :null;
                         break;
                     case 2:
-                        result = (options[item_index]) ? seo_tasks.get_TitleMeta(web) :null;
+                        result =  seo_tasks.get_TitleMeta(web);
                         break;
                     case 3:
                         result = null ;
