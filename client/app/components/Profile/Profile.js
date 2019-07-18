@@ -31,6 +31,7 @@ class Profile extends Component {
         const {uid} = this.state.stats;
         fetch('/library/user/reports?uid='+ uid).then(response => response.json())
         .then(data => {
+            console.log(data.data);
           this.setState({cards:data.data});
         });
     }
