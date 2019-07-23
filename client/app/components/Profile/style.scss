@@ -109,7 +109,9 @@ p{
 
         .mail{
             right: 35px;
-            margin-top: 5px;
+            background: 0;
+            border: 0;
+            outline: 0;
         }
         .left{
             left: 0;
@@ -152,7 +154,67 @@ p{
         }
     }
    
+ &__emailPop{
+    &__wrapper{
+        width: 100%;
+        z-index: 3;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #000000c7;
+    }
+    &__div{
+        margin: 0 auto;
+        width: 400px;
+        background:#ffffff00;
+        height: 100px;
+        border-radius: 20px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        margin-top: -50px;
+        margin-left: -200px;
     
+    }
+    &__inner{
+        z-index: 30;
+        padding: 35px;
+        input[type='email']{
+            color: #6f6f6f;
+            font-size: 13px;
+            width: 250PX;
+            outline: none;
+            background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+            box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+            text-align: center;
+            margin-left: 10px;
+            font-size: 13px;
+            color: #fff;
+            height: 35px;
+            border: none;
+            background-size: 300% 100%;
+            moz-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        }
+        input[type='submit']{
+            background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+            box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+            text-align: center;
+            font-size: 13px;
+            color: #fff;
+            cursor: pointer;
+            height: 35px;
+            border: none;
+            background-size: 300% 100%;
+            moz-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        
+        }
+    }
+}
+
+
 }
 
 
@@ -452,4 +514,9 @@ p{
     100% {
         background-position: 50px 50px
     }
+}
+
+.i-selected>img{
+    filter: none;
+    transform: scale(1.3);
 }

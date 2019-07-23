@@ -26,6 +26,7 @@ module.exports = {
                   count = res_size.length
                 }
                 stats = {
+                  ...item,
                   minifiedSize: count,
                   originalSize: item.deadlink.resourceSize,
                   efficiency: (count/item.deadlink.resourceSize)-1,
@@ -34,6 +35,7 @@ module.exports = {
               }else{
                 result =  new CleanCSS(options).minify(body);
                 stats = {
+                  ...item,
                   minifiedSize: result.stats.minifiedSize,
                   originalSize: result.stats.originalSize,
                   efficiency: result.stats.efficiency
@@ -50,7 +52,7 @@ module.exports = {
       });
      return Promise.all(promises).then((result)=>{
         console.log('all solved');
-        console.log(result);
+      //  console.log(result);
         return result;
       });
 
