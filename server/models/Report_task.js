@@ -10,8 +10,7 @@ var bcrypt = require('bcrypt-nodejs');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 const Job = require("../models/report_models/Jobs");
-
-
+const Webshot = require("../models/report_models/Webshot");
 module.exports = {
     
     async generateReport(body,req){
@@ -42,8 +41,25 @@ module.exports = {
         newJob.uid = uid;
         newJob.website = web;
         newJob.save();
+        let result_1;
+        let perf = [];
+        function performance_call(){
+            return new Promise( function(resolve,reject){
+                result_1 = seo_tasks.get_performance(web);
+                resolve(result_1);
+            });
+            
+        };
+        perf.push(performance_call());
+        Promise.all(perf).then((res)=>{
+            console.log("performance done");
+            //console.log(res[0].minify);
+        
+     
         function api_call(item_index){
             return new Promise( function(resolve,reject){
+
+                
                 let result = null;
                 switch(item_index){
                     case 0:
@@ -59,10 +75,11 @@ module.exports = {
                         result = null ;
                         break;
                     case 4:
-                        result = null ;
+                        result =  (options[item_index]) ? minifier.checkIfMinify(res[0].minify) : null;
                         break;
                     case 5:
-                      
+                        result =  (options[item_index]) ? res : null;
+                        
                         break;
                     case 6: 
                         result = (options[item_index]) ? bk_sitemap.generateSiteMap(web,req,uid) :null;
@@ -74,43 +91,42 @@ module.exports = {
                         result = (options[item_index]) ? seo_tasks.get_imgAlt(web) :null;
                         break;
                     case 9:
-                        result = (options[item_index]) ?  webshot.createWebShoot(web,req,uid) :null;
+                        result = (options[item_index]) ?  webshot.createWebShootReport(web,id) :null;
                         break;
-                };
+                }
 
               //      newReport.performance = data_get['speed-index'];
                   //  newReport.resources = data_get['network-requests'];
                   io.emit(id,1);
+                console.log("["+ item_index +"]: Done");
                 resolve(result);
             });
-        };
+        }
   
         let i = -1;
         options.forEach(function(item){
             i++;
-            if(i === 5){
-                promises.push(seo_tasks.get_performance(web));
-            }else{
-                promises.push(api_call(i));
-            }
-          
+            promises.push(api_call(i));
         });
         
         Promise.all(promises).then((results)=>{
-            
+            console.log(results[8]);
         newReport.performance =[
-        results[5]['speed-index'],
-        results[5]['first-cpu-idle'],
-        results[5]['first-contentful-paint'],
-        results[5]['first-meaningful-paint'],
-        results[5]['interactive'],
+        res[0]['speed-index'],
+        res[0]['first-cpu-idle'],
+        res[0]['first-contentful-paint'],
+        res[0]['first-meaningful-paint'],
+        res[0]['interactive'],
         ];
-        newReport.resources = results[5]['network-requests'];
+        newReport.resources = res[0]['network-requests'];
         newReport.user = uid;
         newReport.email = "fake@email.com";
         newReport.id = id;
         newReport.date = start_date;
         newReport.website = web;
+        newReport.minify = results[4];
+        newReport.imgAlt = results[8];
+        newReport.options = options;
         if(results[0]){ newReport.htag = results[0]; };
         
         if(results[1]){ 
@@ -121,7 +137,9 @@ module.exports = {
             newCert.subjectaltname = results[1].subjectaltname;
             newCert.valid_from = results[1].valid_from;
             newCert.valid_to = results[1].valid_to;
+            newCert.fingerprint = results[1].fingerprint;
             newReport.ssl = newCert;
+            
             newCert.save();
          };
          
@@ -136,7 +154,27 @@ module.exports = {
             newReport.metadata = newMeta;
             newMeta.save();
          }
+         if(results[9]){
+             
+             const newWebshot = new Webshot();
+             newWebshot.id = id;
+             newWebshot.tabletPic = results[9].tabletPic;
+             newWebshot.phonePic = results[9].phonePic;
+             newWebshot.desktopPic = results[9].desktopPic;
+             newReport.webshot = newWebshot;
+             newWebshot.save();
+         }
       
+
+
+         Job.deleteOne({ id: id }, function(err) {
+            if (!err) {
+                console.log("job deleted");
+            }else {
+                console.log(" Job not deleted");
+            }
+         });
+        
         newReport.save((err)=>{
           if(err){
             return({
@@ -144,19 +182,22 @@ module.exports = {
               message: 'Error: Server error'
             });
           }
+          
+          io.emit('update_job',"update_job");
+
           return ({
             success:true,
-            message: 'Error creating report'
+            message: 'Report Created'
           })
         })
-
           console.log('all solved');
          // console.log(results);
         });
 
         return id;
 
-
+    });
     }
+
 }
 

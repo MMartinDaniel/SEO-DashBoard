@@ -11,7 +11,6 @@ class ItemProgress extends React.Component {
             start_formated: new Date(props.data.start_date),
             elapsed_time: null,
             percentage: null,
-            endpoint: "http://127.0.0.1:80",
             response: false,
         }
         this.removeFromJobsQueue = this.removeFromJobsQueue.bind(this);
@@ -19,10 +18,10 @@ class ItemProgress extends React.Component {
     }
     componentWillMount() {
 
-        const { endpoint,current } = this.state;
+        const { current } = this.state;
         const {id} = this.props.data;
-        const socket = socketIOClient(endpoint);
-        socket.on(id, data =>{
+       
+        this.props.socket.on(id, data =>{
             console.log(data);
             this.setState({current: current+1 });  
         });

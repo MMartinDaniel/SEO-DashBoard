@@ -17,7 +17,9 @@ var reportSchema = new Schema({
     imgAlt:{type:[],required:false},
     resources:{type:[],required:false},
     date:{type:Date,require:false},
-    minify:{type:[],required:false}
+    minify:{type:[],required:false},
+    options:{type:[],required:false},
+
 });
 
 module.exports = mongoose.model('Report',reportSchema);
