@@ -21,11 +21,9 @@ var options_desktop = {
   }
   , shotSize: {
     width: 1920
-    , height: 'all'
-  }
-  , userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-    + 'AppleWebKit/537.36 (KHTML, like Gecko)'
-  + 'Chrome/60.0.3112.113' + 'Safari/537.36'
+    , height: 1080
+  }, renderDelay: 5000
+  , userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36",
 };
 var options_tablet = {
 
@@ -45,7 +43,7 @@ var options_tablet = {
 module.exports = {
   createWebShoot: async function(url,req,uid){
     var file = uid+".jpeg";
-    var location = 'client/public/assets/img/';
+    var location = 'client/public/assets/img/webshots/';
     console.log('generating...webshotfile-'+uid + " in: "+location+"tablet-"+file);
     var io = req.app.get('socketio');
     webshot(url,location+"tablet-"+file, options_tablet, function(err) {
@@ -61,5 +59,22 @@ module.exports = {
       console.log('pphone generated');
       io.emit('webshotfile-'+uid,"phone-"+file);
     });
+  },
+  createWebShootReport: async function(url,id){
+    var file = id+".jpeg";
+    var location = 'client/public/assets/img/webshots/';
+    webshot(url,location+"tablet-"+file, options_tablet, function(err) {
+      console.log('tablet generated');
+    });
+    webshot(url,location+"desktop-"+file, options_desktop, function(err) {
+      console.log('desktop generated');
+    });
+
+    webshot(url,location+"phone-"+file, options_phone, function(err) {
+      console.log('phone generated');
+    });
+    console.log({   tabletPic: `${location}tablet-${file}` ,phonePic: `${location}phone-${file}` , desktopPic: `${location}desktop-${file}` });
+    return {   tabletPic: `tablet-${file}` ,phonePic: `phone-${file}` , desktopPic: `desktop-${file}` };
+
   }
 };

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../style.scss';
+
 class PopUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            options:[false,false,false,false,false,false,false,false,false],
+            options:[false,false,false,false,false,false,false,false,false,false],
             website: '',
         }
     

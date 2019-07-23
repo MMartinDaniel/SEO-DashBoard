@@ -9,6 +9,7 @@ var sslSchema = new Schema({
     SerialNumber:{type:String,required:false},
     subjectaltname:{type:String,required:false},
     valid_from:{type:String,required:false},
+    fingerprint:{type:String,required:false},
     valid_to:{type:String,required:false},
 });
 

@@ -17,9 +17,9 @@ class Profile extends Component {
             stats: obj,
             cards: [],
             percentage: null,
-            endpoint: "http://127.0.0.1:80",
             response: false,
-            in_progress_sate: [],            
+            in_progress_sate: [],     
+            socket: socketIOClient("http://localhost:80"),  
         }
     }
 
@@ -28,23 +28,34 @@ class Profile extends Component {
       }
 
     componentWillMount() {
-        const {uid} = this.state.stats;
-        fetch('/library/user/reports?uid='+ uid).then(response => response.json())
-        .then(data => {
-            console.log(data.data);
-          this.setState({cards:data.data});
+
+        this.state.socket.on("update_job", data =>{
+            this.updateTable();
+            console.log("called");
         });
+        this.updateTable();
     }
+
+   updateTable(){
+       const {uid} = this.state.stats;
+       fetch('/library/user/reports?uid='+ uid).then(response => response.json())
+       .then(data => {
+           console.log("updated");
+           this.setState({cards:data.data});
+       });
+   }
+
+
     render() {
         
-        const {cards,stats,in_progress_sate} = this.state;
+        const {cards,stats,in_progress_sate,socket} = this.state;
         console.log(in_progress_sate);
         const basename = "profile";
         return (
             <div>
                 <Header basename={basename} history={this.props.history} stats={stats} />
-                <CardGrid cards={cards} basename={basename}/>
-                <ProgressTable stats={stats}  basename={basename}/>
+                <CardGrid cards={cards} basename={basename} stats={stats}/>
+                <ProgressTable socket={socket} stats={stats}  basename={basename}/>
             </div>
         )
     }

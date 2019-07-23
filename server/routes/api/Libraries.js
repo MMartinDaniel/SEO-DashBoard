@@ -6,6 +6,16 @@ const path = require('path');
 const Report = require('../../models/Report');
 const Job = require ('../../models/report_models/Jobs');
 const User = require("../../models/User");
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'staticautoreply@gmail.com',
+    pass: 'autoreply123'
+  }
+});
+
 module.exports = (app) => {
 
   app.post('/library/fullReport', async (req,res,next)=>{
@@ -14,9 +24,10 @@ module.exports = (app) => {
       res.send({response:true,data:data});
   });
 
-  app.get('/library/Report',(req,res,next)=>{
-    const {id} = req.query;
-    var populateQuery = [{path:'metadata'},{path:'ssl'}];
+  app.get('/library/user/Report/:id',(req,res,next)=>{
+    const { id } = req.params;
+    console.log(id);
+    var populateQuery = [{path:'metadata'},{path:'ssl'},{path: 'webshot'}];
     Report.findOne({ id: id }).populate(populateQuery).exec((err,report)=> {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
@@ -27,7 +38,32 @@ module.exports = (app) => {
   })});
 
 
-  
+  app.post('/library/user/email',(req,res,next)=>{
+    const {body} = req;
+    const {email,id,uid} = body;   
+    console.log(body);
+    User.findOne({ _id: uid }, function(err) {
+      if (err) {
+        return res.send({success:true,message: "Error: Server Error",});
+      }else {
+        var mailOptions = {
+          from: 'staticautoreply@gmail.com',
+          to: email,
+          subject: 'Sent you a report',
+          html: "Sent you a report, to check it please click on the following <a href='http://localhost:8080/Report/"+id+"'>Link</a>",
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        return res.send({success:true,message: "Success: sent",});
+      }
+   });
+  });
 
 
   app.get('/library/user/onProgress',(req,res,next)=>{
@@ -42,6 +78,19 @@ module.exports = (app) => {
         return res.send({success:true,message:"No matching data",data:[]});
       }
     });
+  });
+  
+
+ 
+  app.delete('/library/user/report/:id',(req,res,next)=>{
+    const { id } = req.params;
+    Report.remove({ id: id }, function(err) {
+      if (!err) {
+        return res.send({success:true,message: "Error: Server Error",});
+      }else {
+        return res.send({success:true,message: "Success: Deleted",});
+      }
+   });
   });
 
   app.delete('/library/user/jobs/:id',(req,res,next)=>{

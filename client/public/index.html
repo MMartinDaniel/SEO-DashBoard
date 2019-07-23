@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <!-- Bootstrap core CSS -->
 
-  <link href="assets/styles/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/assets/styles/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- REACT TABLE -->
   <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"/>
 
@@ -29,8 +29,9 @@
 
   <!-- Bootstrap core JavaScript -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="assets/javascripts/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Slick -->
+<!--  <script src="assets/javascripts/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>  
+<!-- Slick -->
   <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
 
@@ -41,7 +42,6 @@
       $("#wrapper").toggleClass("toggled");
     });
 
-    var socket = io('http://localhost');
   /*
     socket.on('news', function (data) {
       console.log(data);
