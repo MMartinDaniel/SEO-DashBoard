@@ -1,27 +1,37 @@
 import React from 'react';
 import '../style.scss';
 import ItemProgress from "./ItemProgress";
+import socketIOClient  from "socket.io-client";
 
 class ProgressTable extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
             onProgress:[],
+            endpoint: "http://127.0.0.1:80",
+            update:false,
         };
 
     }
     componentWillMount() {
+         this.props.socket.on("update_job", data =>{
+            this.updateTable();
+            console.log("called");
+        });
+        this.updateTable();
+    }
+    updateTable(){
         const {uid} = this.props.stats;
         fetch('/library/user/onProgress?uid='+ uid).then(response => response.json())
         .then(data => {
+            console.log("updated");
             this.setState({onProgress:data.data});
         });
     }
 
 
-
     render() {
-        let {basename} = this.props;
+        let {basename,socket} = this.props;
         let {onProgress} = this.state;
         basename = `${basename}_ProgressTable__`;
         console.log(onProgress);
@@ -33,7 +43,7 @@ class ProgressTable extends React.Component {
                 { 
                     (onProgress.length > 0) ?
                         onProgress.map((item,i)=>{
-                          return <ItemProgress basename={basename} key={i} data={item}/>  
+                          return <ItemProgress socket={socket} basename={basename} key={i} data={item}/>  
                         })
                         : null
                     }

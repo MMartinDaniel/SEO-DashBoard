@@ -17,18 +17,9 @@ class Performance extends Component {
       this.slider.slickPrev();
     }
     render(){
-        let data =[];
-        data['speed-index'] = {title: 'speed index',displayValue:1.0};
-        data['first-cpu-idle'] ={title: 'first cpu idle',displayValue:1.0};
-        data['first-contentful-paint'] = {title: 'first contentful paint',displayValue:1.0};
-        data['first-meaningful-paint'] ={title: 'first meaningful paint',displayValue:1.0};
-        data['interactive'] = {title: 'Time to interactive',displayValue:1.0};
-        var settings = {
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1
-
-        };
+       
+        let {data} = this.props;
+        const {settings} = this.props;
         return (
             <>
             <Slider  ref={c => (this.slider = c)} {...settings}>
@@ -48,11 +39,12 @@ class Performance extends Component {
                 <div>
                     <div className={"report-performance"} >
                         <div className='tile-container'>
-                        <Tile data={data['speed-index']}/>
-                        <Tile data={data['first-cpu-idle']}/>
-                        <Tile data={data['first-contentful-paint']}/>
-                        <Tile data={data['first-meaningful-paint']}/>
-                        <Tile data={data['interactive']}/>
+                            {
+                                data.map((item,i)=>{
+                                    return <Tile key={i} data={item} />
+                                })
+                            }
+                      
                         </div>
                     </div>
                     <div className={"explanation"}>

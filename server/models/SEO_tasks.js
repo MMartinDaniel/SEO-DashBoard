@@ -185,7 +185,8 @@ module.exports = {
       }).get();
 
     }catch(e){
-    };
+      return e;
+    }
     return {data:favicon_list, count:count, status:'success',errors:''};
   },
 
@@ -196,7 +197,18 @@ module.exports = {
       url = "http://" + url;
     }
     return fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+url+'&category=performance').then(response => response.json())
-      .then(data => {return data.lighthouseResult.audits});
+      .then(data => {
+         let parsed_data = [];
+          data.lighthouseResult.audits['network-requests'].details.items.forEach( item =>{
+          if(item.resourceType === "Stylesheet" || item.resourceType === 'Script'){
+            let filename = item.url.substring(item.url.lastIndexOf('/')+1);
+            parsed_data.push({deadlink:item,status:false,where:item.url,name:filename});
+          }
+        });
+        data.lighthouseResult.audits['minify'] = parsed_data;
+        return data.lighthouseResult.audits
+      
+      });
     },
 
 
@@ -257,32 +269,26 @@ module.exports = {
         count++;
         let obj = {url: item.attr('src'),alt: item.attr('alt')};
         var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
-        if(isAlready.length > 0){
-        }else{
+        if(!isAlready.length > 0){
           img_no_tag.push(obj);
         }
         resolve(item);
       });
     }
+    let promises = [];
+
     try {
       html("img").map( function(){
-        count++;
-        let obj = {url: html(this).attr('src'),alt: html(this).attr('alt')};
-        var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
-        if(isAlready.length > 0){
-        }else{
-          img_no_tag.push(obj);
-        }
-        count++;
+        promises.push(api_call(html(this)));
       }).get();
 
     }catch(e){
-    };
-
-    console.log('Total images:' + count);
-    return { imgAlt: img_no_tag, status:'success',errors:''};
-
-
+      console.log(e);
+    }
+    return Promise.all(promises).then((results)=>{
+      console.log('Total images:' + count);
+      return { imgAlt: img_no_tag, status:'success',errors:''};
+    });
 
     /*
         const html = await this.loadHtml(url);
