@@ -29,6 +29,10 @@ class Profile extends Component {
 
     componentWillMount() {
 
+        this.state.socket.on("test", data =>{
+            console.log("received");
+            console.log(data);
+        });
         this.state.socket.on("update_job", data =>{
             this.updateTable();
             console.log("called");

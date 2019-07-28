@@ -207,7 +207,6 @@ module.exports = {
         });
         data.lighthouseResult.audits['minify'] = parsed_data;
         return data.lighthouseResult.audits
-      
       });
     },
 

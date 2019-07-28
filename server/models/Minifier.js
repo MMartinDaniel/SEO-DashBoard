@@ -5,7 +5,7 @@ let CleanCSS = require('clean-css');
 
 module.exports = {
 
-      checkIfMinify(data){
+      async checkIfMinify(data){
       let promises = [];
 
       function api_call(item){
