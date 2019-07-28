@@ -9,6 +9,8 @@ import Resources from './Types/Resources';
 import Tag from './Types/Tag'
 import Minify from './Types/Minify'
 import Alternative from './Types/Alternative'
+import Indexation from './Types/Indexation'
+import BrokenLinks from './Types/BrokenLinks'
 class StaticReport extends Component {
     constructor(props) {
         super(props);
@@ -60,8 +62,9 @@ class StaticReport extends Component {
             case 2:     return <MetaInfo        data={data.metadata} url={data.website} setting />;
             case 7:     return <Resources       data={data.resources} setting />;
             case 1:     return <Ssl             data={data.ssl} settings />;
+            case 3:     return <BrokenLinks     data={data.brokenLinks[0]} settings />;
             case 8:     return <Alternative     data={data.imgAlt[0].imgAlt} settings />;
-
+            case 6:     return <Indexation      data={data.sitemap[0]} settings />;
             case 4:     return <Minify          data={data.minify} settings />;
             case 0:     return <Tag             data={data.htag[0]} settings />;
             case 9:     return <Webshot         data={data.webshot} settings />;
@@ -120,10 +123,10 @@ const TABS =[
     {src:"../assets/img/icon/32x32.png", title: "Tags Information", subtitle: "Information about tags" },
     {src:"../assets/img/icon/ssl.png", title: "SSL Information", subtitle: "Information about SSL Certificate" },
     {src:"../assets/img/icon/meta.png", title: "Meta Information Results", subtitle: "Information about meta tags" },
-    {src:"../assets/img/icon/broken.png", title: "Meta Information", subtitle: "Information about meta tags" },
+    {src:"../assets/img/icon/broken.png", title: "BrokenLinks Information", subtitle: "Information about brokenlinks" },
     {src:"../assets/img/icon/minify2.png", title: "Minify Information", subtitle: "Information Minification savings" },
     {src:"../assets/img/icon/performance.png", title: "Performance Results", subtitle: "PageSpeed Insights" },
-    {src:"../assets/img/icon/sitemap.png", title: "Meta Information", subtitle: "Information about meta tags" },
+    {src:"../assets/img/icon/sitemap.png", title: "Indexation Information", subtitle: "Information Sitemap and robots files" },
     {src:"../assets/img/icon/resources.png", title: "Resources Information", subtitle: "Information about webpage sizing"  },
     {src:"../assets/img/icon/alternative.png", title: "Alternative Information", subtitle: "Information about Alternative metadata" },
 
