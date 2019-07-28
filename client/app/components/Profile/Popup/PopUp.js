@@ -99,7 +99,7 @@ const TABS =[
     {name:"BrokenLinks",  value:3,icon: 'broken.png'},
     {name:"Minify",         value:4,icon: 'minify2.png'},
     {name:"Performance",  value:5, icon: 'performance.png'},
-    {name:"SiteMap",  value:6, icon: 'sitemap.png'},
+    {name:"Indexation",  value:6, icon: 'sitemap.png'},
     {name:"Resources",  value:7, icon: 'resources.png'},
     {name:"Alternative",  value:8,icon: 'alternative.png'},
     {name:"ScreenShot",  value:9,icon: 'screenshot.png'},
