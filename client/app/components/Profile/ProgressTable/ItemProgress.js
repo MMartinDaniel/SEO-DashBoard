@@ -22,9 +22,12 @@ class ItemProgress extends React.Component {
         const {id} = this.props.data;
        
         this.props.socket.on(id, data =>{
+            console.log("received");
             console.log(data);
             this.setState({current: current+1 });  
         });
+
+        
     }
 
     tick() {
@@ -46,6 +49,7 @@ class ItemProgress extends React.Component {
     }
     componentWillUnmount () {
         clearInterval(this.timer)
+        
       }
       removeFromJobsQueue(){
         const {id} = this.props.data;

@@ -31,7 +31,8 @@ module.exports = {
         results[8] = (options[8]) ? seo_tasks.get_imgAlt(web) : null;
         results[9] = (options[9]) ? webshot.createWebShoot(web,req,uid) : null;
         */
-        
+
+//              }, 2000);
         let promises = [];
         var io = req.app.get('socketio');
         const newReport = new Report();
@@ -43,6 +44,10 @@ module.exports = {
         newJob.save();
         let result_1;
         let perf = [];
+        io.on("test", data =>{
+            console.log("received");
+            console.log(data);
+            });
         function performance_call(){
             return new Promise( function(resolve,reject){
                 result_1 = seo_tasks.get_performance(web);
@@ -50,15 +55,27 @@ module.exports = {
             });
             
         };
+        function sitemap_call(){
+            return new Promise( function(resolve,reject){
+                result_1 = bk_sitemap.generateSiteMap_back(web,req,id)
+        //        setInterval(function(){ 
+                   
+                resolve(result_1);
+            });
+            
+        };
         perf.push(performance_call());
+        (options[3] || options[6]) ? perf.push(sitemap_call()): null;
+
         Promise.all(perf).then((res)=>{
             console.log("performance done");
+         //   console.log(res[1][0]);
             //console.log(res[0].minify);
-        
+         //   console.log(res[1][0].url);
      
         function api_call(item_index){
             return new Promise( function(resolve,reject){
-
+               
                 
                 let result = null;
                 switch(item_index){
@@ -72,7 +89,7 @@ module.exports = {
                         result =  seo_tasks.get_TitleMeta(web);
                         break;
                     case 3:
-                        result = null ;
+                       result = (options[item_index]) ? bk_sitemap.displayBrokenLink_back(null,req,res[1][0].url) : null;
                         break;
                     case 4:
                         result =  (options[item_index]) ? minifier.checkIfMinify(res[0].minify) : null;
@@ -82,8 +99,8 @@ module.exports = {
                         
                         break;
                     case 6: 
-                        result = (options[item_index]) ? bk_sitemap.generateSiteMap(web,req,uid) :null;
-                        break;
+                        result = (options[item_index]) ? 1 :null;
+                    break;
                     case 7: 
                         result = (options[item_index]) ? 1 :null;
                         break;    
@@ -97,9 +114,9 @@ module.exports = {
 
               //      newReport.performance = data_get['speed-index'];
                   //  newReport.resources = data_get['network-requests'];
-                  io.emit(id,1);
+                  io.emit(id,item_index);
                 console.log("["+ item_index +"]: Done");
-                resolve(result);
+                resolve(result).then();
             });
         }
   
@@ -111,6 +128,7 @@ module.exports = {
         
         Promise.all(promises).then((results)=>{
             console.log(results[8]);
+            console.log(results[3]);
         newReport.performance =[
         res[0]['speed-index'],
         res[0]['first-cpu-idle'],
@@ -127,6 +145,8 @@ module.exports = {
         newReport.minify = results[4];
         newReport.imgAlt = results[8];
         newReport.options = options;
+        newReport.sitemap = res[1];
+        newReport.brokenLinks = results[3];
         if(results[0]){ newReport.htag = results[0]; };
         
         if(results[1]){ 
