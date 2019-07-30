@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import RatingWidget from './../../SEO/block/RatingWidget'
 import Slider from "react-slick"
+import isAbsoluteUrl from 'is-absolute-url'
 
 class Alternative extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Alternative extends Component {
     
     render(){
         let {data} = this.props;
-        const {settings} = this.props;
+        const {settings,url} = this.props;
         let total = 0;
         data.map((item)=>{
             if(item.alt){
@@ -57,7 +58,7 @@ class Alternative extends Component {
                                   
                             
                                     return (
-                                            <Tile key={i} icon={"none"} item={item} type={"no"} />
+                                            <Tile key={i} icon={"none"} url={url} item={item} type={"no"} />
                                     );
                                 })
 
@@ -89,7 +90,7 @@ class Tile extends Component{
         <>
           <div className="noalt-item">
                 <div className='noalt-item-title'> 
-                    <div className={"pic-wrapper"} ><a href={item.url} target="_blank"><img src={item.url}/></a> </div>
+                    <div className={"pic-wrapper"} ><a href={isAbsoluteUrl(item.url) ? item.url : `http://${this.props.url}${item.url}` } target="_blank"><img src={isAbsoluteUrl(item.url) ? item.url : `http://${this.props.url}${item.url}`}/></a> </div>
                     <div className="noalt-tile-text">
                         <p className="noalt-tile-name">{(item.alt.length === 0 ) ? "No alternative set" : item.alt}</p>
                     </div>
