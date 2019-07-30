@@ -258,6 +258,21 @@ p{
             font-weight: 300;
             letter-spacing: 1px;
             padding-left: 30px;
+            display: inline-flex;
+        }
+
+
+        .form-validator{
+            color: #ff0707;
+            margin-left: 30px;
+            font-size: 0.9em;
+            font-weight: 200;        
+        }
+        .form-hidden{
+            display: none;
+        }
+        .form-visible{
+            display: inline-flex;
         }
     }
     &__cropped{

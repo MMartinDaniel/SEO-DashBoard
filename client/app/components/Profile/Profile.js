@@ -57,7 +57,7 @@ class Profile extends Component {
         const basename = "profile";
         return (
             <div>
-                <Header basename={basename} history={this.props.history} stats={stats} />
+                <Header basename={basename} history={this.props.history} nreports={cards.length} stats={stats} />
                 <CardGrid cards={cards} basename={basename} stats={stats}/>
                 <ProgressTable socket={socket} stats={stats}  basename={basename}/>
             </div>
