@@ -37,7 +37,12 @@ class StaticReport extends Component {
             this.setState({
                 data:json.data,
             })
-        })
+        }).then( data => {
+            for(let x = 0; x < this.state.data.options.length; x++){
+                if(this.state.data.options[x]){this.selectItem(x,TABS[x]);break;}
+            }
+            }
+        );    
     }
 
     componentDidMount() {
@@ -63,7 +68,7 @@ class StaticReport extends Component {
             case 7:     return <Resources       data={data.resources} setting />;
             case 1:     return <Ssl             data={data.ssl} settings />;
             case 3:     return <BrokenLinks     data={data.brokenLinks[0]} settings />;
-            case 8:     return <Alternative     data={data.imgAlt[0].imgAlt} settings />;
+            case 8:     return <Alternative     data={data.imgAlt[0].imgAlt} url={data.website} settings />;
             case 6:     return <Indexation      data={data.sitemap[0]} settings />;
             case 4:     return <Minify          data={data.minify} settings />;
             case 0:     return <Tag             data={data.htag[0]} settings />;
@@ -75,8 +80,9 @@ class StaticReport extends Component {
     render() {
         const basename = 'sreport';
         const {selected,title,subtitle,data} = this.state;
+       
         console.log(data);
-      
+        console.log(selected);
         return (<>
             <div className={`${basename}__wrapper`} >
                 <div className={`${basename}__grid`}>
@@ -103,7 +109,8 @@ class StaticReport extends Component {
                             <p>{subtitle}</p>
                         </div>
                         <div className={`${basename}__content`}>
-                        { (data) ? this.renderSwitch(selected) : null }
+                        { (data) ? this.renderSwitch(selected) : null
+                        }
                         </div>
                     </div>
                      <div className={`${basename}__right`}>
@@ -122,7 +129,7 @@ StaticReport.propTypes = {
 const TABS =[
     {src:"../assets/img/icon/32x32.png", title: "Tags Information", subtitle: "Information about tags" },
     {src:"../assets/img/icon/ssl.png", title: "SSL Information", subtitle: "Information about SSL Certificate" },
-    {src:"../assets/img/icon/meta.png", title: "Meta Information Results", subtitle: "Information about meta tags" },
+    {src:"../assets/img/icon/meta.png", title: "Meta Information Results", subtitle: "Information about meta tags and Preview" },
     {src:"../assets/img/icon/broken.png", title: "BrokenLinks Information", subtitle: "Information about brokenlinks" },
     {src:"../assets/img/icon/minify2.png", title: "Minify Information", subtitle: "Information Minification savings" },
     {src:"../assets/img/icon/performance.png", title: "Performance Results", subtitle: "PageSpeed Insights" },

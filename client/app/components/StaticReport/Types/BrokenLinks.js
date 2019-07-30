@@ -93,7 +93,7 @@ class Tile extends Component{
                 <div className='broken-item-title'> 
                     <img src={'/assets/img/icon/' + icon }/>
                     <div className="broken-tile-text">
-                        <p className="broken-tile-name">{item.deadlink}</p>
+                        <p className="broken-tile-name"><a href={item.deadlink}>{item.deadlink}</a></p>
                         <p className="broken-tile-saving">Location: {item.where}</p>
                     </div>
                 </div>

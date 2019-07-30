@@ -33,7 +33,9 @@ class Indexation extends Component {
                     </div>
                     <div className={"explanation"}>
                         <h6>Description</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                        <p><code class="highlighter-rouge">Sitemap</code> is in general very related to how Google indexes pages, the Sitemap XML help Google by making his life easier due to some pages are doesn't have other pages pointing to them.
+                        It is a good practice to use the <a href='https://search.google.com/search-console/'><code class="highlighter-rouge">Google Search Console</code></a>  to see if your pages has been actually been indexed by Google.
+                        </p>
                     </div> 
                 </div> 
                 <div>

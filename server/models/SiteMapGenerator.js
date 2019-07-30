@@ -263,13 +263,13 @@ module.exports = {
         var io = req.app.get('socketio');
         var crawler = new Crawler(url);
         var builder = require('xmlbuilder');
-        var pages = []; // This array will hold all the URLs
+        var pages = []; 
         // Crawler configuration
         crawler.initialPort = port;
         crawler.initalPath = '/';
         crawler.interval=10;
         crawler.addFetchCondition(function (parsedURL) {
-          return !parsedURL.path.match(regex); // This will reject anything that's not a link.
+          return !parsedURL.path.match(regex); 
         });
         // Run the crawler
         crawler.start();
@@ -337,15 +337,16 @@ module.exports = {
         let count = 0;
         crawler.discoverResources = function(buffer,queueItem){
           /*console.log("\n link from : " +queueItem.url + "   adding: "); */
-          var domain = queueItem.url.match(/^http:\/\/[^/]+/);
+          let pattern = /^((http|https|ftp):\/\/)/;
+          var domain = queueItem.url.match(pattern);
           brokenLinks.push({location:queueItem.url, bklinks:[]});
           var $ = cheerio.load(buffer.toString('utf-8'));
           return $("a[href]").map( function(){
-            var url = $(this).attr("href").match(/^http:\/\/[^/]+/);
+            var url = $(this).attr("href").match(pattern);
               if( url && url[0].localeCompare(domain) ){
                 brokenLinks[brokenLinks.length-1].bklinks.push(url.input);// console.log(url.input +",");
                 count++;
-              };
+              }
             return $(this).attr("href")
           }).get();
 

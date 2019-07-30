@@ -8,11 +8,13 @@ class PopUp extends Component {
         this.state = {
             options:[false,false,false,false,false,false,false,false,false,false],
             website: '',
+            atLeastOne: false,
         }
     
         this.selectBox = this.selectBox.bind(this);
         this.sendReport = this.sendReport.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
 
     }
 
@@ -22,6 +24,7 @@ class PopUp extends Component {
         let {options} = this.state;
         options[n] = !(options[n]);
         this.setState({options : options});
+        if(options.includes(true)){this.setState({atLeastOne:true})}else{this.setState({atLeastOne: false})}
         console.log(options);
     }
 
@@ -34,38 +37,43 @@ class PopUp extends Component {
         this.setState({website: event.target.value});
     }
     sendReport(){
-       
         const {options} = this.state;
-        fetch('/library/fullReport',{
-          method:'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            web: this.state.website,
-            options: options,
-            uid: this.props.stats.uid
-          })
-        }).then(
-            window.location.reload()
-        )
+        console.log(options.includes(true));
+        
+        if(options.includes(true)){
+
+            fetch('/library/fullReport',{
+            method:'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                web: this.state.website,
+                options: options,
+                uid: this.props.stats.uid
+            })
+            }).then(
+               window.location.reload()
+            )
+        }
     }
 
     render() {
-        const {options} = this.state;
+        const {options,atLeastOne} = this.state;
         console.log(this.props);
         let {basename} = this.props; 
         basename = `${basename}__popup`;
         return (<>
             <div className={`${basename}__wrapper` } >
+                <form onSubmit={(e) => e.preventDefault()}>
                 <div className={`${basename}__inner`}>
                     <div className={`${basename}__header`}>
                         <div className={`${basename}__cropped`}><span>New Report</span></div>
-                        <input type='text' onChange={this.handleChange} value={this.state.website} placeholder='Website'></input>
+                        <input required type='text' onChange={this.handleChange} value={this.state.website} placeholder='Website URL'></input>
                     </div>
                     <div className={`${basename}__options-body`}>
-                        <h3>Options</h3>
+                        <h3>Options</h3><span className={(!atLeastOne) ? "form-visible form-validator" : "form-hidden form-validator" }>Please, select at least one option.</span>
                         <div className={`${basename}__options-wrapper`}>
                             {
                                 TABS.map((item, i)=>{
@@ -81,11 +89,12 @@ class PopUp extends Component {
                             }    
                         </div>
                         <div className={`${basename}__button--wrap`}>
-                            <input type='submit' className={`${basename}__button`} onClick={this.sendReport} value='Generate Report' />
+                            <input type='submit' className={`${basename}__button`}  onClick={this.sendReport} value='Generate Report' />
                             <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Close </button>       
                         </div>                   
                     </div>
-                </div>      
+                </div>
+                </form>      
             </div>
             </>
         );

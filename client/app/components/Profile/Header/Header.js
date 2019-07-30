@@ -24,7 +24,7 @@ class Header extends Component {
 
     render() {
         const picture = 'avatar.jpg';
-        const {basename,stats} = this.props;
+        const {basename,stats,nreports} = this.props;
         const {toggle} = this.state;
         return (
             <>
@@ -40,7 +40,7 @@ class Header extends Component {
                 </div>
                 <div className={`${basename}__reportes`}>
                     <strong>Reportes generador</strong>
-                    <p>5</p>
+                    <p>{nreports}</p>
                 </div>
                 <div className={`${basename}__button--wrap`}>
                    <button onClick={this.toggle} className={`${basename}__button`}>Generate Report</button>
