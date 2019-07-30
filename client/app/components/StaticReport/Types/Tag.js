@@ -32,7 +32,8 @@ class Tag extends Component {
                     </div> 
                     <div className={"explanation"}>
                         <h6>Description</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>H tags, expecially the <code className="highlighter-rouge">H1</code> tag are very important to determine the main topic that the page is going to talk about. then  <code className="highlighter-rouge">H2</code> to <code className="highlighter-rouge">H6</code> which define a deeper and more concrete information about the main topic.<br>
+                        </br>H1 tags are also very important for people with <a href='https://en.wikipedia.org/wiki/Visual_impairment'><code className="highlighter-rouge">Visual Impairment</code></a> since screen readers use H tags to describe the content of the current page. And since Google is very concerned about usability, this tags are really important. </p>
                         </div> 
                 </div> 
                 <div>

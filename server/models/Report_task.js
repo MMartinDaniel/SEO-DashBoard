@@ -151,6 +151,7 @@ module.exports = {
         
         if(results[1]){ 
             const newCert = new Ssl();
+            if(results[1] !== null){
             newCert.id = id;
             newCert.issuer = results[1].issuer.CN;
             newCert.SerialNumber = results[1].serialNumber;
@@ -158,10 +159,11 @@ module.exports = {
             newCert.valid_from = results[1].valid_from;
             newCert.valid_to = results[1].valid_to;
             newCert.fingerprint = results[1].fingerprint;
+            }
             newReport.ssl = newCert;
-            
             newCert.save();
-         };
+
+         }
          
          if(results[2]){
             const newMeta = new Metadata();

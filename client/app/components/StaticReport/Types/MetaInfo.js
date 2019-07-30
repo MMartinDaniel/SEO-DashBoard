@@ -26,29 +26,35 @@ class MetaInfo extends Component {
                 <div>
                     <div className={"metaInfo-title"}>
 
-                            <div className={"metaInfo-item"}><h5>Title</h5><p> {data.title} </p></div> 
-                            <div   className={"metaInfo-item"} ><h5>Description</h5><p> {data.description} </p></div> 
-                            <div className={"metaInfo-item"} ><h5>Keywords</h5><p> {data.keywords} </p> </div> 
+                            <div className={"metaInfo-item"}><h5>Title</h5><p> {(data.title) ? data.title : "No title was found or it is empty"} </p></div> 
+                            <div   className={"metaInfo-item"} ><h5>Description</h5><p> {(data.description) ? data.description : "No description was found, or description is empty"} </p></div> 
+                            <div className={"metaInfo-item"} ><h5>Keywords</h5><p> {(data.keywords) ? data.keywords : "No keywords were found, or keywords meta is empty"} </p> </div> 
                             <div className={"metaInfo-item"} ><h5>Favicon(s)</h5>
                                 <div className={"favicon-grid"}>
                             { 
-
                                 data.favicon.map((item,i)=>{
                                     let fav;
+                                    console.log(item.href);
+                                    console.log(pattern.test(item.href));
                                     if(!pattern.test(item.href)) {
-                                        if(item.href.slice(0, -4).includes(".")){
+                                      
+                                       if(item.href.slice(0, -4).includes(".")){
                                             fav = item.href;
                                         }else if(!pattern.test(url)){
                                         fav =  `http://${url}${item.href}`;
                                         }
+                              
                                     }else{
-                                        fav =  `${url}${item.href}`;
+                                        fav =  `${item.href}`;
                                     }
                                     return <div className="favicon-itemn" key={i} >
                                     <div className='favicon-preview'> <img alt="Report favicon preview" src={fav} /></div>
                                     </div>;
                                 
                                 })
+                            }
+                            {
+                             (data.favicon.length === 0) ? "No favicons found" : null
                             }
                             </div>
                           </div>
@@ -66,7 +72,8 @@ class MetaInfo extends Component {
                     </div>
                     <div className={"explanation"}>
                         <h6>Description</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                        <p>Metadata regarding title is one of the most important things to consider when we want a to show a clear vision of what your website is, setting a proper 
+                           <code className="highlighter-rouge"> Title</code> metatag followed by a very detailed <code className="highlighter-rouge">Description</code> as well as a set of <code className="highlighter-rouge">Keywords</code> that can tell users which type of content your website is offering. Using this meta properly can ensure us that the target user is gonna increase since an overview of your web is properly given. </p>
                     </div> 
                 </div> 
                 <div>

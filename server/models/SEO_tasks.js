@@ -167,7 +167,7 @@ module.exports = {
         cert = certificate;
       })
     }catch (e) {
-      cert = {};
+      cert =  null;
     }
     return cert;
   },
