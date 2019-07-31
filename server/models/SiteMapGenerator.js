@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const isRelativeUrl = require('is-relative-url');
 var Crawler = require('simplecrawler');
 const request = require('request');
+let plimit = require('p-limit');
 var port = 80;
 var exclude = ['gif', 'jpg', 'jpeg', 'png', 'ico', 'bmp', 'ogg', 'webp',
   'mp4', 'webm', 'mp3', 'ttf', 'woff', 'json', 'rss', 'atom', 'gz', 'zip',
@@ -259,7 +260,7 @@ module.exports = {
         if(!pattern.test(url)) {
           url = "http://" + url;
         }
-
+        console.log(url);
         var io = req.app.get('socketio');
         var crawler = new Crawler(url);
         var builder = require('xmlbuilder');
@@ -282,7 +283,7 @@ module.exports = {
           pages.push(item.url); // Add URL to the array of pages
           console.log(count + " : " +item.url);
           count++;
-          if(count > 200){
+          if(count > 50){
             this.stop();
             fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count})} } )
             io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count});
@@ -358,33 +359,79 @@ module.exports = {
           let deadLinks = [];
           let checked = [];
           let current = 0;
-          for(var i = 0; i < brokenLinks.length; i++){
-            for(var j = 0; j < brokenLinks[i].bklinks.length; j++){
-              let result = null;
-                var isAlready = checked.filter(checked => (checked === brokenLinks[i].bklinks[j]));
-                if(isAlready.length > 0 ){}else{
-                   console.log(brokenLinks[i].bklinks[j] + ": ");
-                    checked.push(brokenLinks[i].bklinks[j]);
-                    let result = await axios.get(brokenLinks[i].bklinks[j]).then((response) => {
-                      return response.status;
-                    }).catch((error) => {
-                      deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:404 });
-                      return '404';
-                    });
-                }
-              current++;
-              let perce = Math.floor(((current/count)*100));
-              io.emit('brokenLinks-'+url,{links:deadLinks,percentage: perce,status:'unfinished'});
-              console.log(deadLinks);
-            }
+          let test_links = [];
+          const limit = plimit(5);
 
+            for(var i = 0; i < brokenLinks.length; i++){
+              for(var j = 0; j < brokenLinks[i].bklinks.length; j++){
+                let result = null;
+                  var isAlready = checked.filter(checked => (checked === brokenLinks[i].bklinks[j]));
+                  if(isAlready.length > 0 ){}else{
+                     console.log(brokenLinks[i].bklinks[j] + ": ");
+                      checked.push(brokenLinks[i].bklinks[j]);
+                      let result = await axios.get(brokenLinks[i].bklinks[j]).then((response) => {
+                        return response.status;
+                      }).catch((error) => {
+                        deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:404 });
+                        return '404';
+                      });
+                  }
+                current++;
+                let perce = Math.floor(((current/count)*100));
+                io.emit('brokenLinks-'+url,{links:deadLinks,percentage: perce,status:'unfinished'});
+                console.log(deadLinks);
+              }
+  
+            }
+            io.emit('brokenLinks-'+url,{links:deadLinks,percentage:'100',status:'finished'});
+            console.log(deadLinks);
+            resolve(deadLinks);
+          });
+        }
+        )}
+/* too fast
+          function test_link(item,location){
+            return new Promise(function(resolve,reject){
+            let response = null;
+              var isAlready = checked.filter(checked => (checked === item));
+                  if(isAlready.length > 0 ){}else{
+                      checked.push(item);
+                      try{
+                          axios.get(item).then((response) => {
+                          console.log(item + ":"  +   response.status);
+                          return response.status;
+                        }).catch((error) => {
+                          console.log(item + ":" + error.response.status);
+                          response = {deadlink: item, where: location,status:error.response.status };
+                        });
+                      }catch(err){console.log(err)}
+                  }
+            resolve(response);
+            });
           }
-          io.emit('brokenLinks-'+url,{links:deadLinks,percentage:'100',status:'finished'});
-          console.log(deadLinks);
-          resolve(deadLinks);
+
+          brokenLinks.forEach(function(row){
+             row.bklinks.forEach(function(item){
+              try{
+                      test_links.push( test_link(item,row.location));
+
+              }catch(err){console.log(err);}
+            });
+            current++;
+          })
+
+            
+          return Promise.all(test_links).then((result)=>{
+            return result;
+          })
+
+     //     io.emit('brokenLinks-'+url,{links:deadLinks,percentage:'100',status:'finished'});
+       //   console.log(deadLinks);
+        //  resolve(deadLinks);
         });
       }
       )}
+*/
     promises.push(api_call());
     return Promise.all(promises).then((result)=>{
        console.log('broken links created');
