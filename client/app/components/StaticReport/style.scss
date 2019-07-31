@@ -473,9 +473,20 @@
     }
 }
 
-.broken-tile-name{
+.broken-tile-name, .broken-tile-saving{
     margin-bottom: 0;
+    margin-bottom: 0;
+    /* border: solid 2px blue; */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 400px;
+    /* display: block; */
+    overflow: hidden;
+    > a {
+        color: #3383fa;
+    }
 }
-.broken-tile-saving{
-    color: #afafaf;
+.broken-tile-saving{color: #afafaf;
+     >a {color: #afafaf;
+    font-weight: 200}
 }
