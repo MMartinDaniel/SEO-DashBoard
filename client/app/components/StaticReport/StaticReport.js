@@ -67,9 +67,9 @@ class StaticReport extends Component {
             case 2:     return <MetaInfo        data={data.metadata} url={data.website} setting />;
             case 7:     return <Resources       data={data.resources} setting />;
             case 1:     return <Ssl             data={data.ssl} settings />;
-            case 3:     return <BrokenLinks     data={data.brokenLinks[0]} settings />;
+            case 3:     return <BrokenLinks     data={data.brokenLinks[0].result[0] } total={data.brokenLinks[0].total} settings />;
             case 8:     return <Alternative     data={data.imgAlt[0].imgAlt} url={data.website} settings />;
-            case 6:     return <Indexation      data={data.sitemap[0]} settings />;
+            case 6:     return <Indexation      data={data.sitemap[0]} url={data.website} settings />;
             case 4:     return <Minify          data={data.minify} settings />;
             case 0:     return <Tag             data={data.htag[0]} settings />;
             case 9:     return <Webshot         data={data.webshot} settings />;

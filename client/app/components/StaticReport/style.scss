@@ -193,6 +193,12 @@
     width: 310px;
     display: inline-grid;
 }
+.h-t{
+    margin-left: 35px;
+    text-align: center;
+    width: unset;
+
+}
 
 .chart-name{
     margin-bottom: 10px;
@@ -376,24 +382,27 @@
     overflow-y: scroll;
     max-height: 400px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
 }
 .noalt-tile-text{
-    grid-column: 3/7;
+    grid-column: 2/7;
 }
 
 .noalt-item-title {
     display: grid;
     grid-template-columns: repeat(6,1fr);
     height: 100%;
+    .pic-wrapper{
+        grid-column: 1/2;
+    }
 }
 .pic-wrapper{
-    grid-column: 1/3;
+    grid-column: 1/1;
     line-height: 75px;
 }
 .noalt-item{
     padding: 10px; 
-    width: 250px;
+    width: 90%;
     margin-left: 20px;
     height: 100px;
     border: 1px solid #f4f4f4;
@@ -409,6 +418,7 @@
     width: auto; 
     max-width: 70px; 
     max-height: 100px;
+    margin-top: -5px;
     display: inline-flex !important;
     }
 }
@@ -489,4 +499,88 @@
 .broken-tile-saving{color: #afafaf;
      >a {color: #afafaf;
     font-weight: 200}
+}
+
+.status-deadlink{
+    line-height: 75px;
+    font-size: 2em;
+    padding-left: 20px;
+    color: lightgrey;
+}
+
+.not-found-link{
+  
+    color: #b25555;
+}
+.bk-chart{
+  margin-top: 0;
+}
+
+.bk-explanation{
+    margin-top: 75px;
+  }
+
+  .bk-chart{
+      margin-left: 100px;
+  }
+
+  .ptop{
+      margin-top: 75px;
+  }
+
+  .heading-tags{
+      margin-bottom: 20px;
+  }
+
+
+  .heading-tags-div{
+      
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .extra-m{ 
+      margin-top: 100px;
+   }
+   
+  .extra-s{ 
+    margin-top: 50px;
+ }
+ .site-down{ 
+    color: #77c29f;
+    font-size: 50px;
+
+        
+}
+
+.robot-scroll{
+display: grid;
+grid-template-columns: 1fr 1fr;
+height: 230px;
+overflow: scroll;
+margin-bottom: 30px;
+overflow-x: hidden;
+
+
+}
+
+.robot-item{
+    font-size: 14px;
+
+}
+
+.robot-green{
+    color:#4a8f4a ;
+}
+
+.robot-red{
+    color:#f65d5d;
+}
+
+.robot-agent{
+    color:#6e88e7;
+}
+
+.m-l{
+    margin-left: 150px;
 }
