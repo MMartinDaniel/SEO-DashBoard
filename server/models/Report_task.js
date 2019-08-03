@@ -57,7 +57,7 @@ module.exports = {
         };
         function sitemap_call(){
             return new Promise( function(resolve,reject){
-                result_1 = bk_sitemap.generateSiteMap_back(web,req,id)
+                result_1 = bk_sitemap.generateSiteMap_back(web,req,id);
         //        setInterval(function(){ 
                    
                 resolve(result_1);
@@ -80,7 +80,7 @@ module.exports = {
                 let result = null;
                 switch(item_index){
                     case 0:
-                        result = (options[item_index]) ? seo_tasks.get_allHTags(web) : null;
+                        result = (options[item_index]) ? seo_tasks.get_allTags(web) : null;
                         break;
                     case 1:
                         result = (options[item_index]) ?  seo_tasks.get_certificate(web) :null;
@@ -130,12 +130,12 @@ module.exports = {
             console.log(results[8]);
             console.log(results[3]);
         newReport.performance =[
-        res[0]['speed-index'],
-        res[0]['first-cpu-idle'],
-        res[0]['first-contentful-paint'],
-        res[0]['first-meaningful-paint'],
-        res[0]['interactive'],
-        ];
+            res[0]['speed-index'],
+            res[0]['first-cpu-idle'],
+            res[0]['first-contentful-paint'],
+            res[0]['first-meaningful-paint'],
+            res[0]['interactive'],
+            ];
         newReport.resources = res[0]['network-requests'];
         newReport.user = uid;
         newReport.email = "fake@email.com";
@@ -168,11 +168,13 @@ module.exports = {
          if(results[2]){
             const newMeta = new Metadata();
             newMeta.id = id;
+            console.dir(results[2].meta,{depth:null})
             newMeta.wordCloud = results[2].cloud.data;
             newMeta.favicon = results[2].favicon.data;
             newMeta.description = results[2].description.data;
             newMeta.keywords = results[2].keywords.data;
             newMeta.title = results[2].title.data;
+            newMeta.meta = results[2].meta;
             newReport.metadata = newMeta;
             newMeta.save();
          }
