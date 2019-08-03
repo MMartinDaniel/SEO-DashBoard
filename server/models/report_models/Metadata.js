@@ -9,6 +9,7 @@ var metadataSchema = new Schema({
     description: {type:String,required:false},
     keywords: {type:[],required:false},
     title: {type:[],required:false},
+    meta:{type:[],required:false},
 
 });
 

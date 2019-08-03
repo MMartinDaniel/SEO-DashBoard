@@ -47,9 +47,71 @@ module.exports = {
    const h2 = await this.check_Tag("h2",html);
    const h3 = await this.check_Tag("h3",html);
    const h4 = await this.check_Tag("h4",html);
-   return {h1: h1,h2:h2,h3:h3,h4:h4, status:'success',errors:''};
+   const h5 = await this.check_Tag("h5",html);
+   const h6 = await this.check_Tag("h6",html);
+
+   return {h1: h1,h2:h2,h3:h3,h4:h4,h5:h5,h6:h6, status:'success',errors:''};
+  },
+  async get_meta(html){
+    let meta = [];
+    try {
+      html("meta").map( function(){
+
+        if(html(this).attr("name")){
+          console.log(html(this).attr("name"));
+          meta.push({name:html(this).attr("name"),value:html(this).attr('content')});
+        }else if(html(this).attr("http-equiv")){
+          console.log(html(this).attr("http-equiv"));
+          meta.push({name:html(this).attr("http-equiv"),value:html(this).attr('content')});
+        }else if(html(this).attr("property")){
+          console.log(html(this).attr("property"));
+          meta.push({name:html(this).attr("property"),value:html(this).attr('content')});
+        }
+        
+      }).get();
+
+    }catch(e){};
+    console.log("metas:")
+    console.log(meta);
+    console.log("endmeta")
+    return {meta:meta, status:'success',errors:''};
   },
 
+  async get_allTags(url){
+    const html = await this.loadHtml(url);
+    const h1 = await this.check_Tag("h1",html);
+    const h2 = await this.check_Tag("h2",html);
+    const h3 = await this.check_Tag("h3",html);
+    const h4 = await this.check_Tag("h4",html);
+    const h5 = await this.check_Tag("h5",html);
+    const h6 = await this.check_Tag("h6",html);
+    const canonical = await this.get_canonicalTag(url);
+    const lang = await this.get_lang(url);
+    return {h1: h1,h2:h2,h3:h3,h4:h4,h5:h5,h6:h6, canonical:canonical.canonical, lang:lang.lang, status:'success',errors:''};
+   },
+   async get_lang(url){
+    const html = await this.loadHtml(url);
+    let lang = "";
+    try {
+       lang = html("html").attr("lang");
+    }catch(e){};
+    console.log( "lang " + lang);
+    return {lang:lang, status:'success',errors:''};
+  },
+ 
+   async get_canonicalTag(url){
+    const html = await this.loadHtml(url);
+    let canonical = "";
+    try {
+      html("link[rel=canonical]").map( function(){
+        canonical =  html(this).attr('href');
+      }).get();
+
+    }catch(e){};
+    console.log( "canonical " + canonical);
+    return {canonical:canonical, status:'success',errors:''};
+  },
+  
   async get_description(html){
 
     let count = 0;
@@ -223,8 +285,8 @@ module.exports = {
     const description = await this.get_description(html);
     const cloud = await this.get_wordFreqency(html);
     const favicon = await this.get_favicon(html);
-
-    return {title: title,keywords:keywords,favicon:favicon,description:description,cloud:cloud, status:'success',errors:''};
+    const meta = await this.get_meta(html);
+    return {title: title,keywords:keywords,favicon:favicon,description:description,cloud:cloud,meta:meta.meta, status:'success',errors:''};
 
   },
 
