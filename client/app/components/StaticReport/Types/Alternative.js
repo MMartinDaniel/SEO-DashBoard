@@ -45,9 +45,9 @@ class Alternative extends Component {
 
                         </div>
                     </div>
-                    <div className={"explanation"}>
+                    <div className={"explanation extra-m"}>
                         <h6>Description</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Alternatives are used to increase accesibility to people with disabilities, using screen readers to have a clear explanation of what is the image about. Generally this screen readers are based in promter that tells blind people what is currently happening on the page meanwhile they are scrolling, if not, the screen reading will skip the image, and our content will not be shown to these kind of people. </p>
                         </div> 
                 </div> 
                 <div>

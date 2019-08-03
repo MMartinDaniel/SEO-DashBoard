@@ -11,8 +11,9 @@ let plimit = require('p-limit');
 var port = 80;
 var exclude = ['gif', 'jpg', 'jpeg', 'png', 'ico', 'bmp', 'ogg', 'webp',
   'mp4', 'webm', 'mp3', 'ttf', 'woff', 'json', 'rss', 'atom', 'gz', 'zip',
-  'rar', '7z', 'css', 'js', 'gzip', 'exe', 'pdf', 'svg'];
+  'rar', '7z', 'css', 'js', 'gzip', 'exe', 'pdf', 'svg','xml'];
 var exts = exclude.join('|');
+var fetch = require("node-fetch");
 var regex = new RegExp('\.(' + exts + ')', 'i'); // This is used for filtering crawl items.
 var xml2js = require('xml2js');
 let current_user_task = [];
@@ -250,21 +251,68 @@ module.exports = {
 
   },
 
+  async findSiteMap_back(url,pages){
+      console.log("entro");
+      return new Promise(function(resolve,reject){
+        let crawler_2 = new Crawler(url);
+        pages.forEach(element => {
+          crawler_2.queueURL(element);  
+        });
+        crawler_2.initialPort = port;
+        crawler_2.maxDepth = 1;
+        crawler_2.interval=10;
+        crawler_2.start();
+        let found = [];
+        let count = 0;
+        crawler_2.discoverResources = function(buffer,queueItem){
+          /*console.log("\n link from : " +queueItem.url + "   adding: "); */
+          var $ = cheerio.load(buffer.toString('utf-8'));
+          return $("a[href]").map( function(){
+            var url = $(this).attr("href");
+            console.log(url);
+                  if(url.includes("sitemap.xml")){
+                    found.push(url);
+                  }
+                count++; 
+            return $(this).attr("href")
+          }).get();
+      };
+       crawler_2.on('complete',async function() {console.log("termino"); console.log(found);resolve(found);});
+        
+        });
+      },
+
+
   async generateSiteMap_back(url,req,uid){
     let pattern = /^((http|https|ftp):\/\/)/;
     
     let promises = [];
+    let found = false;
+    var pages = []; 
+    let robots = [];
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
+    fetch(url+"/robots.txt").then(function(response) {
+      return response.text().then(function(text) {
+           robots = text.split("\n");
+          for (var i=robots.length-1; i>=0; i--) {
+            if (robots[i].includes("#")) {
+              robots.splice(i, 1);            }
+        }
+        console.log(robots);
+
+      });
+    });
+    
 
     function api_call(){
       return new Promise(function(resolve,reject){
-        if(!pattern.test(url)) {
-          url = "http://" + url;
-        }
+       
         console.log(url);
         var io = req.app.get('socketio');
         var crawler = new Crawler(url);
         var builder = require('xmlbuilder');
-        var pages = []; 
         // Crawler configuration
         crawler.initialPort = port;
         crawler.initalPath = '/';
@@ -279,20 +327,25 @@ module.exports = {
         let d = new Date();
         var date = d.toJSON();
         crawler.on('fetchcomplete', async function(item, responseBuffer, response) {
+          if(!found){ 
+            if(item.url.includes("sitemap.xml")){
+                found =  item.url;
+              }
+           }
           root.ele({url:{loc:item.url, lastmod: date ,priority: 0.5}});
           pages.push(item.url); // Add URL to the array of pages
           console.log(count + " : " +item.url);
           count++;
           if(count > 50){
             this.stop();
-            fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count})} } )
-            io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count});
+            fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found,robots:robots})} } )
+            io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found});
           }
           io.emit('percentage-'+uid,Math.floor((count/100*100)));
         });
         crawler.on('complete', async function() {
-          io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count});
-          fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count})} } )
+          io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count, found:found});
+          fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found,robots:robots})} } )
           console.log("done");
 
         })
@@ -300,10 +353,18 @@ module.exports = {
     }
 
    promises.push(api_call());
+   let promisess = [];
    return Promise.all(promises).then((result)=>{
-      console.log('sitemap created');
-    //  console.log(result);
-      return result;
+     return result;
+   /*
+     console.log("lo llamo");
+     promisess.push(this.findSiteMap_back(url,pages));
+     return Promise.all(promisess).then((res)=>{
+       result.found = [res];
+       console.log('sitemap created');
+         return result;
+     })
+   */
     });
 
 
@@ -313,6 +374,8 @@ module.exports = {
   async displayBrokenLink_back(links,req,url){
     var io = req.app.get('socketio');
     let promises = [];
+    let total = 0;
+
 
     function api_call(){
       return new Promise(function(resolve,reject){
@@ -333,7 +396,7 @@ module.exports = {
         crawler.initialPort = port;
         crawler.maxDepth = 1;
         crawler.interval=10;
-        let brokenLinks = [];
+        let brokenLinks = [];        
         crawler.start();
         let count = 0;
         crawler.discoverResources = function(buffer,queueItem){
@@ -361,24 +424,20 @@ module.exports = {
           let current = 0;
           let test_links = [];
           const limit = plimit(5);
-
             for(var i = 0; i < brokenLinks.length; i++){
               for(var j = 0; j < brokenLinks[i].bklinks.length; j++){
-                let result = null;
+                  total++;
                   var isAlready = checked.filter(checked => (checked === brokenLinks[i].bklinks[j]));
                   if(isAlready.length > 0 ){}else{
                      console.log(brokenLinks[i].bklinks[j] + ": ");
                       checked.push(brokenLinks[i].bklinks[j]);
-                      let result = await axios.get(brokenLinks[i].bklinks[j]).then((response) => {
+                      await axios.get(brokenLinks[i].bklinks[j]).then((response) => {
                         return response.status;
                       }).catch((error) => {
-                        deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:404 });
-                        return '404';
+                        deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:error.response.status });
                       });
                   }
                 current++;
-                let perce = Math.floor(((current/count)*100));
-                io.emit('brokenLinks-'+url,{links:deadLinks,percentage: perce,status:'unfinished'});
                 console.log(deadLinks);
               }
   
@@ -389,6 +448,19 @@ module.exports = {
           });
         }
         )}
+
+
+/*
+        //     io.emit('brokenLinks-'+url,{links:deadLinks,percentage:'100',status:'finished'});
+        //   console.log(deadLinks);
+        //  resolve(deadLinks);
+        });
+        }
+        )}
+        */
+        
+
+
 /* too fast
           function test_link(item,location){
             return new Promise(function(resolve,reject){
@@ -432,13 +504,14 @@ module.exports = {
       }
       )}
 */
+
     promises.push(api_call());
     return Promise.all(promises).then((result)=>{
        console.log('broken links created');
      //  console.log(result);
-       return result;
+       return {result:result,total:total};
      });
- 
+
   },
 
 
