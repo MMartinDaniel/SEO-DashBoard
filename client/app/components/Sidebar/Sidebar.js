@@ -15,11 +15,13 @@ class Sidebar extends Component {
         <div id="sidebar-wrapper">
           <ul className="sidebar-nav">
             <li className="sidebar-brand">
-              <a href="#">Navigation</a>
+              <a href="#">Profile</a>
             </li>
             {
               tabs.map(function (item) {
+                if(item.name === "Utils"){ return <li key={item.name} className="sidebar-brand"><a href="#">{item.name}</a> </li> } 
                 return <li key={item.name}><a href={'/'+item.url}><i className={item.icon}/><span>{item.name}</span></a></li>
+                ;
               })
             }
           </ul>

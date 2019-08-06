@@ -47,13 +47,13 @@ render(){
 //const App = ({ children }) => ();
 const TABS =[
   {name:'DashBoard',icon:'fas fa-home',url:''},
-  {name:'Profile',icon:'fas fa-user',url:'profile'},
+  {name:'My Reports',icon:'fas fa-file-contract',url:'reports'},
+  {name:'Utils'},
   {name:'Broken Link Checker',icon:'fas fa-code',url:'brokenLinks'},
-  {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
-  {name:'Minifier',icon:'fas fa-file-alt',url:'Minifier'},
-  {name:'Events',icon:'fas fa-sitemap',url:'Events'},
-  {name:'Statistics',icon:'far fa-chart-bar',url:'Statistics'},
-  {name:'Services',icon:'fas fa-exclamation-triangle',url:'Services'},
-  {name:'Contact',icon:'fas fa-file-alt',url:'Contact'},
+  // {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
+  {name:'Missing Alternative',icon:'fas fa-low-vision',url:'alternative'},
+  {name:'SiteMap Generator',icon:'fas fa-sitemap',url:'sitemap'},
+  {name:'CSS & JS Minifier',icon:'fas fa-file-archive',url:'Minifier'},
+
 ];
 export default App;

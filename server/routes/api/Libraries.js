@@ -24,6 +24,20 @@ module.exports = (app) => {
       res.send({response:true,data:data});
   });
 
+  app.get('/library/user/Report/increaseCounter/:id',(req,res,next)=>{
+    const { id } = req.params;
+    console.log("Updating:"+id);
+
+    Report.findOneAndUpdate(({ id: id }, { $inc: { views: 1 } })
+   ).exec((err,report)=> {
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (report.length != 1) {
+        return res.send({success:true, message:'Success, Report found',data:report});
+      }
+  
+  })});
+
   app.get('/library/user/Report/:id',(req,res,next)=>{
     const { id } = req.params;
     console.log(id);
@@ -36,7 +50,6 @@ module.exports = (app) => {
       };
   
   })});
-
 
   app.post('/library/user/email',(req,res,next)=>{
     const {body} = req;
@@ -107,7 +120,7 @@ module.exports = (app) => {
   app.get('/library/user/reports',(req,res,next)=>{
     const { uid } = req.query;
     //,{website:true}).populate({path:'metadata'}
-    Report.find({user: uid},{website:true, date:true, id:true}).populate({path:'metadata'}).exec((err,reports)=>{
+    Report.find({user: uid},{website:true, date:true, id:true,views:true}).populate({path:'metadata'}).exec((err,reports)=>{
       if(err){
         return res.send({success:false,message:"Error: Server error",data:[]});
       }else if( reports.length > 0){
@@ -122,6 +135,7 @@ module.exports = (app) => {
     brokenLinkTester.discoverWebResources(null,req,uid);
     res.send({response:true,error:''});
   });
+
   app.post('/library/generateWebShot',(req,res,next)=>{
     const {body } = req;
     const {web,uid} = body;
