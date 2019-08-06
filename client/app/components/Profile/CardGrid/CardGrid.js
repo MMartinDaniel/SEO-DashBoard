@@ -88,7 +88,7 @@ class CardGrid extends React.Component {
         return (
             <>
          {(toggle)&&(   <EmailPop basename={basename} toggle={this.toggle.bind(this)} id={this.state.id} uid={this.props.stats.uid} />  ) }
-            <div className={`${basename}wrapper` } >
+            <div className={`${basename}wrapper card` } >
                 <h2 className={`${basename}heading`}>Your Reports</h2>
                 {   (cards.length > 0) ?
                     cards.map((item, i) =>{
@@ -139,7 +139,7 @@ class Card extends React.Component {
         const {toggle} = this.props;
         return (
             <>
-                <div className={`${basename}card-wrap`}>
+                <div className={`${basename}card-wrap` }>
                 <button onClick={() => this.deleteCard(data.id) } className=" mail left"><i className="fas fa-times"></i></button>
                 <button onClick={ toggle } className="right mail"><i className="fas fa-envelope " ></i></button>
                     <Link className={`right`} target="_blank" to={"Report/"+ data.id}><i className="fas fa-arrow-right"></i></Link>

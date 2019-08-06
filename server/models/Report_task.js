@@ -147,6 +147,7 @@ module.exports = {
         newReport.options = options;
         newReport.sitemap = res[1];
         newReport.brokenLinks = results[3];
+        newReport.views = 0;
         if(results[0]){ newReport.htag = results[0]; };
         
         if(results[1]){ 

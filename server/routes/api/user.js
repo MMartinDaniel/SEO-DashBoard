@@ -107,6 +107,36 @@ module.exports = (app) => {
   });
 
 
+
+  app.post('/api/user/avatar-upload',(req,res,next)=>{
+    const {body} = req;
+    console.log('body',body);
+    const {avatar} = body;
+
+    User.find({
+      _id: token,
+      isDeleted: false
+    },(err,sessions)=>{
+      if(err){
+        return res.send({
+          success:false,
+          message: 'Error: Server error'
+        });
+      }
+      if(sessions.length !=1){
+        return res.send({
+          success:false,
+          message:'Error: Invalid'
+        });
+      }else{
+        return res.send({
+          success:true,
+          message:'Good'
+        });
+      }
+    })
+  })
+
   app.get('/api/account/verify',(req,res,next)=>{
     const { query } = req;
     const { token } = query;

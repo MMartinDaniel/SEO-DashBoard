@@ -23,6 +23,7 @@ body {
 #wrapper {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+  min-height: 900px;
 }
 
 header{
@@ -53,6 +54,7 @@ header{
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 100%;
 
 }
 
@@ -65,6 +67,8 @@ footer{
     background-color: #e8e8e8; 
   width:100%;
   bottom: 0;
+  height: 35px;
+  background: linear-gradient(135deg,#736cc7 21%,#3190f0 100%,#3190f0 100%);
 
 }
 
@@ -1064,3 +1068,47 @@ footer{
   text-align: center;
 }
 
+.logut-right{
+  position: absolute;
+  right: 30px;
+
+}
+
+footer{
+  >p{
+  color: white;
+
+    padding-top: 8px;
+    margin-left: 10px;
+    font-size: 14px;
+    padding-top: 10px;
+    margin-bottom: 0;
+  }
+}
+
+.email-table{
+  margin-left: 30px !important;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.table-report-state{
+  button{
+      border: 0;
+      width: 100px;
+      padding: 5px;
+      color: white;
+      font-size: 13px;
+      outline: 0;
+  }
+  
+}
+
+.yes > button{
+  background-image: linear-gradient(to right, #8cf161 0%, #83e150 100%);
+  box-shadow: 0 4px 15px 0 #87e657;
+}
+.no >button{
+  background-image: linear-gradient(to right, #ffa638 0%, #ff8836 100%);
+  box-shadow: 0 4px 15px 0 #ffa137;
+}
