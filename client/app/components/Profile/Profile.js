@@ -28,11 +28,15 @@ class Profile extends Component {
       }
 
     componentWillMount() {
+/*
 
         this.state.socket.on("test", data =>{
             console.log("received");
             console.log(data);
         });
+  
+  */
+
         this.state.socket.on("update_job", data =>{
             this.updateTable();
             console.log("called");
@@ -44,7 +48,8 @@ class Profile extends Component {
        const {uid} = this.state.stats;
        fetch('/library/user/reports?uid='+ uid).then(response => response.json())
        .then(data => {
-           console.log("updated");
+          // console.log("updated");
+
            this.setState({cards:data.data});
        });
    }

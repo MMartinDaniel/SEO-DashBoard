@@ -19,6 +19,7 @@ const port  = process.env.PORT || 8080;
 // Set up Mongoose
 mongoose.connect(isDev ? config.db_dev : config.db, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
+mongoose.set('useFindAndModify', false);
 
 const app = express();
 //Socket.io

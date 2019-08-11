@@ -46,7 +46,8 @@ class Header extends Component {
 
     render() {
         const {picture} = this.state;
-        const {basename,stats,nreports,nogenerate} = this.props;
+        const {basename,stats,nreports,nogenerate,placeh} = this.props;
+
         const {toggle} = this.state;
         return (
             <>
@@ -54,12 +55,13 @@ class Header extends Component {
 
             <div className={`${basename}__wrapper card` } >
                 <div className={`${basename}__picture`}>
-                <label for="fileinput">
+                <label htmlFor="fileinput">
                  <img className={`${basename}__pic`} src={`../assets/img/${picture}`}/>
                 
                  <div className="avatar-container">
-                            <div class="avatar-overlay">
-                                <div class="avatar-text"><i class="fas fa-edit"></i></div>
+                            <div className="avatar-overlay">
+                                <div className="avatar-text"><i className="fas fa-edit"></i></div>
+
                             </div>
                             <input style={{display: "none"}}  onChange={this.changePicture} id="fileinput" name="avatar" type="file"/> 
                 </div> 
@@ -71,7 +73,8 @@ class Header extends Component {
                     <p>Ingeniero del software</p>
                 </div>
                 <div className={`${basename}__reportes`}>
-                    <strong>Reportes generados</strong>
+                    <strong>{(placeh) ? "Reports Received" : "Reports Generated" }</strong>
+
                     <p>{nreports}</p>
                 </div>
                 {

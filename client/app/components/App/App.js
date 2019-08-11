@@ -18,9 +18,8 @@ class App extends Component {
       report: null,
     }
 
-    
-
   }
+
 render(){
   const {stats} = this.state;
   const {children} = this.props;
@@ -37,6 +36,7 @@ render(){
   }else{
     return(
       <>
+    
         <LoginPage/>
       </>
     );
@@ -48,6 +48,7 @@ render(){
 const TABS =[
   {name:'DashBoard',icon:'fas fa-home',url:''},
   {name:'My Reports',icon:'fas fa-file-contract',url:'reports'},
+  {name:'Received Reports',icon:'fas fa-file-invoice',url:'received'},
   {name:'Utils'},
   {name:'Broken Link Checker',icon:'fas fa-code',url:'brokenLinks'},
   // {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
@@ -55,5 +56,6 @@ const TABS =[
   {name:'SiteMap Generator',icon:'fas fa-sitemap',url:'sitemap'},
   {name:'CSS & JS Minifier',icon:'fas fa-file-archive',url:'Minifier'},
 
+  {name:'Spell Checker',icon:'fas fa-spell-check',url:'SpellingCheck'},
 ];
 export default App;

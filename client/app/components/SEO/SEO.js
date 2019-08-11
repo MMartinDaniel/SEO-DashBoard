@@ -113,7 +113,7 @@ class SEO extends Component {
 
     const {phoneurl,tableturl,desktopurl,website,widgetValue} = this.state;
 
-    console.log('updated: ');
+    //console.log('updated: ');
     console.log(widgetValue);
 
     return (

@@ -22,6 +22,9 @@ import './styles/styles.scss';
 import Minifier from './components/Minifier/Minifier';
 import Profile from './components/Profile/Profile';
 import StaticReport from './components/StaticReport/StaticReport';
+import SpellChecker from './components/SpellChecker/SpellChecker';
+import Received from "./components/Received/Received"
+
 render((
   <Router>
     <App>
@@ -29,11 +32,15 @@ render((
         <Route exact path="/" component={Home}/>
         <Route path="/brokenLinks" component={BrokenChecker}/>
         <Route path="/reports" component={Profile}/>
+        <Route path="/received" component={Received}/>
+
         <Route path="/signin" component={Signin}/>
         <Route path="/login" component={LoginPage}/>
         <Route path="/minifier" component={Minifier} />
         <Route path="/scanner" component={SEO}/>
         <Route path="/report" component={StaticReport}/>
+        <Route path="/SpellingCheck" component={SpellChecker}/>
+
         <Route component={NotFound}/>
       </Switch>
     </App>

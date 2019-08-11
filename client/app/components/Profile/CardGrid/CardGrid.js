@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style.scss';
 import {Link} from 'react-router-dom'
+import { isThisSecond } from 'date-fns/esm';
 
 
 class EmailPop extends React.Component {
@@ -21,9 +22,10 @@ class EmailPop extends React.Component {
         this.setState({email: event.target.value});
     }
     sendMail(){
-       
         const {email} = this.state;
-        const {id,uid} = this.props;
+        const {id,uid,website} = this.props;
+        console.log({email,id,uid,website});
+
         fetch('/library/user/email',{
           method:'POST',
           headers: {
@@ -33,9 +35,12 @@ class EmailPop extends React.Component {
           body: JSON.stringify({
             id,
             uid,
-            email
+            email,
+            website,
           })
         });
+
+
     }
 
     render() {
@@ -67,7 +72,9 @@ class CardGrid extends React.Component {
         this.state = {
             toggle: false,
             id: '',
-            uid: ''
+            uid: '',
+            website: ''
+
         }
 
         this.toggle = this.toggle.bind(this);
@@ -78,8 +85,9 @@ class CardGrid extends React.Component {
     }
     toggle(item){
         const {toggle} = this.state;
-        const {id,uid} = item;
-        (!toggle) ? this.setState({toggle: !toggle, id,uid}) : this.setState({toggle: !toggle, id:''});
+        const {id,uid,website} = item;
+        (!toggle) ? this.setState({toggle: !toggle, id,uid,website}) : this.setState({toggle: !toggle, id:'',website});
+
     }
     render() {
         let {cards,basename} = this.props;
@@ -87,7 +95,8 @@ class CardGrid extends React.Component {
         basename = `${basename}__CardGrid__`;
         return (
             <>
-         {(toggle)&&(   <EmailPop basename={basename} toggle={this.toggle.bind(this)} id={this.state.id} uid={this.props.stats.uid} />  ) }
+         {(toggle)&&(   <EmailPop basename={basename} toggle={this.toggle.bind(this)} website={this.state.website} id={this.state.id} uid={this.props.stats.uid} />  ) }
+
             <div className={`${basename}wrapper card` } >
                 <h2 className={`${basename}heading`}>Your Reports</h2>
                 {   (cards.length > 0) ?

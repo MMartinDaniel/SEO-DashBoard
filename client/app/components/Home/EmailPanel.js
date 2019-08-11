@@ -38,7 +38,8 @@ class AnalysisTable extends Component{
                   <tr>
                     <th>Website</th>
                     <th>Report ID</th>
-                    <th>Date</th>
+                    <th>Created</th>
+
                     <th>Seen</th>
                   </tr>
                   </thead>
