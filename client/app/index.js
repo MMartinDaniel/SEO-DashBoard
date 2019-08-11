@@ -24,6 +24,7 @@ import Profile from './components/Profile/Profile';
 import StaticReport from './components/StaticReport/StaticReport';
 import SpellChecker from './components/SpellChecker/SpellChecker';
 import Received from "./components/Received/Received"
+
 render((
   <Router>
     <App>
@@ -39,6 +40,7 @@ render((
         <Route path="/scanner" component={SEO}/>
         <Route path="/report" component={StaticReport}/>
         <Route path="/SpellingCheck" component={SpellChecker}/>
+
         <Route component={NotFound}/>
       </Switch>
     </App>

@@ -25,6 +25,7 @@ class EmailPop extends React.Component {
         const {email} = this.state;
         const {id,uid,website} = this.props;
         console.log({email,id,uid,website});
+
         fetch('/library/user/email',{
           method:'POST',
           headers: {
@@ -38,6 +39,7 @@ class EmailPop extends React.Component {
             website,
           })
         });
+
 
     }
 
@@ -72,6 +74,7 @@ class CardGrid extends React.Component {
             id: '',
             uid: '',
             website: ''
+
         }
 
         this.toggle = this.toggle.bind(this);
@@ -84,6 +87,7 @@ class CardGrid extends React.Component {
         const {toggle} = this.state;
         const {id,uid,website} = item;
         (!toggle) ? this.setState({toggle: !toggle, id,uid,website}) : this.setState({toggle: !toggle, id:'',website});
+
     }
     render() {
         let {cards,basename} = this.props;
@@ -92,6 +96,7 @@ class CardGrid extends React.Component {
         return (
             <>
          {(toggle)&&(   <EmailPop basename={basename} toggle={this.toggle.bind(this)} website={this.state.website} id={this.state.id} uid={this.props.stats.uid} />  ) }
+
             <div className={`${basename}wrapper card` } >
                 <h2 className={`${basename}heading`}>Your Reports</h2>
                 {   (cards.length > 0) ?

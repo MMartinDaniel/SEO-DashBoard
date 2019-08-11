@@ -57,8 +57,6 @@ p{
     }
 }
 .profile__name,.profile__reportes,.profile__button--wrap{
-
-    
 }
 
 .profile__CardGrid__{
@@ -468,12 +466,14 @@ p{
     &__progress-bg{
    /* background: #f2efef; */
     background: #319494a1;
+
 	width: 700px;
 	margin: 0 auto;
     }
     &__delete{
         text-align: center;
         margin-top: 5px;
+
         button{
             border: 0;
             width: 100px;
@@ -492,6 +492,7 @@ p{
             #009999 75%, #008283 75%);
             box-shadow: 0 4px 15px 0 #9d9d9d;
             width: 0%;
+
             height: 25px;
             padding-left: 15px;
             padding-top: 1px;
@@ -516,12 +517,14 @@ p{
         font-size: 13px;
         margin-top: 3px;
         margin-right: 20px;
+
     }
     &__progress-bg-left{
         float: left;
         color: #fff;
         font-size: 13px;
         margin-left: 20px;
+
         margin-top: 3px;
     }
 
@@ -558,6 +561,7 @@ p{
   
   .avatar-container{
       margin-top: -5px;
+
   }
   .avatar-container:hover .avatar-overlay {
     opacity: 1;
@@ -566,6 +570,7 @@ p{
     height: auto;
 
     margin-top: -2px;
+
     -webkit-clip-path: circle();
     clip-path: circle();
   }
@@ -587,3 +592,4 @@ p{
      text-align: unset;
      margin-top: 0px; 
   }
+

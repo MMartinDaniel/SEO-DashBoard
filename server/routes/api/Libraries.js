@@ -37,6 +37,13 @@ module.exports = (app) => {
     const { id } = req.params;
     console.log("Updating:"+id);
     Report.findOneAndUpdate({id: id}, {$inc:{views:1}}, {new: true}, (err, report) => {
+
+      app.get('/library/user/Report/increaseCounter/:id',(req,res,next)=>{
+    const { id } = req.params;
+    console.log("Updating:"+id);
+
+    Report.findOneAndUpdate(({ id: id }, { $inc: { views: 1 } })
+   ).exec((err,report)=> {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
       } else if (report.length != 1) {
@@ -101,8 +108,6 @@ module.exports = (app) => {
       }
     });
   });
-  
- 
   
   app.get('/library/user/word',(req,res,next)=>{
     const { uid } = req.query;
@@ -182,6 +187,7 @@ module.exports = (app) => {
   });
   app.get('/library/user/reports',(req,res,next)=>{
     const { uid } = req.query;
+
     if(req.query.limit !== null){
       const { limit } = req.query;
       Report.find({user: uid},{website:true, date:true, id:true,views:true}).populate({path:'metadata'}).sort('-date').limit(10).exec((err,reports)=>{

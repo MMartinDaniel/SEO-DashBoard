@@ -35,6 +35,7 @@ class Home extends Component {
     fetch('/library/user/reports?uid='+ uid+"&limit=10").then(response => response.json())
     .then(data => {
        // console.log("updated");
+
         this.setState({cards:data.data});
     });
   }

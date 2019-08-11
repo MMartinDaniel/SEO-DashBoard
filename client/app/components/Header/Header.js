@@ -75,6 +75,7 @@ class Header extends Component {
               </li>
               <li className="nav-item">
                 <a onClick={this.logout} className="nav-link logut-right" href="#">Logout <span className="sr-only">(current)</span></a>
+
               </li>
             </ul> 
           </div>

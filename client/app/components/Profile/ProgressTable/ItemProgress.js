@@ -13,6 +13,7 @@ class ItemProgress extends React.Component {
             percentage: null,
             response: false,
             total_item: 0,
+
         }
         this.removeFromJobsQueue = this.removeFromJobsQueue.bind(this);
 
@@ -66,6 +67,7 @@ class ItemProgress extends React.Component {
         let value = (current/total_item)*100;
         value = `${value}%`;
         
+
         return (
             <>
             <div className={`${basename}card-wrap`}>
@@ -79,6 +81,7 @@ class ItemProgress extends React.Component {
                       
                         <div className={`${basename}progress-bg-html`} style={{width:value}}>
                          </div>
+
                     </div>
                 </div>
             </div>

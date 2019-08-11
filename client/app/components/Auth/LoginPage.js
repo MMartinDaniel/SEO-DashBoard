@@ -140,6 +140,7 @@ class LoginPage extends Component {
   avoidSubmit(){
     event.preventDefault();
   }
+
   swapLogin(event){
     const {login} = this.state;
       (login) ? this.setState({login:false}) : this.setState({login:true});
@@ -206,12 +207,14 @@ class LoginPage extends Component {
             </div>
             <div className='container'>
             <div className="login-form-div">
+
                <form onSubmit={this.avoidSubmit}>
                 <input type='email' value={signInEmail} placeholder={"email"} onChange={this.onTextboxChangeSignInEmail} required/>
                 <input type='password' value={signInPassword} placeholder={"password"} onChange={this.onTextboxChangeSignInPassword} required/>
                 <input type='submit'  className="loginButton" onClick={this.onSignIn} value='Sign in'/>
                 <p className='dont-account'>don't have an account? <a onClick={this.swapLogin} >sign up</a> </p>
                 </form>
+
               </div>
             </div>
          
@@ -230,6 +233,7 @@ class LoginPage extends Component {
             </div>
             <div className='container'>
             <div className="login-form-div">
+
             <form onSubmit={this.avoidSubmit}>
               <input type='email'
                         placeholder="Register email"

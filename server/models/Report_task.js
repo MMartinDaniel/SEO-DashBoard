@@ -54,6 +54,7 @@ module.exports = {
             console.log(data);
             });
             */
+
         function performance_call(){
             return new Promise( function(resolve,reject){
                 result_1 = seo_tasks.get_performance(web);
@@ -124,6 +125,7 @@ module.exports = {
              
                 console.log("["+ item_index +"]: Done");
                 resolve(result);
+
             });
         }
   
@@ -142,7 +144,6 @@ module.exports = {
         promises[7].then(array => { options[7] ?  io.emit(id,total_options) : null });    
         promises[8].then(array => { options[8] ?  io.emit(id,total_options) : null });      
         promises[9].then(array => { options[9] ?  io.emit(id,total_options) : null });     
-    
 
         Promise.all(promises).then((results)=>{
             console.log(results[8]);

@@ -25,6 +25,7 @@ class ProgressTable extends React.Component {
         fetch('/library/user/onProgress?uid='+ uid).then(response => response.json())
         .then(data => {
            // console.log("updated");
+
             this.setState({onProgress:data.data});
         });
     }
