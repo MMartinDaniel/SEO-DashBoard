@@ -23,6 +23,8 @@ class LoginPage extends Component {
     this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
+    this.avoidSubmit = this.avoidSubmit.bind(this);
+
   this.logout = this.logout.bind(this);
   this.swapLogin = this.swapLogin.bind(this);
 
@@ -74,7 +76,10 @@ class LoginPage extends Component {
     })
   }
   onSignUp(event){
+    
     const {signUpEmail,signUpPassword} = this.state;
+    if(signUpEmail === "" || signUpPassword === ""){ return;}
+
     this.setState({
       isLoading: true,
     });
@@ -98,6 +103,7 @@ class LoginPage extends Component {
             signUpPassword: '',
             signUpEmail:''
           })
+          this.swapLogin();
         }else{
           this.setState({
             signUpError:json.message,
@@ -108,6 +114,7 @@ class LoginPage extends Component {
   }
 
   logout(){
+
     this.setState({
       isLoading: true,
     })
@@ -130,6 +137,9 @@ class LoginPage extends Component {
         })
     }
   }
+  avoidSubmit(){
+    event.preventDefault();
+  }
   swapLogin(event){
     const {login} = this.state;
       (login) ? this.setState({login:false}) : this.setState({login:true});
@@ -137,6 +147,8 @@ class LoginPage extends Component {
 
   onSignIn(event){
     const {signInEmail,signInPassword} = this.state;
+
+    if(signInEmail === "" || signInPassword === ""){ return;}
     this.setState({
       isLoading: true,
     });
@@ -194,12 +206,12 @@ class LoginPage extends Component {
             </div>
             <div className='container'>
             <div className="login-form-div">
-               
-                <input type='email' value={signInEmail} placeholder={"email"} onChange={this.onTextboxChangeSignInEmail} />
-                <input type='password' value={signInPassword} placeholder={"password"} onChange={this.onTextboxChangeSignInPassword} />
+               <form onSubmit={this.avoidSubmit}>
+                <input type='email' value={signInEmail} placeholder={"email"} onChange={this.onTextboxChangeSignInEmail} required/>
+                <input type='password' value={signInPassword} placeholder={"password"} onChange={this.onTextboxChangeSignInPassword} required/>
                 <input type='submit'  className="loginButton" onClick={this.onSignIn} value='Sign in'/>
                 <p className='dont-account'>don't have an account? <a onClick={this.swapLogin} >sign up</a> </p>
-          
+                </form>
               </div>
             </div>
          
@@ -218,16 +230,17 @@ class LoginPage extends Component {
             </div>
             <div className='container'>
             <div className="login-form-div">
+            <form onSubmit={this.avoidSubmit}>
               <input type='email'
                         placeholder="Register email"
                         value={signUpEmail}
-                        onChange={this.onTextboxChangeSignUpEmail} />
+                        onChange={this.onTextboxChangeSignUpEmail} required />
                   <input type='password'
                         placeholder="register password"
                         value={signUpPassword}
-                        onChange={this.onTextboxChangeSignUpPassword} />
+                        onChange={this.onTextboxChangeSignUpPassword} required/>
                   <input type='submit'  className="registerButton" onClick={this.onSignUp} value='Sign Up'/>
-
+                </form>
                   <p className='dont-account'>do you have an account? <a onClick={this.swapLogin} >Login</a> </p>
   
               </div>

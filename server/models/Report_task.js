@@ -44,10 +44,16 @@ module.exports = {
         newJob.save();
         let result_1;
         let perf = [];
-        io.on("test", data =>{
+        
+        let total_options = 0;
+        options.forEach((item)=>{
+            if(item) total_options++;
+        })
+  /*      io.on("test", data =>{
             console.log("received");
             console.log(data);
             });
+            */
         function performance_call(){
             return new Promise( function(resolve,reject){
                 result_1 = seo_tasks.get_performance(web);
@@ -68,6 +74,7 @@ module.exports = {
         (options[3] || options[6]) ? perf.push(sitemap_call()): null;
 
         Promise.all(perf).then((res)=>{
+
             console.log("performance done");
          //   console.log(res[1][0]);
             //console.log(res[0].minify);
@@ -114,9 +121,9 @@ module.exports = {
 
               //      newReport.performance = data_get['speed-index'];
                   //  newReport.resources = data_get['network-requests'];
-                  io.emit(id,item_index);
+             
                 console.log("["+ item_index +"]: Done");
-                resolve(result).then();
+                resolve(result);
             });
         }
   
@@ -125,7 +132,18 @@ module.exports = {
             i++;
             promises.push(api_call(i));
         });
-        
+        promises[0].then(array => { options[0] ? io.emit(id,total_options) : null });
+        promises[1].then(array => { options[1] ?  io.emit(id,total_options) : null });    
+        promises[2].then(array => { options[2] ?  io.emit(id,total_options) : null });      
+        promises[3].then(array => { options[3] ?  io.emit(id,total_options) : null });     
+        promises[4].then(array => { options[4] ?  io.emit(id,total_options) : null });     
+        promises[5].then(array => { options[5] ?  io.emit(id,total_options) : null });  
+        promises[6].then(array => { options[6] ?  io.emit(id,total_options) : null });   
+        promises[7].then(array => { options[7] ?  io.emit(id,total_options) : null });    
+        promises[8].then(array => { options[8] ?  io.emit(id,total_options) : null });      
+        promises[9].then(array => { options[9] ?  io.emit(id,total_options) : null });     
+    
+
         Promise.all(promises).then((results)=>{
             console.log(results[8]);
             console.log(results[3]);

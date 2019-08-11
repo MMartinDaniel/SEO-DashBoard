@@ -12,19 +12,21 @@ class ItemProgress extends React.Component {
             elapsed_time: null,
             percentage: null,
             response: false,
+            total_item: 0,
         }
         this.removeFromJobsQueue = this.removeFromJobsQueue.bind(this);
 
     }
     componentWillMount() {
-
-        const { current } = this.state;
         const {id} = this.props.data;
-       
-        this.props.socket.on(id, data =>{
-            console.log("received");
+        let socket = socketIOClient("http://localhost:80"); 
+
+        socket.on(id, data =>{
             console.log(data);
-            this.setState({current: current+1 });  
+          
+            let {current } = this.state;
+            this.setState({current: current + 1, total_item: data });
+            
         });
 
         
@@ -58,8 +60,12 @@ class ItemProgress extends React.Component {
 
 
     render() {
-        const {elapsed_time,current} = this.state;
-        const {website,basename} = this.props;
+        let {elapsed_time,current,total_item} = this.state;
+        let {website,basename} = this.props;
+  
+        let value = (current/total_item)*100;
+        value = `${value}%`;
+        
         return (
             <>
             <div className={`${basename}card-wrap`}>
@@ -68,10 +74,11 @@ class ItemProgress extends React.Component {
                 </div>
                 <div className={`${basename}item-progress`}>
                     <div className={`${basename}progress-bg`}>
-                        <div className={`${basename}progress-bg-html`}>
-                            <span  className={`${basename}progress-bg-left`}>Elapsed Time: {elapsed_time} </span>
-                            <span  className={`${basename}progress-bg-right`}>({current}/6)</span>
-                        </div>
+                    <span  className={`${basename}progress-bg-left`} >Elapsed Time: {elapsed_time} </span>
+                     <span  className={`${basename}progress-bg-right`}>({current}/{total_item})</span>
+                      
+                        <div className={`${basename}progress-bg-html`} style={{width:value}}>
+                         </div>
                     </div>
                 </div>
             </div>

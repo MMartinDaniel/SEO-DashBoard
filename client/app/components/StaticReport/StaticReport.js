@@ -30,6 +30,7 @@ class StaticReport extends Component {
 
     componentWillMount() {
        const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+       console.log(id);
         fetch('/library/user/Report/increaseCounter/'+id);
         fetch('/library/user/Report/'+id).then(response => response.json())
         .then(json => {

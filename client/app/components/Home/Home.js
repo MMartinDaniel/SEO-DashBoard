@@ -32,9 +32,9 @@ class Home extends Component {
   updateTable(){
     const {uid} = this.state.stats;
     console.log(uid);
-    fetch('/library/user/reports?uid='+ uid).then(response => response.json())
+    fetch('/library/user/reports?uid='+ uid+"&limit=10").then(response => response.json())
     .then(data => {
-        console.log("updated");
+       // console.log("updated");
         this.setState({cards:data.data});
     });
   }

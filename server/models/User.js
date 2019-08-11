@@ -10,7 +10,8 @@ var userSchema = new Schema({
     name:{type:String, required:false},
     repcounter:{type:Number,required:false},
     receivedreports:{type:[],required:false},
-    image:{type:String,required:false}
+    image:{type:String,required:false},
+    excluded_words:{type:[],requred:false},
 });
 
 userSchema.methods.encryptPassword = function(password){

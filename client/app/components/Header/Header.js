@@ -38,7 +38,24 @@ class SignOutBtn extends Component{
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
+
   }
+
+  logout(){
+
+    const obj = getFromStorage('static');
+    if(obj && obj.token) {
+      const {token } = obj;
+      console.log('/api/account/logout?token=' + token);
+      fetch('/api/account/logout?token=' + token,{method:'GET'})
+        .then(res => res.json()).then(json=>{
+        localStorage.clear();
+      });
+      window.location.reload();
+    };
+  }
+  
 
   render() {
     return (<>
@@ -57,7 +74,7 @@ class Header extends Component {
 
               </li>
               <li className="nav-item">
-                <a className="nav-link logut-right" href="#">Logout <span className="sr-only">(current)</span></a>
+                <a onClick={this.logout} className="nav-link logut-right" href="#">Logout <span className="sr-only">(current)</span></a>
               </li>
             </ul> 
           </div>

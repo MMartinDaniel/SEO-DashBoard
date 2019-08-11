@@ -57,7 +57,8 @@ p{
     }
 }
 .profile__name,.profile__reportes,.profile__button--wrap{
-    margin-top: 15px;
+
+    
 }
 
 .profile__CardGrid__{
@@ -461,16 +462,18 @@ p{
     }
     &__card-wrap{
         grid-column: 1/2;
+        margin-bottom: 12px;
     }
 
     &__progress-bg{
-    background: #f2efef;
+   /* background: #f2efef; */
+    background: #319494a1;
 	width: 700px;
 	margin: 0 auto;
     }
     &__delete{
         text-align: center;
-        margin-top: 23px;
+        margin-top: 5px;
         button{
             border: 0;
             width: 100px;
@@ -488,7 +491,7 @@ p{
             #008283 50%, #009999 50%,
             #009999 75%, #008283 75%);
             box-shadow: 0 4px 15px 0 #9d9d9d;
-            width: 73%;
+            width: 0%;
             height: 25px;
             padding-left: 15px;
             padding-top: 1px;
@@ -512,11 +515,13 @@ p{
         color: #fff;
         font-size: 13px;
         margin-top: 3px;
+        margin-right: 20px;
     }
     &__progress-bg-left{
         float: left;
         color: #fff;
         font-size: 13px;
+        margin-left: 20px;
         margin-top: 3px;
     }
 
@@ -552,16 +557,15 @@ p{
   }
   
   .avatar-container{
-      margin-top: -10px;
+      margin-top: -5px;
   }
   .avatar-container:hover .avatar-overlay {
     opacity: 1;
     /* border-radius: 50%; */
-    width: 75px;
+    width: 74px;
     height: auto;
-    /* margin-bottom: 10px; */
-    margin-top: -15px;
-    margin-top: 1px;
+
+    margin-top: -2px;
     -webkit-clip-path: circle();
     clip-path: circle();
   }
@@ -579,3 +583,7 @@ p{
   }
 
 
+  .delete-report{
+     text-align: unset;
+     margin-top: 0px; 
+  }
