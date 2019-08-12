@@ -1,4 +1,3 @@
-//https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://instantes.net&category=performance
 const Minifier = require('../../models/Minifier');
 let resources = [];
 const request = require('request');

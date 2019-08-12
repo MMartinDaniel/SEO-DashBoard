@@ -58,6 +58,7 @@ module.exports = {
         function performance_call(){
             return new Promise( function(resolve,reject){
                 result_1 = seo_tasks.get_performance(web);
+                result_1.headers = seo_tasks.get_headers(web);
                 resolve(result_1);
             });
             
@@ -71,11 +72,11 @@ module.exports = {
             });
             
         };
+
         perf.push(performance_call());
         (options[3] || options[6]) ? perf.push(sitemap_call()): null;
 
         Promise.all(perf).then((res)=>{
-
             console.log("performance done");
          //   console.log(res[1][0]);
             //console.log(res[0].minify);
@@ -103,7 +104,7 @@ module.exports = {
                         result =  (options[item_index]) ? minifier.checkIfMinify(res[0].minify) : null;
                         break;
                     case 5:
-                        result =  (options[item_index]) ? res : null;
+                        result =  (options[item_index]) ? seo_tasks.get_headers(web) : null;
                         
                         break;
                     case 6: 
@@ -148,12 +149,14 @@ module.exports = {
         Promise.all(promises).then((results)=>{
             console.log(results[8]);
             console.log(results[3]);
+            console.log(results[5]);
         newReport.performance =[
             res[0]['speed-index'],
             res[0]['first-cpu-idle'],
             res[0]['first-contentful-paint'],
             res[0]['first-meaningful-paint'],
             res[0]['interactive'],
+            res[0]['totalsize']
             ];
         newReport.resources = res[0]['network-requests'];
         newReport.user = uid;
@@ -164,6 +167,7 @@ module.exports = {
         newReport.minify = results[4];
         newReport.imgAlt = results[8];
         newReport.options = options;
+        newReport.headers = results[5];
         newReport.sitemap = res[1];
         newReport.brokenLinks = results[3];
         newReport.views = 0;

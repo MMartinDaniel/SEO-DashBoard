@@ -57,7 +57,7 @@ import { getFromStorage } from '../utils/storage';
                     <tr>
                       <th>Website</th>
                       <th>from</th>
-                      <th>Created</th>
+                      <th>Date received</th>
                       <th>Delete</th>
                     </tr>
                     </thead>

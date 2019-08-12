@@ -13,10 +13,13 @@ class Minifier extends Component {
       loading: false,
       percentage: '0',
       data: {},
+      url:'',
       info_data: {}
     };
 
-    this.checkBrokenLinks = this.checkBrokenLinks.bind(this);
+    this.checkMinify = this.checkMinify.bind(this);
+    this.changeURL = this.changeURL.bind(this);
+
   }
 
   getResources(){
@@ -31,7 +34,7 @@ class Minifier extends Component {
         data: this.state.data,
       })
     }).then(response => response.json()).then(data=>{
-      this.setState({info_data:data});
+      this.setState({info_data:data,loading:false});
     });
   }
 
@@ -40,19 +43,43 @@ class Minifier extends Component {
     const obj = getFromStorage('static');
     this.setState({
       uid: obj.uid,
-      website: obj.website,
       loading: false,
     });
   }
 
-  checkBrokenLinks(event){
+  changeURL(){
+    this.setState({url:event.target.value});
+}
+  checkMinify(event){
+     event.preventDefault();
+
+      function validURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?'+'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ '((\\d{1,3}\\.){3}\\d{1,3}))'+'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ '(\\?[;&a-z\\d%_.~+=-]*)?'+'(\\#[-a-z\\d_]*)?$','i'); 
+        return !!pattern.test(str);
+      }
+
+      if(!validURL(this.state.url)){
+        console.log("is not valid");
+        return;
+      }
+
+      let pattern = /^((http|https|ftp):\/\/)/;
+      let url = "";
+      if(!pattern.test(this.state.url)) {
+        url = "http://" + this.state.url;
+      }else{
+        url = this.state.url;
+      }
+    
     this.setState({
       loading: true,
       percentage: '0',
+      data: {},
+      info_data: {}
     });
     let parsed_data = [];
 
-    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+this.state.website+'&category=performance').then(response => response.json())
+    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+url+'&category=performance').then(response => response.json())
       .then(data => {
 
         data.lighthouseResult.audits['network-requests'].details.items.forEach( item =>{
@@ -74,7 +101,7 @@ class Minifier extends Component {
     const { messages , loading,percentage,data,info_data} = this.state;
     console.log(data);
     console.log(info_data);
-
+    console.log(this.state.url);
     return (<>
       <div className='main-tab'>
       <div className="row">
@@ -83,12 +110,13 @@ class Minifier extends Component {
             <div className="card" >
 
               <div className="loading-card">
-                { loading
-                  ?   <button type="button" id='generate-btn' className="btn btn-info"  disabled>Generating...</button>
-                  :  <button type="button" id='generate-btn' onClick={this.checkBrokenLinks} className="btn btn-info" >Generate</button>
-                }
-                <div className={loading ? 'spinner-border float-right text-secondary spinner-activated' : 'spinner-border float-right text-secondary spinner-deactivated' } id="spinner" role="status">
-                  <span className="sr-only">Loading...</span>
+              { loading
+                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit"onClick={this.checkMinify}  value={"         "} disabled></input> </form>
+                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insert URL"></input><input type="submit"onClick={this.checkMinify}  value="Generate"></input> </form>
+                      }
+
+                <div className={loading ? 'spinner-border float-right text-secondary spinner-white spinner-activated' : ' spinner-border float-right text-secondary  spinner-white spinner-deactivated' } id="spinner" role="status">
+                  <span className="sr-only"></span>
                 </div>
               </div>
               <h5 className="card-header">Resources Minification tool</h5>

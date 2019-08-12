@@ -10,17 +10,8 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var bcrypt = require('bcrypt-nodejs');
 
-/*
-  Returns an object with each unique word in the input as a key,
-  and the count of the number of occurances of that word as the value.
-  (HINT: the code `text.toLowerCase().match(/[a-z]+/g)` will return an array
-  of all lowercase words in the string.)
-*/
 
 module.exports = {
-
-
-
 
  async checkSpelling(url,req,id,excluded_words){
   var io = req.app.get('socketio');
