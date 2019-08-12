@@ -1196,3 +1196,66 @@ footer{
   height: 1.2rem;
 
 }
+
+
+#sitemap-widget-2{
+
+  height: 200px;
+  color: white;
+  background-image: linear-gradient(to right, #dc3545, #f35261, #eb4958, #dd3747);
+  box-shadow: 0 4px 15px 0 rgb(237, 76, 91);
+ 
+
+  height: 200px;
+  color: white;
+  .card-body{
+    color: white;
+    font-size: 20px;
+    padding:10px;
+    z-index: 3;
+  }
+
+  .subtext{
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 320px;
+    text-align: justify;
+  }
+
+  .subtext-icon{
+    right: 0;
+    margin: -5px 35px 0 0;
+    font-size: 100px;
+    position: absolute;
+    opacity: 0.5;
+  }
+  .card-header{
+    color: white;
+  }
+  #sitemap-download{
+    margin-left: 5px;
+    color: white;
+  }
+  .card-body{
+
+  }
+  .loading-card input[type='text'] {
+    background: transparent;
+    box-shadow: none;
+  }
+  
+  .loading-card input[type='submit'] {
+    background: #ffffff2b;
+    box-shadow: none;
+  }
+}
+
+.bgfill{
+  border-radius: .25rem;
+  background-image: linear-gradient(to right, #5ac737, #51bb2e, #65d537, #58c535);
+  box-shadow: 0 4px 15px 0 #58c435;
+
+}

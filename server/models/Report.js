@@ -20,6 +20,7 @@ var reportSchema = new Schema({
     date:{type:Date,require:false},
     minify:{type:[],required:false},
     options:{type:[],required:false},
+    headers:{type:[],required:false},
     views:{type:Number,required:false},
 
 });

@@ -6,6 +6,7 @@ const relative = require('is-relative-url');
 const forbiden  = [ '|','\n', '\n\n', '-' , ':',"ha", ":"];
 const fetch = require('node-fetch');
 
+
 module.exports = {
 
   async check_Tag(type,html){
@@ -261,17 +262,36 @@ module.exports = {
     return fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+url+'&category=performance').then(response => response.json())
       .then(data => {
          let parsed_data = [];
-          data.lighthouseResult.audits['network-requests'].details.items.forEach( item =>{
+         let total_size = 0;
+         data.lighthouseResult.audits['network-requests'].details.items.forEach( item =>{
+          total_size += item.transferSize;
           if(item.resourceType === "Stylesheet" || item.resourceType === 'Script'){
             let filename = item.url.substring(item.url.lastIndexOf('/')+1);
             parsed_data.push({deadlink:item,status:false,where:item.url,name:filename});
           }
         });
         data.lighthouseResult.audits['minify'] = parsed_data;
+        data.lighthouseResult.audits['totalsize'] = total_size;
         return data.lighthouseResult.audits
       });
     },
 
+  async get_headers(url){
+    
+    let pattern = /^((http|https|ftp):\/\/)/;
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
+   return fetch(url, {
+      method: 'GET',
+      compress: true,
+     }).then(data => {
+        let headers = data.headers;
+        console.log(data);
+       return {cachecontrol: headers.get('cache-control'), contentencoding: headers.get("content-encoding"), contentlength: headers.get("content-length"), expires: headers.get("expires"), status:data.status, url:data.url } ;
+    })
+    
+  },
 
   async get_TitleMeta(url){
     

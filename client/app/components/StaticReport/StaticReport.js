@@ -63,7 +63,7 @@ class StaticReport extends Component {
     renderSwitch(param) {
         const {data} = this.state;
         switch(param) {
-            case 5:     return <Performance     data={data.performance} setting />;
+            case 5:     return <Performance     data={data.performance} headers={data.headers} setting />;
             case 2:     return <MetaInfo        data={data.metadata} url={data.website} setting />;
             case 7:     return <Resources       data={data.resources} setting />;
             case 1:     return <Ssl             data={data.ssl} settings />;
@@ -132,7 +132,7 @@ const TABS =[
     {src:"../assets/img/icon/meta.png", title: "Meta Information Results", subtitle: "Information about meta tags and Preview" },
     {src:"../assets/img/icon/broken.png", title: "BrokenLinks Information", subtitle: "Information about brokenlinks" },
     {src:"../assets/img/icon/minify2.png", title: "Minify Information", subtitle: "Information Minification savings" },
-    {src:"../assets/img/icon/performance.png", title: "Performance Results", subtitle: "PageSpeed Insights" },
+    {src:"../assets/img/icon/performance.png", title: "Performance Results", subtitle: "Headers & PageSpeed Insights" },
     {src:"../assets/img/icon/sitemap.png", title: "Indexation Information", subtitle: "Information Sitemap and robots files" },
     {src:"../assets/img/icon/resources.png", title: "Resources Information", subtitle: "Information about webpage sizing"  },
     {src:"../assets/img/icon/alternative.png", title: "Alternative Information", subtitle: "Information about Alternative metadata" },

@@ -24,6 +24,8 @@ import Profile from './components/Profile/Profile';
 import StaticReport from './components/StaticReport/StaticReport';
 import SpellChecker from './components/SpellChecker/SpellChecker';
 import Received from "./components/Received/Received"
+import AlternativeTool from "./components/AlternativeTool/AlternativeTool"
+import SiteMapGenerator from './components/Sitemap/Sitemap';
 
 render((
   <Router>
@@ -33,7 +35,9 @@ render((
         <Route path="/brokenLinks" component={BrokenChecker}/>
         <Route path="/reports" component={Profile}/>
         <Route path="/received" component={Received}/>
-
+        <Route path="/alternative" component={AlternativeTool}/>
+        <Route path="/Sitemap" component={SiteMapGenerator}/>
+        
         <Route path="/signin" component={Signin}/>
         <Route path="/login" component={LoginPage}/>
         <Route path="/minifier" component={Minifier} />

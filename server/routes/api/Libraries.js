@@ -37,19 +37,11 @@ module.exports = (app) => {
     const { id } = req.params;
     console.log("Updating:"+id);
     Report.findOneAndUpdate({id: id}, {$inc:{views:1}}, {new: true}, (err, report) => {
-
-      app.get('/library/user/Report/increaseCounter/:id',(req,res,next)=>{
-    const { id } = req.params;
-    console.log("Updating:"+id);
-
-    Report.findOneAndUpdate(({ id: id }, { $inc: { views: 1 } })
-   ).exec((err,report)=> {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
       } else if (report.length != 1) {
         return res.send({success:true, message:'Success, Report found',data:report});
       }
-  
   });
 
   });
@@ -270,4 +262,4 @@ module.exports = (app) => {
   app.get('/library/sitemap/:id',(req,res,next)=>{
     res.download('./sitemaps/' +req.params.id + '-sitemap.xml');
   })
-};
+}
