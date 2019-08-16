@@ -6,6 +6,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+bodyParser = require('body-parser'); // cuidado
 
 const config = require('../config/config');
 const webpackConfig = require('../webpack.config');
@@ -39,6 +40,10 @@ io.on('connection', function (socket) {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.json({limit: '10mb', extended: true}))        //cuidado conestas 2
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+
+
 
 // API routes
 require('./routes')(app);

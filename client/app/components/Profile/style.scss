@@ -19,7 +19,7 @@ $colors: #ecc681fc, #82e3ec, #ec8288, #82ecb5, #ec82eaab, #f4beaa;
     grid-column: 2/3;
     .profile__pic{
         width: 75px;
-        height: auto;
+        height: 75px;
         margin-bottom: 10px;
          margin-top: -15px;
         clip-path: circle();
@@ -241,8 +241,6 @@ p{
         background-color: #f5f7f9;
         margin-top: 30px;
         border-radius: 30px;
-       
-
     }
     &__options-body{
         background: white;
@@ -391,6 +389,10 @@ p{
         margin-top: 20px;
         margin-left: 30px;
     }
+
+}
+.personaldata__inner{
+    width: calc(25% - 0px);
 
 }
 
@@ -593,3 +595,48 @@ p{
      margin-top: 0px; 
   }
 
+.profile-form{
+     
+        input[type='text']{
+            display: block;
+            margin: 0 auto;
+            margin-top: 15px;
+            border: 0;
+            outline: 0;
+            color: rgb(80, 80, 80);
+            text-align: center;
+            border-bottom: 1px solid #578e9e;
+        }
+        input[type='file'] {
+            color: transparent;
+            overflow:hidden;
+            width: 132px;
+
+          }
+
+
+    .profile__popup__pic{
+        width: 115px;
+        height: 115px;
+        border-radius: 50%;
+        margin-left: 160px;
+        margin-top: 50px;
+        margin-bottom: 10px;
+    }
+
+
+}
+.profile__popup__options-body {
+    background: white;
+    border-radius: 32px;
+    width: 94%;
+    margin: 0 auto;
+    margin-top: -35px;
+    height: 78%;
+}
+
+
+.profile__popup__button--wrap {
+    text-align: right;
+    margin-top: 100px;
+}
