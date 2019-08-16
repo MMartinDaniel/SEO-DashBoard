@@ -1,8 +1,50 @@
 const User = require('../../models/User');
 const UserSession = require('../../models/UserSession');
+const multer = require("multer");
 
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './client/public/assets/img/uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, req.body.uid + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 module.exports = (app) => {
+
+  app.post('/api/account/profileData',upload.single("img"),(req,res,next)=>{
+    const {body} = req;
+    const {uid,fullname,subtitle} = body;
+    User.findOneAndUpdate({_id: uid}, { image: uid+req.file.originalname, name:fullname,subtitle:subtitle }, {new: true}, (err, user) => {
+      console.log(user);
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (user.length != 1) {
+
+        return res.send({success:true, message:'Success, Report found',data:user});
+      }
+  });
+  
+
+  });
 
 
   app.post('/api/account/signin',(req,res,next)=>{
@@ -49,7 +91,43 @@ module.exports = (app) => {
   app.get('/api/account/sitemap',(req,res,next)=>{
 
   });
+  app.post('/api/account/userData',(req,res,next)=>{
+    const {body} = req;
+    const {uid} = body;
+    
+    User.find({
+      _id: uid
+    },(err,user)=> {
+      if (err) {
+        return res.end({success:false, message:'Error: Server error'});
+      } else if (user.length > 0) {
+        return res.send({success:true, message:'Server: OK',data:user});
+      }
 
+    });
+  });
+
+
+/*
+  
+  app.post('/api/account/profileData',(req,res,next)=>{
+    const {body} = req;
+    console.log(body);
+    const {uid,fullname,subtitle,img} = body;
+    console.log({img:img,fullame:fullname, subtitle:subtitle});
+    User.findOneAndUpdate({_id: uid}, {image:img, name:fullname,subtitle:subtitle }, {new: true}, (err, user) => {
+      console.log(user);
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (user.length != 1) {
+
+        return res.send({success:true, message:'Success, Report found',data:user});
+      }
+  });
+
+  });
+
+*/
   app.post('/api/account/signup',(req,res,next)=>{
       const {body} = req;
       console.log('body',body);
@@ -105,37 +183,6 @@ module.exports = (app) => {
     .exec().then((user) => res.json(user))
     .catch((err) => next(err));
   });
-
-
-
-  app.post('/api/user/avatar-upload',(req,res,next)=>{
-    const {body} = req;
-    console.log('body',body);
-    const {avatar} = body;
-
-    User.find({
-      _id: token,
-      isDeleted: false
-    },(err,sessions)=>{
-      if(err){
-        return res.send({
-          success:false,
-          message: 'Error: Server error'
-        });
-      }
-      if(sessions.length !=1){
-        return res.send({
-          success:false,
-          message:'Error: Invalid'
-        });
-      }else{
-        return res.send({
-          success:true,
-          message:'Good'
-        });
-      }
-    })
-  })
 
   app.get('/api/account/verify',(req,res,next)=>{
     const { query } = req;
@@ -200,5 +247,3 @@ module.exports = (app) => {
 
 
 };
-
-

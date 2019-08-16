@@ -28,15 +28,7 @@ class Profile extends Component {
       }
 
     componentWillMount() {
-/*
-
-        this.state.socket.on("test", data =>{
-            console.log("received");
-            console.log(data);
-        });
-  
-  */
-
+      
         this.state.socket.on("update_job", data =>{
             this.updateTable();
             console.log("called");
@@ -49,7 +41,6 @@ class Profile extends Component {
        fetch('/library/user/reports?uid='+ uid).then(response => response.json())
        .then(data => {
           // console.log("updated");
-
            this.setState({cards:data.data});
        });
    }
@@ -58,11 +49,12 @@ class Profile extends Component {
     render() {
         
         const {cards,stats,in_progress_sate,socket} = this.state;
+
         console.log(in_progress_sate);
         const basename = "profile";
         return (
             <div>
-                <Header basename={basename} history={this.props.history} nreports={cards.length} stats={stats} />
+                <Header  basename={basename} history={this.props.history} nreports={cards.length} stats={stats} />
                 <CardGrid cards={cards} basename={basename} stats={stats}/>
                 <ProgressTable socket={socket} stats={stats}  basename={basename}/>
             </div>
