@@ -4,18 +4,21 @@ let UglifyJS = require("uglify-js");
 let CleanCSS = require('clean-css');
 
 module.exports = {
-
+      //funcion para comprobar el posible ahorro.
+      //data es una lista de archivos CSS y JS
       async checkIfMinify(data){
       let promises = [];
-
+      //funcion para asincronia
       function api_call(item){
           return new Promise(function(resolve,reject){
             request({url:item.where,time:true}, function (error, response, body) {
               let options = {};
               let result = null;
               let stats = {};
+              //comprobamos si es Script o CSS, lo minificamos y comprobamos su posible ahorro.
               if(item.deadlink.resourceType === "Script"){
                 result = UglifyJS.minify(body);
+                console.log(result);
                 var res_size = encodeURI(result.code);
                 if (res_size.indexOf("&#37;") !== -1) {
                   var count = res_size.split("%").length - 1;
@@ -31,7 +34,6 @@ module.exports = {
                   originalSize: item.deadlink.resourceSize,
                   efficiency: (count/item.deadlink.resourceSize)-1,
                 };
-
               }else{
                 result =  new CleanCSS(options).minify(body);
                 stats = {
@@ -50,6 +52,7 @@ module.exports = {
       data.forEach(function(item){
         promises.push(api_call(item));
       });
+    //funcion join
      return Promise.all(promises).then((result)=>{
         console.log('all solved');
       //  console.log(result);

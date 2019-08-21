@@ -25,6 +25,8 @@ var options_desktop = {
   }, renderDelay: 5000
   , userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36",
 };
+
+//asignamos opciones para tablet
 var options_tablet = {
 
   screenSize: {
@@ -61,6 +63,7 @@ module.exports = {
     });
   },
   createWebShootReport: async function(url,id){
+    //generamos las distintas imagenes, y las guardamos
     var file = id+".jpeg";
     var location = 'client/public/assets/img/webshots/';
     webshot(url,location+"tablet-"+file, options_tablet, function(err) {

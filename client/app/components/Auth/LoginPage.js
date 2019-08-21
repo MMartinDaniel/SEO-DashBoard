@@ -194,7 +194,7 @@ class LoginPage extends Component {
       message = <p>Loading...</p>;
     }
     if(token) {
-      return (<Redirect to='/' />);
+      window.location.reload();
     }else{
       if(login){
         return (
