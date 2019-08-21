@@ -339,16 +339,21 @@ module.exports = {
     return { hyperlinks: hyperlinks, status:'success',errors:''};
 
   },
+  
 
+  //Funcion para la obtencion de texto alternativo
   async get_imgAlt(url){
-
+    //Cargamos el codigo HTMl
     const html = await this.loadHtml(url);
     let count = 0;
     let img_no_tag = [];
+    //funcion para asincronia
     function api_call(item){
       return new Promise(function(resolve,reject){
         count++;
+        //cogemos el atributo SRC y su atributo alt
         let obj = {url: item.attr('src'),alt: item.attr('alt')};
+        //comprobamos que no está ya en el array
         var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
         if(!isAlready.length > 0){
           img_no_tag.push(obj);
@@ -357,7 +362,7 @@ module.exports = {
       });
     }
     let promises = [];
-
+    // parseamos las etiquetas <img>, y por cada una llamamos a la funcion anterior
     try {
       html("img").map( function(){
         promises.push(api_call(html(this)));
@@ -366,6 +371,7 @@ module.exports = {
     }catch(e){
       console.log(e);
     }
+    // funcion join para cuando todas las imagenes terminen de analizarse, devolver el contenido.
     return Promise.all(promises).then((results)=>{
       console.log('Total images:' + count);
       return { imgAlt: img_no_tag, status:'success',errors:''};

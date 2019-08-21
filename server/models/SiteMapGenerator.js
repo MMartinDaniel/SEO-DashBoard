@@ -282,7 +282,8 @@ module.exports = {
         });
       },
 
-
+  
+  //Function para generar el sitemap, tambien retorna el contenido del archivo robots.
   async generateSiteMap_back(url,req,uid){
     let pattern = /^((http|https|ftp):\/\/)/;
     
@@ -290,9 +291,12 @@ module.exports = {
     let found = false;
     var pages = []; 
     let robots = [];
+
+    //comprobamos que la URL esta completamente formada, y si no lo esta, se le suma la parte que falta
     if(!pattern.test(url)) {
       url = "http://" + url;
     }
+    //se hace una llamada a la URL, dado que el archivo robots siempre deberia estar en esa direcion
     fetch(url+"/robots.txt").then(function(response) {
       return response.text().then(function(text) {
            robots = text.split("\n");
@@ -305,7 +309,7 @@ module.exports = {
       });
     });
     
-
+    //se crea una funcion , ya que tenemos que hacer uso de la asincronia de javascript.
     function api_call(){
       return new Promise(function(resolve,reject){
        
@@ -317,32 +321,41 @@ module.exports = {
         crawler.initialPort = port;
         crawler.initalPath = '/';
         crawler.interval=10;
+        //filtramos todo, solo queremos URL's
         crawler.addFetchCondition(function (parsedURL) {
           return !parsedURL.path.match(regex); 
         });
-        // Run the crawler
+        // se inicia el crawler
         crawler.start();
         let count = 0;
         let root = builder.create('urlset').att('xmlns','http://www.sitemaps.org/schemas/sitemap/0.9');
         let d = new Date();
         var date = d.toJSON();
+        // si se encuentra el sitemap, se manda como que la web tiene sitemap
         crawler.on('fetchcomplete', async function(item, responseBuffer, response) {
           if(!found){ 
             if(item.url.includes("sitemap.xml")){
                 found =  item.url;
               }
            }
+          // se busca, y se inserta con la url, el ultimo dia de modificacion y la prioridad
           root.ele({url:{loc:item.url, lastmod: date ,priority: 0.5}});
-          pages.push(item.url); // Add URL to the array of pages
+          pages.push(item.url); // se inserta en la lista
           console.log(count + " : " +item.url);
           count++;
+          // esto es una practica comun, debido a que hay web extremadamente grandes, se suele cortar en un numero de enlaces.
+          // para no tener limite, simplmente se quita este if.
           if(count > 50){
             this.stop();
+            // se escribe en un archivo. 
             fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found,robots:robots})} } )
+            // se envia mediante socket.io, en caso de necesitarlo.
             io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found});
           }
+          //dado que hay un limite, podemos saber la duracion y el progreso de este
           io.emit('percentage-'+uid,Math.floor((count/100*100)));
         });
+        // a veces no sabemos el numero total, por lo cual retornamos cuando termine
         crawler.on('complete', async function() {
           io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count, found:found});
           fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found,robots:robots})} } )
@@ -351,37 +364,29 @@ module.exports = {
         })
       });
     }
-
+  //sincronizamos todas las llamadas. y retornamos el resultado.
    promises.push(api_call());
    let promisess = [];
    return Promise.all(promises).then((result)=>{
      return result;
-   /*
-     console.log("lo llamo");
-     promisess.push(this.findSiteMap_back(url,pages));
-     return Promise.all(promisess).then((res)=>{
-       result.found = [res];
-       console.log('sitemap created');
-         return result;
-     })
-   */
     });
 
 
   },
 
-
+  //Funcion para la busqueda de enlaces rotos.
   async displayBrokenLink_back(links,req,url){
     var io = req.app.get('socketio');
     let promises = [];
     let total = 0;
 
-
+    // llamada para funciones asincronas
     function api_call(){
       return new Promise(function(resolve,reject){
         let crawler;
         var parser = new xml2js.Parser();
         console.log(url);
+        //leemos el archivo XML creado en el sitemap
         let data = fs.readFileSync(url);
         parser.parseString(data,function (err,result) {
           console.log(result.urlset.url[0].loc);
@@ -399,10 +404,13 @@ module.exports = {
         let brokenLinks = [];        
         crawler.start();
         let count = 0;
+        //inciamos la busqueda
         crawler.discoverResources = function(buffer,queueItem){
           /*console.log("\n link from : " +queueItem.url + "   adding: "); */
+          //cogemos solo los que sean enlaces
           let pattern = /^((http|https|ftp):\/\/)/;
           var domain = queueItem.url.match(pattern);
+          //insertamos en la lista, leemos su body y cogemos todos los enlaces.
           brokenLinks.push({location:queueItem.url, bklinks:[]});
           var $ = cheerio.load(buffer.toString('utf-8'));
           return $("a[href]").map( function(){
@@ -415,7 +423,7 @@ module.exports = {
           }).get();
 
         };
-
+        //cuando se han conseguido todos los enlaces se recorren y se hace una llamada http para ver su respuesta
         crawler.on('complete',async function() {
 
           console.log(brokenLinks);
@@ -504,7 +512,7 @@ module.exports = {
       }
       )}
 */
-
+    //proceso de sincronizacion y retorno
     promises.push(api_call());
     return Promise.all(promises).then((result)=>{
        console.log('broken links created');

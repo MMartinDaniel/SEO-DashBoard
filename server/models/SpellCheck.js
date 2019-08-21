@@ -23,11 +23,10 @@ module.exports = {
 
   let html;
   
-  
   JSDOM.fromURL(url, { pretendToBeVisual: true, includeNodeLocations: true }).then(dom => {
-    //console.log(dom.serialize());
+
     const document = dom.window.document;
-    const bodyEl = document.body; // implicitly created
+    const bodyEl = document.body;
     const pEl = document.querySelector("body");
     const textNode = pEl.firstChild;
     const imgEl = document.querySelector("img");
@@ -77,7 +76,7 @@ module.exports = {
       
     })
 
-    
+ //insertamos el diccionario que queramos, en este caso es-ES   
 dictionary((err,dict)=>{
   let perf = [];
   

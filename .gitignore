@@ -1,6 +1,10 @@
 # Compiled files
 dist/
 
+#webshot
+client/public/assets/img/webshots
+
+
 # Config file
 config/config.js
 

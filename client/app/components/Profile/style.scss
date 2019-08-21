@@ -237,11 +237,12 @@ p{
     &__inner{
         margin: 0 auto;
         width: calc(70% - 0px);
-        height: 600px;
+        height: 740px;
         background-color: #f5f7f9;
         margin-top: 30px;
         border-radius: 30px;
     }
+ 
     &__options-body{
         background: white;
         border-radius: 32px;
@@ -639,4 +640,8 @@ p{
 .profile__popup__button--wrap {
     text-align: right;
     margin-top: 100px;
+}  
+
+.personaldata__inner{
+    height: 600px;
 }

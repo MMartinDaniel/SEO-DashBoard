@@ -2,39 +2,6 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import {getFromStorage} from "../utils/storage";
 
-
-class SignOutBtn extends Component{
-  constructor(props){
-   super(props);
-   this.state = {};
- }
-
- logout(){
-
-    const obj = getFromStorage('static');
-    if(obj && obj.token) {
-      const {token } = obj;
-      console.log('/api/account/logout?token=' + token);
-      fetch('/api/account/logout?token=' + token,{method:'GET'})
-        .then(res => res.json()).then(json=>{
-        localStorage.clear();
-      });
-      window.location.reload();
-    };
-  }
-
- render(){
-    return (
-      <a onClick={this.logout} className="dropdown-item" >
-        <i className="icon dripicons-lock-open"/> Sign Out
-      </a>);
-  };
-
-
-};
-
-
-
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -45,19 +12,30 @@ class Header extends Component {
   logout(){
 
     const obj = getFromStorage('static');
+    console.log("Obj:");
+    console.log(obj);
+    console.log("---end---");
     if(obj && obj.token) {
       const {token } = obj;
       console.log('/api/account/logout?token=' + token);
       fetch('/api/account/logout?token=' + token,{method:'GET'})
         .then(res => res.json()).then(json=>{
+          console.log(json);
         localStorage.clear();
-      });
-      window.location.reload();
+        window.localStorage.clear(); //try this to clear all local storage
+
+      }).then(window.location.reload());
+      
     };
   }
   
 
   render() {
+    const obj = getFromStorage('static');
+
+    console.log("Obj:");
+    console.log(obj);
+    console.log("---end---");
     return (<>
       <header>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

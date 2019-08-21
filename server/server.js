@@ -14,10 +14,10 @@ const webpackConfig = require('../webpack.config');
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8080;
 
-// Configuration
+// Configuracion
 // ================================================================================================
 
-// Set up Mongoose
+// configuracion Mongoose
 mongoose.connect(isDev ? config.db_dev : config.db, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
