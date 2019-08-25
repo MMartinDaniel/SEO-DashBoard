@@ -224,20 +224,31 @@ module.exports = {
 
   async get_certificate(url){
     let cert;
-    url = url.replace(/(^\w+:|^)\/\//, '');
+  //  url = url.replace(/(^\w+:|^)\/\//, '');
+    let pattern = /^((http|https|ftp):\/\/)/;
+    if(!pattern.test(url)) {
+      url = "https://" + url;
+    }
+    var url =String(url).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
+    console.log(url);
     try {
     await sslCertificate.get(url).then(function (certificate) {
+        console.log(certificate);
         cert = certificate;
       })
     }catch (e) {
+      console.log(e);
       cert =  null;
     }
     return cert;
   },
-  async get_favicon(html){
+  async get_favicon(html,url){
     let count = 0;
     let favicon_list = [];
+    let pattern = /^((http|https|ftp):\/\/)/;
+
     let favicon;
+    var url =String(url).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
     try {
       html("link").map( function(){
         count++;
@@ -250,6 +261,16 @@ module.exports = {
     }catch(e){
       return e;
     }
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
+    axios.get(url+"/favicon.ico").then((item)=>{
+      try {
+        favicon_list.push({name:"root",href:url+"/favicon.ico"});
+      } catch (error) {}
+    }).catch((err)=>{
+    })
+  
     return {data:favicon_list, count:count, status:'success',errors:''};
   },
 
@@ -304,7 +325,7 @@ module.exports = {
     const keywords = await this.get_keywords(html);
     const description = await this.get_description(html);
     const cloud = await this.get_wordFreqency(html);
-    const favicon = await this.get_favicon(html);
+    const favicon = await this.get_favicon(html,url);
     const meta = await this.get_meta(html);
     return {title: title,keywords:keywords,favicon:favicon,description:description,cloud:cloud,meta:meta.meta, status:'success',errors:''};
 

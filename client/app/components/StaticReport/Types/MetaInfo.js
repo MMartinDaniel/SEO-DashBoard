@@ -160,13 +160,13 @@ class MetaInfo extends Component {
                           
 
                     </div>
-                    <div className={"explanation "}>
+                    <div className={"explanation  extra-m"}>
                         <h6>Description</h6>
                         <p>   <code className="highlighter-rouge"> OpenGraph</code> and <code className="highlighter-rouge"> Twitter</code>  Metadatas are very used nowadays, these tags are used by social media websites such as Facebook or Twitter, this way you can make sure that your content is displayed as you want, and that the information that will be displayed is the correct one. This way you can increase the conversion rate due to more appealing content.</p>
                     </div> 
                 </div>
                 <div>
-                    <div className={"metaInfo-title"}>
+                    <div className={"metaInfo-title "}>
                            
                             <div className={"metaInfo-item"}><h5>twitter:title</h5><p> {(meta_item['twitter:title'])} </p></div> 
                             <div   className={"metaInfo-item"}><h5>twitter:description</h5><p> {(meta_item['twitter:description'])}</p></div> 
@@ -174,7 +174,7 @@ class MetaInfo extends Component {
                             <div className={"metaInfo-item"} ><h5>twitter:card</h5><p> {(meta_item['twitter:card'])} </p> </div> 
 
                     </div>
-                    <div className={"explanation "}>
+                    <div className={"explanation  extra-m"}>
                         <h6>Description</h6>
                         <p>   <code className="highlighter-rouge"> OpenGraph</code> and <code className="highlighter-rouge"> Twitter</code>  Metadatas are very used nowadays, these tags are used by social media websites such as Facebook or Twitter, this way you can make sure that your content is displayed as you want, and that the information that will be displayed is the correct one. This way you can increase the conversion rate due to more appealing content.</p>
                     </div> 

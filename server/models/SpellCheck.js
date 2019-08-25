@@ -64,12 +64,13 @@ module.exports = {
   let correctInput = [];
 
   inputWords.forEach(element => {
-   correctInput.push(element.replace(/(\r\n|\n|\r)/gm, " "));
+    correctInput.push(element.replace(/(\r\n|\n|\r|\t)/gm, " "));
   });
   
+  //filtramos palabras
   let result = [];
   correctInput.map((word) => {
-        if(word === "" || word === "\n" ){}else{  
+        if(word === "" || word === "\n" || !word.replace(/\s/g, '').length ){}else{  
           //console.log(spell.suggest('aplicacon')) // => ['color']
         if(!result.includes(word)) result.push(word);
         }
@@ -83,13 +84,17 @@ dictionary((err,dict)=>{
   if (err) {
     throw err
   }
+  // iniciamos la instancia de nspell
   let spell = nspell(dict);
+  //insertamos cada palabra a nspell
   excluded_words.forEach((item)=>{
     spell.add(item);
   });
   
+  //funcion para compararlas asincronamente, se comprueba si es correcta o no.
   function correct_call(item){
     return new Promise( function(resolve,reject){
+        
         if(!spell.correct(item)){
             result_1 = ({base:item,correct:false});
         }else{
@@ -102,7 +107,7 @@ dictionary((err,dict)=>{
 result.forEach((item)=>{
     perf.push(correct_call(item));
 });
-
+//funcion join.
 return Promise.all(perf).then((res)=>{
   //console.log(item + ":" + spell.correct(item));
   io.emit(id,res);

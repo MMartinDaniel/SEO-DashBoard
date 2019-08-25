@@ -27,7 +27,7 @@ class AnalysisTable extends Component{
 
     return (
       <>
-        <div className="card-deck m-b-30">
+        <div className="card-deck m-b-30 phonr-res">
           <div className={`card ${basename}`}>
             <h5 className={`card-header  `}>Report Status Table</h5>
             <div className="card-body">
@@ -80,7 +80,7 @@ class Analytics extends Component {
     let {cards} = this.props;
     return (
       <>
-        <div className='main-tab'>
+        <div className='main-tab phonr-res'>
           <div className="row">
             <div className='col-lg-12'>
               <AnalysisTable cards={cards}  />

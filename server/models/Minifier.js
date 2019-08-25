@@ -18,7 +18,8 @@ module.exports = {
               //comprobamos si es Script o CSS, lo minificamos y comprobamos su posible ahorro.
               if(item.deadlink.resourceType === "Script"){
                 result = UglifyJS.minify(body);
-                console.log(result);
+                
+             //   console.log(result);
                 var res_size = encodeURI(result.code);
                 if (res_size.indexOf("&#37;") !== -1) {
                   var count = res_size.split("%").length - 1;
@@ -28,11 +29,13 @@ module.exports = {
                 } else {
                   count = res_size.length
                 }
+
                 stats = {
                   ...item,
                   minifiedSize: count,
                   originalSize: item.deadlink.resourceSize,
                   efficiency: (count/item.deadlink.resourceSize)-1,
+                  
                 };
               }else{
                 result =  new CleanCSS(options).minify(body);
@@ -60,18 +63,15 @@ module.exports = {
       });
 
     },
-
-
       minifyJSCSS(url,type,callback){
-
         console.log(url);
-
       return new Promise(function(resolve,reject){
         try {
           request({url:url,time:true}, function (error, response, body) {
             let options = {};
-            let result = (type === 1) ? UglifyJS.minify(body) : new CleanCSS(options).minify(body);
-            resolve(result);
+            console.log(body);
+            let result = (type === '1') ? UglifyJS.minify(body) : new CleanCSS(options).minify(body);
+            resolve(result.code);
           });
         }catch (e){
           console.error(e);

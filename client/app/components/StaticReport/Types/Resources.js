@@ -8,7 +8,7 @@ class Resources extends Component {
       super(props);
       this.state = {
         dataCha: {},
-        color:['#FF6384', '#36A2EB', '#FFCE56', '#20c997', '#e083ff'],
+        color:['#FF6384', '#36A2EB', '#FFCE56', '#20c997', '#e083ff','#65f7c7','#7968ad',"#ebb249",'#f75eab','#5eadf7'],
         chartData: {},
     
       };

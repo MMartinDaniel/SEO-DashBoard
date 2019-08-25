@@ -45,7 +45,23 @@ module.exports = (app) => {
   
 
   });
+  app.post('/api/account/profileName',(req,res,next)=>{
+    console.log("calling here");
+    console.log(req.body);
+    const {body} = req;
+    const {uid,fullname,subtitle} = body;
+    User.findOneAndUpdate({_id: uid}, {name:fullname,subtitle:subtitle }, {new: true}, (err, user) => {
+      console.log(user);
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (user.length != 1) {
 
+        return res.send({success:true, message:'Success, Report found',data:user});
+      }
+  });
+  
+
+  });
 
   app.post('/api/account/signin',(req,res,next)=>{
     const {body} = req;
@@ -150,6 +166,9 @@ module.exports = (app) => {
         const newUser = new User();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        newUser.image = "";
+        newUser.name = "";
+        newUser.subtitle = "";
         newUser.save((err,user)=>{
           if(err){
             return res.send({

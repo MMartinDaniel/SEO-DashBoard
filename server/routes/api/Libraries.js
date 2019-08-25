@@ -179,8 +179,8 @@ module.exports = (app) => {
   });
   app.get('/library/user/reports',(req,res,next)=>{
     const { uid } = req.query;
-
-    if(req.query.limit !== null){
+    console.log(req.query.limit);
+    if(req.query.limit !== undefined){
       const { limit } = req.query;
       Report.find({user: uid},{website:true, date:true, id:true,views:true}).populate({path:'metadata'}).sort('-date').limit(10).exec((err,reports)=>{
         if(err){
@@ -191,7 +191,7 @@ module.exports = (app) => {
       });
 
     }else{
-      Report.find({user: uid},{website:true, date:true, id:true,views:true}).populate({path:'metadata'}).exec((err,reports)=>{
+      Report.find({user: uid},{website:true, date:true, id:true,views:true}).populate({path:'metadata'}).sort('-date').exec((err,reports)=>{
         if(err){
           return res.send({success:false,message:"Error: Server error",data:[]});
         }else if( reports.length > 0){
@@ -232,8 +232,11 @@ module.exports = (app) => {
 
   app.put('/library/brokenLink',(req,res,next)=>{
     const {body } = req;
-      const {uid} = body;
-    brokenLinkTester.displayBrokenLink(null,req,uid);
+      const {uid,web} = body;
+  //  brokenLinkTester.displayBrokenLink(null,req,uid);
+  console.log(body);
+    brokenLinkTester.displayBrokenLink_back_tool(web,req,uid);
+
     res.send({response:true,error:''});
   });
 
@@ -262,4 +265,13 @@ module.exports = (app) => {
   app.get('/library/sitemap/:id',(req,res,next)=>{
     res.download('./sitemaps/' +req.params.id + '-sitemap.xml');
   })
+
+  app.put('/test',(req,res,next)=>{
+    const {body } = req;
+      const {uid} = body;
+    brokenLinkTester.displayBrokenLink_back(null,req,null);
+    res.send({response:true,error:''});
+  });
+
+
 }
