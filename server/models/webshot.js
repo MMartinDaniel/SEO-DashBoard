@@ -1,15 +1,16 @@
 var webshot = require('node-webshot');
 var fs      = require('fs');
+const captureWebsite = require('capture-website');
 
 var options_phone = {
 
   screenSize: {
     width: 375 //320
-    , height: 812 //420
+    , height: 420 //420
   }
   , shotSize: {
     width: 375 // 320
-    , height: '812' //'all'
+    , height: 'all' //'all'
   }
   , userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'
 };
@@ -21,7 +22,7 @@ var options_desktop = {
   }
   , shotSize: {
     width: 1920
-    , height: 1080
+    , height: 'all'
   }, renderDelay: 5000
   , userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36",
 };
@@ -31,7 +32,7 @@ var options_tablet = {
 
   screenSize: {
     width: 1024
-    , height: 1366
+    , height: 'all'
   }
   , shotSize: {
     width: 1024
@@ -79,5 +80,34 @@ module.exports = {
     console.log({   tabletPic: `${location}tablet-${file}` ,phonePic: `${location}phone-${file}` , desktopPic: `${location}desktop-${file}` });
     return {   tabletPic: `tablet-${file}` ,phonePic: `phone-${file}` , desktopPic: `desktop-${file}` };
 
+  },
+  async createNeWebshot(url,id){
+    let pattern = /^((http|https|ftp):\/\/)/;
+    if(!pattern.test(url)) {
+      url = "http://" + url;
+    }
+    //generamos las distintas imagenes, y las guardamos
+    var file = id+".jpeg";
+    var location = 'client/public/assets/img/webshots/';
+    captureWebsite.file(url, location+"phone-"+file, {
+      emulateDevice: 'iPhone X',
+      quality: 0.1,
+      type: "jpeg",
+    });
+    captureWebsite.file(url, location+"tablet-"+file, {
+      emulateDevice: 'iPad Pro',
+      quality: 0.1,
+      type: "jpeg"
+    });
+    captureWebsite.file(url, location+"desktop-"+file, {
+      quality: 0.1,
+      type: "jpeg"
+    });
+    console.log("new");
+    console.log({   tabletPic: `${location}tablet-${file}` ,phonePic: `${location}phone-${file}` , desktopPic: `${location}desktop-${file}` });
+    return {   tabletPic: `tablet-${file}` ,phonePic: `phone-${file}` , desktopPic: `desktop-${file}` };
   }
+
 };
+
+

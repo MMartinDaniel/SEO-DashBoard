@@ -172,7 +172,7 @@ class SpellChecker extends Component {
                         <div className='spell-results'>
                     {   (data.length > 0) ?
                         data.map((word,i)=>{
-                         return (word.correct) ? (<p  key={i}>{word.base} </p>) : (<p key={i} onClick={() => this.addWord(word.base)} className="wrong-word">{word.base} </p>);
+                          return (word.correct) ? (<p  key={i}>{word.base} </p>) : (<p key={i} onClick={() => this.addWord(word.base)} className="wrong-word">{word.base} </p>);
                         })
                          : null
                     }

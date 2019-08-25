@@ -26,18 +26,71 @@ class ReportImageAlt extends Component {
                   <tr>
                     <th>Thumbnail</th>
                     <th>Alt text</th>
-                    <th>Url</th>
+                    <th className={'rright'}  >Url</th>
                   </tr>
                 </thead>
                 <tbody>
                 {
                   this.props.details.map(function (item, i) {
-                    let pic_url = isAbsoluteUrl(item.url) ? item.url : `http://${url}${item.url}`;
+                    let finalUrl;
+                    let pattern = /^((http|https|ftp):\/\/)/;
+                   
+                    if(item.url.substring(0,2)==="//"){
+                    }/*else if(item.url.substring(0,1) === "/"){
+                      item.url = item.url.substring(1);
+                    }*/else if(item.url.substring(0,2)=== "./"){
+                      item.url = item.url.substring(2);                                
+                    }
+                    
+                    console.log(item.url);
+                    if(item.url.substring(0, 2) == "//"){
+                      finalUrl = item.url;
+                    }else if(isAbsoluteUrl(item.url)){
+                      finalUrl = item.url;
+                    }else if(!pattern.test(item.url)) {
+
+                      if(url.substring(url.length - 1) === "/" ){
+                        if(item.url.substring(1) === "/" ){
+                          item.url = item.url.substring(1);
+                        }
+                        if(pattern.test(url)){
+                          finalUrl = url + item.url;
+                        }else{
+                          finalUrl = "http://"+  url + item.url;
+                        }
+                        
+                      }else{
+
+                        if(item.url.substring(1) === "/" ){
+                          if(pattern.test(url)){
+                            finalUrl = url + item.url;
+                          }else{
+                            finalUrl = "http://" + url + item.url;
+                          }
+          
+                        }else{
+                          if(pattern.test(url)){
+                            finalUrl = url + item.url;
+                          }else{
+                            finalUrl = "http://"+  url +"/" + item.url;
+                          }
+                        
+              
+                        }
+              
+              
+                      }
+                      
+                    }
+
+
+             //       let pic_url = isAbsoluteUrl(item.url) ? item.url : `http://${url}${item.url}`;
+               //      pic_url  = (item.url.substring(0, 2) == "//") ? item.url : pic_url;
 
                    return <tr className="matoi-item" key={i}>
-                      <td className={(item.alt !== undefined) ? 'alt-report yes-alt' : 'alt-report no-alt'} ><img src={pic_url}/></td>
+                      <td className={(item.alt !== undefined && item.alt !== "" ) ? 'alt-report yes-alt' : 'alt-report no-alt'} ><img className={'formated'} src={finalUrl}/></td>
                       <td className='alt-name'>{item.alt}</td>
-                      <td className='url-name'><a target="_blank" href={pic_url}>
+                      <td className='url-name'><a target="_blank" href={finalUrl}>
                         <div className="alt-button">Inspect Image</div>
                       </a></td>
                     </tr>;

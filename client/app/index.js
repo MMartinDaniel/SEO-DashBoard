@@ -37,7 +37,6 @@ render((
         <Route path="/received" component={Received}/>
         <Route path="/alternative" component={AlternativeTool}/>
         <Route path="/Sitemap" component={SiteMapGenerator}/>
-        
         <Route path="/signin" component={Signin}/>
         <Route path="/login" component={LoginPage}/>
         <Route path="/minifier" component={Minifier} />

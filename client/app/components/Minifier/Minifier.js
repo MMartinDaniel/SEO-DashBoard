@@ -137,6 +137,7 @@ class Minifier extends Component {
                       {(data.length >= 0 && info_data.length >= 0)?
 
                        data.map(function(item, i){
+                      
                          let icon = null;
                          let type = 0;
                          if(item.deadlink.resourceType === 'Stylesheet'){
@@ -146,18 +147,21 @@ class Minifier extends Component {
                            icon = "icons8-javascript-48.png";
                            type=1;
                          }
-                         return <tr  key={i} >
-                           <td><img src={'/assets/img/icon/' + icon }/></td>
-                           <td className='minify-name'>{item.name}</td>
+                         console.log("comparing "+ info_data[i].efficiency + " and "  + -0.02);
+                         if((info_data[i].originalSize > info_data[i].minifiedSize) && parseFloat(info_data[i].efficiency) < -0.02 && parseFloat(info_data[i].efficiency) > -0.98 ){
+                         
+                          return <tr  key={i} >
+                            <td><img src={'/assets/img/icon/' + icon }/></td>
+                            <td className='minify-name'>{item.name}</td>
 
-                           <td>{item.deadlink.resourceSize}</td>
-                           <td>{info_data[i].minifiedSize}</td>
-                           <td><div className="minified yesm">{Math.abs(Math.floor((info_data[i].efficiency)*100))}%</div></td>
+                            <td>{item.deadlink.resourceSize}</td>
+                            <td>{info_data[i].minifiedSize}</td>
+                            <td><div className="minified yesm">{Math.abs(Math.floor((info_data[i].efficiency)*100))}%</div></td>
 
-                           <td><a  href={"/api/minifier/minify?url="+ item.where+"?type="+type }><div className="minify-button">Minify</div></a></td>
-                         </tr>;
-                        })
-
+                            <td><a  href={"/api/minifier/minify?url="+ item.where+"&type="+type }><div className="minify-button">Minify</div></a></td>
+                          </tr>;
+                         }
+                          })
                         : null
                       }
 

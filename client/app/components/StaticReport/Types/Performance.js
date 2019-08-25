@@ -40,7 +40,7 @@ class Performance extends Component {
 
                          
                     </div>
-                    <div className={"explanation"} style={{marginTop:'50px'}}>
+                    <div className={"explanation m-t"}>
                         <h6>Description</h6>
                         <p>
                         <code className="highlighter-rouge">Cache Control</code> header is used to specify directives for caching, the options can be set as public, private, no-cache and only-if-cached, this header is followed by a expiration time of the cache<br></br>
@@ -63,7 +63,7 @@ class Performance extends Component {
                       
                         </div>
                     </div>
-                    <div className={"explanation"}>
+                    <div className={"explanation m-t-s"}>
                         <h6>Description</h6>
                         <p>
                             <code className="highlighter-rouge">First Contentful Paint</code> marks the time at which the first text or image is painted.<br></br>

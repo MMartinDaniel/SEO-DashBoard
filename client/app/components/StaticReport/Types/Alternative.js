@@ -55,9 +55,15 @@ class Alternative extends Component {
                         {
                             ( data.length >= 0) ?
                                 data.map(function(item, i){
-                                  
-                            
-                                    return (
+                                if(item.url.substring(0,2)==="//"){
+                                }else if(item.url.substring(0,1) === "/"){
+                                  item.url = item.url.substring(1);
+                                }else if(item.url.substring(0,2)=== "./"){
+                                  item.url = item.url.substring(2);                                
+                                }
+                                console.log(item.url);
+
+                                 return (
                                             <Tile key={i} icon={"none"} url={url} item={item} type={"no"} />
                                     );
                                 })
@@ -85,14 +91,51 @@ class Tile extends Component{
   
     render(){
       const {icon,item,type} = this.props;
-      item.alt = (!item.alt) ? "No alternative Set" : item.alt;
-      return(
+      let finalUrl;
+      let pattern = /^((http|https|ftp):\/\/)/;
+      if(item.url.substring(0, 2) == "//"){
+        finalUrl = item.url;
+      }else if(isAbsoluteUrl(item.url)){
+        finalUrl = item.url;
+      }else if(!pattern.test(item.url)) {
+        if(this.props.url.substring(this.props.url.length - 1) === "/" ){
+          if(item.url.substring(1) === "/" ){
+            item.url = item.url.substring(1);
+          }
+          if(pattern.test(this.props.url)){
+            finalUrl = this.props.url + item.url;
+          }else{
+            finalUrl = "http://"+  this.props.url + item.url;
+          }
+          
+        }else{
+
+          if(item.url.substring(1) === "/" ){
+            if(pattern.test(url)){
+              finalUrl = this.props.url + item.url;
+            }else{
+              finalUrl = "http://"+  this.props.url + item.url;
+            }
+          }else{
+            if(pattern.test(url)){
+               finalUrl = this.props.url + item.url;
+            }else{
+              finalUrl = "http://"+  this.props.url +"/"+ item.url;
+            }
+          }
+
+        }
+        
+      }
+      console.log(finalUrl);
+     // item.alt = (!item.alt) ? "No alternative Set" : item.alt;
+      return(  
         <>
           <div className="noalt-item">
                 <div className='noalt-item-title'> 
-                    <div className={"pic-wrapper"} ><a href={isAbsoluteUrl(item.url) ? item.url : `http://${this.props.url}${item.url}` } target="_blank"><img src={isAbsoluteUrl(item.url) ? item.url : `http://${this.props.url}${item.url}`}/></a> </div>
+                    <div className={"pic-wrapper"} ><a href={finalUrl } target="_blank"><img src={finalUrl}/></a> </div>
                     <div className="noalt-tile-text">
-                        <p className="noalt-tile-name">{(item.alt.length === 0 ) ? "No alternative set" : item.alt}</p>
+                        <p className="noalt-tile-name">{( item.alt === "" ) ? "No alternative set" : item.alt}</p>
                     </div>
                 </div>
                 
@@ -100,7 +143,8 @@ class Tile extends Component{
       </>);
     }
   }
-/*
+/*                      <div className={"pic-wrapper"} ><a href={(item.url.substring(0, 2) == "//") ? item.url : `${this.props.url}${item.url}` } target="_blank"><img src={(item.url.substring(0, 2) == "//") ? item.url : `${this.props.url}${item.url}`}/></a> </div>
+
   <td><img src={'/assets/img/icon/' + icon }/></td>
   <td className='minify-name'>{item.name}</td>
 

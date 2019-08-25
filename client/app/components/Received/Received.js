@@ -43,7 +43,7 @@ import { getFromStorage } from '../utils/storage';
   
       return (
         <>
-        <div className='main-tab'>
+        <div className='main-tab phonr-res'>
         <div className="row">
         <div className='col-lg-12'>
           <div className="card-deck m-b-30">

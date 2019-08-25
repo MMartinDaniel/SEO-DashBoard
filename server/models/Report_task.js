@@ -11,15 +11,38 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const Job = require("../models/report_models/Jobs");
 const Webshot = require("../models/report_models/Webshot");
+const axios = require('axios');
+
 module.exports = {
     
     async generateReport(body,req){
 
+        
         let id = bcrypt.hashSync(Date.now(),bcrypt.genSaltSync(5,null));
         id = id.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
         let start_date = Date.now();
         const {options,web,uid} = body;
-        console.log(web);     
+        let pattern = /^((http|https|ftp):\/\/)/;
+        let url = web;
+        if(!pattern.test(web)) {
+            url = "http://" + web;
+        }
+        console.log(url);
+        let val = await axios.get(url).then((response)=>{
+            try {
+                return response.status;
+            } catch (error) {
+                return error.response.status;
+            }
+        }).catch((err)=>{ 
+
+            return 404;  
+        })
+        console.log(val);
+        if(val !== 200 ){
+            return false;
+        }
+     
         /*
         results[0] = (options[0]) ? seo_tasks.get_allHTags(web) : null ;
         results[1] = (options[1]) ? seo_tasks.get_certificate(web) : null;
@@ -44,7 +67,7 @@ module.exports = {
         newJob.save();
         let result_1;
         let perf = [];
-        
+      
         let total_options = 0;
         options.forEach((item)=>{
             if(item) total_options++;
@@ -117,7 +140,7 @@ module.exports = {
                         result = (options[item_index]) ? seo_tasks.get_imgAlt(web) :null;
                         break;
                     case 9:
-                        result = (options[item_index]) ?  webshot.createWebShootReport(web,id) :null;
+                        result = (options[item_index]) ?  webshot.createNeWebshot(web,id) :null;
                         break;
                 }
 

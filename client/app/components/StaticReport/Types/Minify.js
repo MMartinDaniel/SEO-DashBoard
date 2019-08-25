@@ -29,13 +29,21 @@ class Minify extends Component {
         let total_saving = 0;
         let total_items = 0;
 
+        console.log(data.length);
         data.map(function(item){
-            total_saving += (item.originalSize < item.minifiedSize) ? item.originalSize : item.minifiedSize;
+
+            if(item.originalSize > item.minifiedSize){ 
+                if ( item.efficiency > 0.05){
+                    total_saving+= item.originalSize - item.minifiedSize;
+                }
+            };
+
+           // total_saving += (item.originalSize < item.minifiedSize) ? item.originalSize : item.minifiedSize;
             total_size+=item.originalSize;
             total_items++;
         });
 
-        total_saving = total_size - total_saving;
+       // total_saving = total_size - total_saving;
         total_size = this.bytesToSize(total_size);
         total_saving = this.bytesToSize(total_saving);
 
@@ -58,9 +66,9 @@ class Minify extends Component {
 
                         </div>
                     </div>
-                    <div className={"explanation"}>
+                    <div className={"explanation  extra-m"}>
                         <h6>Description</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>The <code className="highlighter-rouge">size </code> of the website is quite important when  performance is required,  having a small number of network request and those being small sized can lead in to a very fast website. <code className="highlighter-rouge">Minify</code> files that can be reduced in size means we can achieve better results. Minifying files is very easy, since it can be done automatically, and is not a manual task. </p>
                         </div> 
                 </div> 
                 <div>
@@ -68,7 +76,10 @@ class Minify extends Component {
                         {
                             ( data.length >= 0) ?
                                 data.map(function(item, i){
-                                  
+                                    let minified = true;
+                                    if(item.originalSize > item.minifiedSize){
+                                      
+                                      if (parseFloat(item.efficiency) < -0.02 && parseFloat(item.efficiency) > -0.98) minified=false ;};
                                     let icon = null;
                                     let type = 0;
                                     if(item.deadlink.resourceType === 'Stylesheet'){
@@ -80,7 +91,7 @@ class Minify extends Component {
                                     }
                                     console.log(icon);
                                     return (
-                                            <Tile key={i} icon={icon} item={item} type={type} />
+                                            <Tile key={i} icon={icon} item={item} type={type} minified={minified} />
                                     );
                                 })
 
@@ -106,7 +117,7 @@ class Tile extends Component{
     };
   
     render(){
-      const {icon,item,type} = this.props;
+      const {icon,item,type,minified} = this.props;
       let val = Math.abs(Math.floor((item.efficiency)*100));
       let color = ( val > 0 && val <= 20 ) ? 'orange' : ( val > 20) ? 'green' : 'red';
       val = (val >= 100) ? 0 : val;
@@ -118,7 +129,13 @@ class Tile extends Component{
                     <img src={'/assets/img/icon/' + icon }/>
                     <div className="minify-tile-text">
                         <p className="minify-tile-name">{item.name}</p>
-                        <p className="minify-tile-saving">Saving:  <span className={color}>{val}%</span></p>
+                        {
+                            (!minified) ? 
+                                 <p className="minify-tile-saving">Saving:  <span className={color}>{val}%</span></p>
+                            : 
+                            <p className="minify-tile-saving alminified"><span className={"green"}>Minified</span></p>
+                        }
+                       
                     </div>
                 </div>
                 
