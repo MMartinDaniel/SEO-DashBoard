@@ -16,6 +16,7 @@ module.exports = {
               let result = null;
               let stats = {};
               //comprobamos si es Script o CSS, lo minificamos y comprobamos su posible ahorro.
+              console.log(item.deadlink.resourceType);
               if(item.deadlink.resourceType === "Script"){
                 result = UglifyJS.minify(body);
                 
@@ -69,9 +70,11 @@ module.exports = {
         try {
           request({url:url,time:true}, function (error, response, body) {
             let options = {};
-            console.log(body);
+            console.log(body);console.log(type);
+            console.log(url);
+           // console.log(body)
             let result = (type === '1') ? UglifyJS.minify(body) : new CleanCSS(options).minify(body);
-            resolve(result.code);
+            (type === '1') ? resolve(result.code) : resolve(result.styles);
           });
         }catch (e){
           console.error(e);

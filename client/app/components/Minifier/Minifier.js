@@ -146,10 +146,18 @@ class Minifier extends Component {
                          }else if(item.deadlink.resourceType === 'Script' ){
                            icon = "icons8-javascript-48.png";
                            type=1;
+
                          }
                          console.log("comparing "+ info_data[i].efficiency + " and "  + -0.02);
-                         if((info_data[i].originalSize > info_data[i].minifiedSize) && parseFloat(info_data[i].efficiency) < -0.02 && parseFloat(info_data[i].efficiency) > -0.98 ){
-                         
+                         let result;
+                         if(type===1){
+                          result = ((info_data[i].originalSize > info_data[i].minifiedSize) && parseFloat(info_data[i].efficiency) < -0.02 && parseFloat(info_data[i].efficiency) > -0.98 );
+
+                         }else{
+                            result = ((info_data[i].originalSize > info_data[i].minifiedSize) && parseFloat(info_data[i].efficiency) > 0.02 && parseFloat(info_data[i].efficiency) < 0.98 );
+                         }
+                     //JS    if((info_data[i].originalSize > info_data[i].minifiedSize) && parseFloat(info_data[i].efficiency) < -0.02 && parseFloat(info_data[i].efficiency) > -0.98 ){
+                          if(result){
                           return <tr  key={i} >
                             <td><img src={'/assets/img/icon/' + icon }/></td>
                             <td className='minify-name'>{item.name}</td>

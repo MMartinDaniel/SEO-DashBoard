@@ -3,7 +3,7 @@ import openSocket from 'socket.io-client';
 import  ReactTable from 'react-table';
 import {Link} from "react-router-dom";
 import {getFromStorage} from "../utils/storage";
-
+import bcrypt from "bcrypt-nodejs"
 class BrokenChecker extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +35,9 @@ class BrokenChecker extends Component {
          this.setState({messages:[message, ...this.state.messages]});
          ///
       if(message.status ===  'finished'){
-        this.setState({messages: message.links,loading:false,percentage:message.percentage});
+        this.setState({messages: message.links,loading:false,percentage:message.percentage,url:message.web});
       }else {
-        this.setState({messages: message.links,loading:true,percentage:message.percentage});
+        this.setState({messages: message.links,loading:true,percentage:message.percentage,url:message.web});
       }
     });
 
@@ -52,6 +52,21 @@ class BrokenChecker extends Component {
       loading: true,
       percentage: '0',
     });
+    
+    let id = bcrypt.hashSync(Date.now(),bcrypt.genSaltSync(5,null));
+    id = id.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
+    this.socket.on('brokenLinks-'+id, message =>{
+      //esto estaba comentado
+         this.setState({messages:[message, ...this.state.messages]});
+         ///
+      if(message.status ===  'finished'){
+        this.setState({messages: message.links,loading:false,percentage:message.percentage,url:message.web});
+      }else {
+        this.setState({messages: message.links,loading:true,percentage:message.percentage,url:message.web});
+      }
+    });
+
     fetch('/library/brokenLink',{
       method:'PUT',
       headers: {
@@ -60,7 +75,7 @@ class BrokenChecker extends Component {
       },
       body: JSON.stringify({
         web: this.state.url,
-        uid: this.state.uid,
+        uid: id,
       })
     });
 
@@ -90,7 +105,7 @@ class BrokenChecker extends Component {
 
           <div className="loading-card">
               { loading
-                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit"onClick={this.checkBrokenLinks}  value={`${percentage}%         `} disabled></input> </form>
+                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL" disabled></input><input type="submit"onClick={this.checkBrokenLinks}  value={`${percentage}%         `} disabled></input> </form>
                         :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insert URL"></input><input type="submit"onClick={this.checkBrokenLinks}  value="Generate"></input> </form>
                       }
 
