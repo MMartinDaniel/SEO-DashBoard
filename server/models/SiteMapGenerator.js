@@ -296,6 +296,7 @@ module.exports = {
       url = "http://" + url;
     }       
     var dominio=String(url).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
+    console.log("domain" + dominio);
     fetch("http://"+dominio+"/robots.txt").then(function(response) {
       return response.text().then(function(text) {
            robots = text.split("\n");
@@ -306,6 +307,8 @@ module.exports = {
         console.log(robots);
 
       });
+    }).catch((er)=>{
+      console.log(er);
     });
     
 
@@ -344,12 +347,19 @@ module.exports = {
           count++;
           if(count > 50){
             this.stop();
+            io.emit('percentage-'+uid,Math.floor(100));
+
             fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found,robots:robots})} } )
             io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found});
+          }else{
+            io.emit('percentage-'+uid,Math.floor((count/100*100)));
+
           }
-          io.emit('percentage-'+uid,Math.floor((count/100*100)));
         });
         crawler.on('complete', async function() {
+          console.log("aqui");
+          io.emit('percentage-'+uid,Math.floor(100));
+
           io.emit("test",{url: "./sitemaps/" + uid + "-sitemap.xml", total: count, found:found});
           fs.writeFile('./sitemaps/' +uid +'-sitemap.xml',root.end({pretty: true}),(err)=>{ if(err){ throw err;}else{ resolve({url: "./sitemaps/" + uid + "-sitemap.xml", total: count,found:found,robots:robots})} } )
           console.log("done");
@@ -590,9 +600,6 @@ module.exports = {
        id = id.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
 
       this.generateSiteMap_back(url,req,id).then( async () => {
-
-
-
         function api_call(){
           return new Promise(function(resolve,reject){
             let crawler;
@@ -738,7 +745,7 @@ module.exports = {
                                 deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:error.response.status });
                               }catch(err){
                                 deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:404});
-                                io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:'unfinished'});
+                                io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:'unfinished',web:url});
                               }
                             });
                         
@@ -746,10 +753,10 @@ module.exports = {
                     }
                     current++;
                     let perce = Math.floor(((current/count)*100));
-                    io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:'unfinished'});
+                    io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:'unfinished',web:url});
                   }
                   console.log(deadLinks);
-                  io.emit('brokenLinks-'+uid,{links:deadLinks,percentage:'100',status:'finished'});                   
+                  io.emit('brokenLinks-'+uid,{links:deadLinks,percentage:'100',status:'finished',web:url});                   
 
                 }
                 

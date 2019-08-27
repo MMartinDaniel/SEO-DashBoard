@@ -244,7 +244,7 @@ module.exports = (app) => {
       const { body } = req;
       const { web, uid  } = body;
       console.log(web);
-      brokenLinkTester.generateSiteMap(web,req,uid);
+      brokenLinkTester.generateSiteMap_back(web,req,uid);
       res.send({response:true,error:''});
   });
 

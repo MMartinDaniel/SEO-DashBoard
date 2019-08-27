@@ -192,6 +192,15 @@
 .metaInfo-item {
     width: 310px;
     display: inline-grid;
+
+    
+}
+.metaInfo-item {
+    width: 310px;
+    max-height: 132px;
+    display: inline-grid;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .h-t{
     margin-left: 35px;
@@ -726,3 +735,4 @@ overflow-x: hidden;
         width: 31.5%;
     }
 }
+

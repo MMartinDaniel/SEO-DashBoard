@@ -109,16 +109,16 @@ class Tile extends Component{
           }
           
         }else{
-
+        
           if(item.url.substring(1) === "/" ){
-            if(pattern.test(url)){
+            if(pattern.test(this.props.url)){
               finalUrl = this.props.url + item.url;
             }else{
               finalUrl = "http://"+  this.props.url + item.url;
             }
           }else{
-            if(pattern.test(url)){
-               finalUrl = this.props.url + item.url;
+            if(pattern.test(this.props.url)){
+               finalUrl = this.props.url + "/" + item.url;
             }else{
               finalUrl = "http://"+  this.props.url +"/"+ item.url;
             }
