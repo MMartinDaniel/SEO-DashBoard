@@ -391,6 +391,11 @@ module.exports = {
     let promises = [];
     let total = 0;
     let domain = '';
+    let deadLinks = [];
+    let promise = [];
+    let externalBrokenLinks=[];
+    let brokenLinks = [];  
+    let externals = [];
     function api_call(){
       return new Promise(function(resolve,reject){
         let crawler;
@@ -413,8 +418,7 @@ module.exports = {
         crawler.interval=10;
         crawler.maxConcurrency = 3;
         var dominio =String(domain).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
-        let externalBrokenLinks=[];
-        let brokenLinks = [];        
+           
         crawler.start();
         let count = 0;
         crawler.discoverResources = function(buffer,queueItem){
@@ -458,30 +462,15 @@ module.exports = {
               })
           });
         }
-        let deadLinks = [];
 
-        let externals = [];
         crawler.on('complete',async function() {
           console.log("aa");
 
-          let promise = [];
           externalBrokenLinks.forEach(element => {
               promise.push(axios_call(element));
           });
 
-           Promise.all(promise).then((result)=>{
-            var filtered = result.filter(function (el) {
-              return el != null;
-            });
-            console.log(filtered);
-            filtered.forEach((item)=>{  
-            for(var i = 0; i < brokenLinks.length; i++){
-                if(brokenLinks[i].bklinks.includes(item.url)){
-                  deadLinks.push({deadlink: item.url, where: brokenLinks[i].location,status:item.status});
-              }
-            }
-            })
-          });
+
      
          
        //   console.log(brokenLinks);
@@ -583,9 +572,26 @@ module.exports = {
         )}
     promises.push(api_call());
     return Promise.all(promises).then((result)=>{
-       console.log('broken links created');
-     //  console.log(result);
-       return {result:result,total:total};
+      return Promise.all(promise).then((result)=>{
+        var filtered = result.filter(function (el) {
+          return el != null;
+        });
+        console.log(filtered);
+        filtered.forEach((item)=>{  
+        for(var i = 0; i < brokenLinks.length; i++){
+            if(brokenLinks[i].bklinks.includes(item.url)){
+              deadLinks.push({deadlink: item.url, where: brokenLinks[i].location,status:item.status});
+          }
+        }
+        })
+      }).then(()=>{
+        console.log('broken links created');
+        //  console.log(result);
+          return {result:result,total:total};
+      });
+
+
+     
      });
 
   },
@@ -668,7 +674,8 @@ module.exports = {
               });
             }
             let deadLinks = [];
-    
+            let status = "unfinished";
+            let perce = 0;
             let externals = [];
             crawler.on('complete',async function() {
               console.log("aa");
@@ -679,6 +686,7 @@ module.exports = {
               });
     
                 Promise.all(promise).then((result)=>{
+                  console.log("external done");
                 var filtered = result.filter(function (el) {
                   return el != null;
                 });
@@ -687,6 +695,8 @@ module.exports = {
                 for(var i = 0; i < brokenLinks.length; i++){
                     if(brokenLinks[i].bklinks.includes(item.url)){
                       deadLinks.push({deadlink: item.url, where: brokenLinks[i].location,status:item.status});
+                      io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:status,web:url});
+
                   }
                 }
                 })
@@ -745,7 +755,7 @@ module.exports = {
                                 deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:error.response.status });
                               }catch(err){
                                 deadLinks.push({deadlink: brokenLinks[i].bklinks[j], where: brokenLinks[i].location,status:404});
-                                io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:'unfinished',web:url});
+                                io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:status,web:url});
                               }
                             });
                         
@@ -753,10 +763,12 @@ module.exports = {
                     }
                     current++;
                     let perce = Math.floor(((current/count)*100));
-                    io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:'unfinished',web:url});
+                    io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:status,web:url});
                   }
                   console.log(deadLinks);
-                  io.emit('brokenLinks-'+uid,{links:deadLinks,percentage:'100',status:'finished',web:url});                   
+                  status =  'finished';
+                  perce=100;
+                  io.emit('brokenLinks-'+uid,{links:deadLinks,percentage:perce,status:status,web:url});                   
 
                 }
                 

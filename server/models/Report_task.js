@@ -261,6 +261,21 @@ module.exports = {
             message: 'Report Created'
           })
         })
+
+        User.findOneAndUpdate( { _id: uid }, { $addToSet: { reports: id }} , function(err) {
+        if (err) {
+            return({success:true,message: "Error: Server Error",});
+        }else {
+            return({success:true,message: "Success: Added",});
+        }
+        } )
+        User.findOneAndUpdate( { _id: uid }, {$inc:{repcounter:1}},{new: true}  , function(err) {
+            if (err) {
+                return({success:true,message: "Error: Server Error",});
+            }else {
+                return({success:true,message: "Success: Added",});
+            }
+            } )
           console.log('all solved');
          // console.log(results);
         });

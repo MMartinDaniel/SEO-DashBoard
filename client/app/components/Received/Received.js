@@ -32,7 +32,7 @@ import { getFromStorage } from '../utils/storage';
             })
         }).then(response => response.json()).then(response=>{
             console.log(response);
-                //window.location.reload();
+            window.location.reload();
         });
     }
   

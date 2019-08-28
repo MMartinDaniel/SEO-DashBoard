@@ -34,7 +34,30 @@ class ReportImageAlt extends Component {
                   this.props.details.map(function (item, i) {
                     let finalUrl;
                     let pattern = /^((http|https|ftp):\/\/)/;
-                   
+
+
+                    if(item.url !== undefined){
+                      if(item.url.substring(0,2)==="//"){
+                      }else if(item.url.substring(0,2)=== "./"){
+                        item.url = item.url.substring(2);                                
+                      }
+                      console.log(item.url, url);
+                      if(item.url.substring(0, 2) == "//"){
+                        finalUrl = item.url;
+                      }else if(isAbsoluteUrl(item.url)){
+                        finalUrl = item.url;
+                      }else if(!pattern.test(item.url)) {
+                        var dominio=String(url).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];  
+                          if(item.url.substring(1) === "/" ){
+                            item.url = item.url.substring(1);
+                          }
+      
+                            finalUrl = "http://"+  dominio +"/" + item.url;                                        }
+                      }
+
+
+
+                   if(item.url !== undefined){
                     if(item.url.substring(0,2)==="//"){
                     }/*else if(item.url.substring(0,1) === "/"){
                       item.url = item.url.substring(1);
@@ -60,27 +83,36 @@ class ReportImageAlt extends Component {
                         }
                         
                       }else{
+                        var dominio=String(url).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
 
                         if(item.url.substring(1) === "/" ){
+                          finalUrl = "http://"+dominio+item.url;
+                          /*
                           if(pattern.test(url)){
                             finalUrl = url + item.url;
                           }else{
                             finalUrl = "http://" + url + item.url;
                           }
-          
+*/
                         }else{
+                          console.log(dominio);
+                          finalUrl = "http://"+ dominio+"/"+item.url;
+                          /*
                           if(pattern.test(url)){
                             finalUrl = url + item.url;
                           }else{
                             finalUrl = "http://"+  url +"/" + item.url;
                           }
+                          */
                         
               
                         }
               
               
                       }
-                      
+                    }
+                    }else{
+                    
                     }
 
 

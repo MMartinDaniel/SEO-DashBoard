@@ -192,7 +192,15 @@
 .metaInfo-item {
     width: 310px;
     display: inline-grid;
-
+ > p{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
     
 }
 .metaInfo-item {
