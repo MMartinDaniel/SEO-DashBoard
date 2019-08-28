@@ -5,6 +5,9 @@ import {getFromStorage} from "../utils/storage";
 class Header extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      reload:false,
+    }
     this.logout = this.logout.bind(this);
 
   }
@@ -22,20 +25,19 @@ class Header extends Component {
         .then(res => res.json()).then(json=>{
           console.log(json);
         localStorage.clear();
-        window.localStorage.clear(); //try this to clear all local storage
+        window.localStorage.clear(); 
+        this.setState({reload:true})
 
-      }).then(window.location.reload());
-      
+      }); 
     };
   }
   
 
   render() {
     const obj = getFromStorage('static');
+    (obj === null) ? window.location.reload(): null;
 
-    console.log("Obj:");
-    console.log(obj);
-    console.log("---end---");
+  
     return (<>
       <header>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

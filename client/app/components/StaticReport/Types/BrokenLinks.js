@@ -72,7 +72,7 @@ class BrokenLinks extends Component {
                 <div>
                     <div className='broken-tile-container'>
                         {
-                            ( data.length >= 0) ?
+                            ( data.length > 0) ?
                                 data.map(function(item, i){
                                   
                                     let icon = null;
@@ -91,7 +91,7 @@ class BrokenLinks extends Component {
                                     );
                                 })
 
-                                : null
+                                :  <p> No broken Links found</p>
                             }
 
                     </div>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Slider from "react-slick"
+import isAbsoluteUrl from 'is-absolute-url'
+
 class MetaInfo extends Component {
     constructor(props) {
       super(props);
@@ -79,19 +81,28 @@ class MetaInfo extends Component {
                             { 
                                 data.favicon.map((item,i)=>{
                                     let fav;
-                                    console.log(item.href);
-                                    console.log(pattern.test(item.href));
-                                    if(!pattern.test(item.href)) {
-                                      
-                                       if(item.href.slice(0, -4).includes(".")){
-                                            fav = item.href;
-                                        }else if(!pattern.test(url)){
-                                        fav =  `http://${url}${item.href}`;
+                                    let finalUrl;
+                                    let pattern = /^((http|https|ftp):\/\/)/;
+
+                                    if(item.href !== undefined){
+                                        if(item.href.substring(0,2)==="//"){
+                                        }else if(item.href.substring(0,2)=== "./"){
+                                          item.href = item.href.substring(2);                                
                                         }
-                              
-                                    }else{
-                                        fav =  `${item.href}`;
-                                    }
+                                        console.log(item.href, url);
+                                        if(item.href.substring(0, 2) == "//"){
+                                          finalUrl = item.href;
+                                        }else if(isAbsoluteUrl(item.href)){
+                                          finalUrl = item.href;
+                                        }else if(!pattern.test(item.href)) {
+                                          var dominio=String(url).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];  
+                                            if(item.href.substring(1) === "/" ){
+                                              item.href = item.href.substring(1);
+                                            }
+                        
+                                              finalUrl = "http://"+  dominio +"/" + item.href;                                        }
+                                        }
+                                        fav = finalUrl;
                                     return <div className="favicon-itemn" key={i} >
                                     <div className='favicon-preview'> <img alt="Report favicon preview" src={fav} /></div>
                                     </div>;

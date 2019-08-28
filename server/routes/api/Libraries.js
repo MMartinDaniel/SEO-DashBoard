@@ -156,14 +156,28 @@ module.exports = (app) => {
   });
  
   app.delete('/library/user/report/:id',(req,res,next)=>{
+   
     const { id } = req.params;
+    const {uid} = req.body;
     Report.remove({ id: id }, function(err) {
       if (!err) {
-        return res.send({success:true,message: "Error: Server Error",});
       }else {
-        return res.send({success:true,message: "Success: Deleted",});
+        return res.send({success:true,message: "Error: Server Error",});
       }
    });
+
+  return  User.update( { _id: uid }, { $pull: { 'reports':  { id: id }   } }, { safe: true, upsert: true }, function(err){
+    if (err) {
+      console.log(err);
+      return res.send({success:true,message: "Error: Server Error",});
+    }else {
+    }
+  } ).then(() => {
+    return res.send({success:true,message: "Success: Removed",});
+
+  })
+
+
   });
 
   app.delete('/library/user/jobs/:id',(req,res,next)=>{

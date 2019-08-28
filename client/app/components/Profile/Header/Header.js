@@ -13,6 +13,7 @@ class Header extends Component {
             uid: this.props.stats.uid,
             name: '',
             subtitle: "",
+            reportscount:0,
             picture: "default.png"
         }
 
@@ -33,7 +34,7 @@ class Header extends Component {
             body: JSON.stringify({
                 uid: this.state.uid
             })}).then(res => res.json()).then(data =>{
-                this.setState({userData:data.data[0],name:data.data[0].name,subtitle:data.data[0].subtitle,image:data.data[0].image});
+                this.setState({userData:data.data[0],name:data.data[0].name,subtitle:data.data[0].subtitle,image:data.data[0].image,reportscount:data.data[0].repcounter});
             })
         
 
@@ -50,10 +51,11 @@ class Header extends Component {
   
 
     render() {
-        const {picture,userData,name,subtitle,image} = this.state;
+        const {picture,userData,name,subtitle,image,reportscount} = this.state;
         const {basename,stats,nreports,nogenerate,placeh} = this.props;
         console.log("userdata:");
         console.log(userData);
+        
         const {toggle,toggleData} = this.state;
         return (
             <>
@@ -82,7 +84,7 @@ class Header extends Component {
                 <div className={`${basename}__reportes`}>
                     <strong>{(placeh) ? "Reports Received" : "Reports Generated" }</strong>
 
-                    <p>{nreports}</p>
+                    <p>{(placeh) ? nreports :reportscount}</p>
                 </div>
                 {
                 (!nogenerate) ?  

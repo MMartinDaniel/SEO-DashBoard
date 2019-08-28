@@ -932,10 +932,11 @@ footer{
 
     .google-preview-container {
 
-      .desktop,.mobile{
+      .desktop, .mobile{
         padding: 20px;
         border: solid 1px #0000001f;
         width: 550px;
+        
         .title{
           color: #1a0dab;
           line-height: 1.33;
@@ -950,11 +951,19 @@ footer{
           line-height: 1.43;
         }
         .description{
+      
           font-family: arial,"sans-serif";
           color: #545454;
           font-size: 13px;
           line-height: 1.54;
           margin-bottom: 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          /* autoprefixer: off */
+          -webkit-box-orient: vertical;
+          /* autoprefixer: on */
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import '../style.scss';
 import {Link} from 'react-router-dom'
 import { isThisSecond } from 'date-fns/esm';
+import isAbsoluteUrl from 'is-absolute-url'
 
 
 class EmailPop extends React.Component {
@@ -90,7 +91,7 @@ class CardGrid extends React.Component {
 
     }
     render() {
-        let {cards,basename} = this.props;
+        let {cards,basename,stats} = this.props;
         let { toggle } = this.state;
         basename = `${basename}__CardGrid__`;
         return (
@@ -102,7 +103,7 @@ class CardGrid extends React.Component {
                 {   (cards.length > 0) ?
                     cards.map((item, i) =>{
                      //  return <Link key={i} className={`${basename}__item`} to={"Report/"+ item.id} target="_blank" ><Card key={i} data={item} basename={basename}/></Link>
-                    return <Card toggle={() => this.toggle(item)} key={i} data={item} basename={basename}/>   
+                    return <Card toggle={() => this.toggle(item)} uid={stats.uid} key={i} data={item} basename={basename}/>   
                     }) : null
                 }
             </div>
@@ -121,18 +122,69 @@ class Card extends React.Component {
     }
 
     deleteCard(id){
-         
-        fetch('/library/user/report/'+id,{method:'DELETE',}).then( window.location.reload());
+         const {uid} = this.props;
+        fetch('/library/user/report/'+id,
+        {method:'DELETE',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            uid: uid,
+            })
+        }).then( window.location.reload());
 
     }
     render(){
-        const {basename,data} = this.props;
+        const {basename,data,uid} = this.props;
+        console.log(uid);
         let date = new Date(data.date);
         let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
         let pattern = /^((http|https|ftp):\/\/)/;
         let fav;
 
          data.metadata.favicon.map((item)=>{
+
+            let finalUrl;
+
+            if(item.href !== undefined){
+                if(item.href.substring(0,2)==="//"){
+                }else if(item.href.substring(0,2)=== "./"){
+                  item.href = item.href.substring(2);                                
+                }
+                console.log(item.href);
+                if(item.href.substring(0, 2) == "//"){
+                  finalUrl = item.href;
+                }else if(isAbsoluteUrl(item.href)){
+                  finalUrl = item.href;
+                }else if(!pattern.test(item.href)) {
+
+                  if(data.website.substring(data.website.length - 1) === "/" ){
+                    if(item.href.substring(1) === "/" ){
+                      item.href = item.href.substring(1);
+                    }
+                    if(pattern.test(data.website)){
+                      finalUrl = data.website + item.href;
+                    }else{
+                      finalUrl = "http://"+  data.website + item.href;
+                    }
+                  }else{
+                    var dominio=String(data.website).replace('http://','').replace('https://','').replace('www.','').split(/[/?#]/)[0];
+                    if(item.href.substring(1) === "/" ){
+                      finalUrl = "http://"+dominio+item.href;
+                    }else{
+                      console.log(dominio);
+                      finalUrl = "http://"+ dominio+"/"+item.href;
+                    }
+          
+          
+                  }
+                }
+                }
+
+                fav = finalUrl;
+
+/*
              if(!pattern.test(item.href)) {
                  if(item.href.slice(0, -4).includes(".")){
                      fav = item.href;
@@ -142,8 +194,8 @@ class Card extends React.Component {
                   fav =  `${data.website}${item.href}`;
       
                 }
-              
             }
+*/
         });
         const {toggle} = this.props;
         return (
