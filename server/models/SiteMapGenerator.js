@@ -345,7 +345,7 @@ module.exports = {
           pages.push(item.url); // Add URL to the array of pages
           console.log(count + " : " +item.url);
           count++;
-          if(count > 50){
+          if(count > 30){
             this.stop();
             io.emit('percentage-'+uid,Math.floor(100));
 
@@ -480,61 +480,6 @@ module.exports = {
           let checked = [];
           let current = 0;
 
-
-         
-            
-        
-
-          function call(item){
-            return new Promise(function(resolve,reject){
-              let result;
-            if(item.includes(dominio)){
-              var isAlready = checked.filter(checked => (checked === item));
-              if(isAlready.length > 0 ){}else{
-                console.log(item + ": ");
-                  checked.push(item);
-                  axios.get(item).then((response) => {
-                    return response.status;
-                  }).catch((error) => {
-                    try{
-                     result = {deadlink: item, where:item.location,status:error.response.status };
-                    }catch(err){
-                     result = {deadlink: item, where:item.location,status:404};
-                    }
-                  });
-              
-              }
-            } 
-
-              resolve(result);
-            });
-          }
-          /*
-          let counter = 0;
-          let st_counter = -1;
-          console.log(brokenLinks.length);
-          while(counter < brokenLinks.length){
-            if(counter !== st_counter){ 
-                let iterationCalls = [];
-                st_counter++;
-                brokenLinks[counter].bklinks.forEach((item)=>{
-                  total++;
-               //   iterationCalls.push(call(item));
-                  setTimeout(  iterationCalls.push(call(item)), 10000 );
-                })
-            
-              Promise.all(iterationCalls).then((result)=>{
-                console.log(result);
-                counter++;  
-                current++;
-              });
-            }    
-          }
-         
-          */
-         
-        
-          
             for(var i = 0; i < brokenLinks.length; i++){
               for(var j = 0; j < brokenLinks[i].bklinks.length; j++){
                   total++;
@@ -766,12 +711,11 @@ module.exports = {
                     io.emit('brokenLinks-'+uid,{links:deadLinks,percentage: perce,status:status,web:url});
                   }
                   console.log(deadLinks);
-                  status =  'finished';
-                  perce=100;
-                  io.emit('brokenLinks-'+uid,{links:deadLinks,percentage:perce,status:status,web:url});                   
 
                 }
-                
+                status =  'finished';
+                perce=100;
+                io.emit('brokenLinks-'+uid,{links:deadLinks,percentage:perce,status:status,web:url});                   
       
         //        io.emit('brokenLinks-'+url,{links:deadLinks,percentage:'100',status:'finished'});
                 console.log(deadLinks);

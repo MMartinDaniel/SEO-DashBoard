@@ -14,33 +14,19 @@ class BrokenChecker extends Component {
       percentage: '0',
       website:'',
       url:'',
+      id: null,
     };
 
     this.checkBrokenLinks = this.checkBrokenLinks.bind(this);
     this.changeURL = this.changeURL.bind(this);
 
   }
-
-
   componentDidMount() {
     const obj = getFromStorage('static');
     this.setState({
       uid: obj.uid,
       loading: false,
     });
-    this.socket = openSocket('http://localhost:80');
-    console.log('brokenLinks-'+obj.uid);
-    this.socket.on('brokenLinks-'+obj.uid, message =>{
-      //esto estaba comentado
-         this.setState({messages:[message, ...this.state.messages]});
-         ///
-      if(message.status ===  'finished'){
-        this.setState({messages: message.links,loading:false,percentage:message.percentage,url:message.web});
-      }else {
-        this.setState({messages: message.links,loading:true,percentage:message.percentage,url:message.web});
-      }
-    });
-
   }
 
   changeURL(){
@@ -51,13 +37,16 @@ class BrokenChecker extends Component {
     this.setState({
       loading: true,
       percentage: '0',
+      messages:[],
     });
-    
+    this.socket = openSocket('http://localhost:80');
+
     let id = bcrypt.hashSync(Date.now(),bcrypt.genSaltSync(5,null));
     id = id.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-
+    console.log(id);
     this.socket.on('brokenLinks-'+id, message =>{
       //esto estaba comentado
+        console.log(message);
          this.setState({messages:[message, ...this.state.messages]});
          ///
       if(message.status ===  'finished'){
@@ -78,7 +67,7 @@ class BrokenChecker extends Component {
         uid: id,
       })
     });
-
+    this.setState({id:id});
 
   }
 

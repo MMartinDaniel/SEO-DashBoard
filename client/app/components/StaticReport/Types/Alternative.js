@@ -91,41 +91,43 @@ class Tile extends Component{
   
     render(){
       const {icon,item,type} = this.props;
-      let finalUrl;
+      let finalUrl = '';
       let pattern = /^((http|https|ftp):\/\/)/;
-      if(item.url.substring(0, 2) == "//"){
-        finalUrl = item.url;
-      }else if(isAbsoluteUrl(item.url)){
-        finalUrl = item.url;
-      }else if(!pattern.test(item.url)) {
-        if(this.props.url.substring(this.props.url.length - 1) === "/" ){
-          if(item.url.substring(1) === "/" ){
-            item.url = item.url.substring(1);
-          }
-          if(pattern.test(this.props.url)){
-            finalUrl = this.props.url + item.url;
-          }else{
-            finalUrl = "http://"+  this.props.url + item.url;
-          }
-          
-        }else{
-        
-          if(item.url.substring(1) === "/" ){
+      if(item.url !== undefined){
+        if(item.url.substring(0, 2) == "//"){
+          finalUrl = item.url;
+        }else if(isAbsoluteUrl(item.url)){
+          finalUrl = item.url;
+        }else if(!pattern.test(item.url)) {
+          if(this.props.url.substring(this.props.url.length - 1) === "/" ){
+            if(item.url.substring(1) === "/" ){
+              item.url = item.url.substring(1);
+            }
             if(pattern.test(this.props.url)){
               finalUrl = this.props.url + item.url;
             }else{
               finalUrl = "http://"+  this.props.url + item.url;
             }
+            
           }else{
-            if(pattern.test(this.props.url)){
-               finalUrl = this.props.url + "/" + item.url;
+          
+            if(item.url.substring(1) === "/" ){
+              if(pattern.test(this.props.url)){
+                finalUrl = this.props.url + item.url;
+              }else{
+                finalUrl = "http://"+  this.props.url + item.url;
+              }
             }else{
-              finalUrl = "http://"+  this.props.url +"/"+ item.url;
+              if(pattern.test(this.props.url)){
+                  finalUrl = this.props.url + "/" + item.url;
+              }else{
+                finalUrl = "http://"+  this.props.url +"/"+ item.url;
+              }
             }
-          }
 
+          }
+          
         }
-        
       }
       console.log(finalUrl);
      // item.alt = (!item.alt) ? "No alternative Set" : item.alt;

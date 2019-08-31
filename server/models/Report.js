@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var reportSchema = new Schema({
 
     id: {type: String, required: true},
-    email: { type:String,required: true},
     user: {type: String,required:false},
     password:{type: String, required:false},
     website:{type:String, required: true},

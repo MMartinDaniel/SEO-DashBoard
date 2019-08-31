@@ -373,11 +373,13 @@ module.exports = {
       return new Promise(function(resolve,reject){
         count++;
         //cogemos el atributo SRC y su atributo alt
-        let obj = {url: item.attr('src'),alt: item.attr('alt')};
-        //comprobamos que no está ya en el array
-        var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
-        if(!isAlready.length > 0){
-          img_no_tag.push(obj);
+        if(item.attr('src') !== undefined){
+          let obj = {url: item.attr('src'),alt: (item.attr('alt')) ? item.attr('alt') : '' };
+          //comprobamos que no está ya en el array
+          var isAlready = img_no_tag.filter(img_no_tag => (img_no_tag.url === obj.url));
+          if(!isAlready.length > 0){
+            img_no_tag.push(obj);
+          }
         }
         resolve(item);
       });
