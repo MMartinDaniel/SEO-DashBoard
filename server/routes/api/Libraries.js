@@ -39,7 +39,7 @@ module.exports = (app) => {
     Report.findOneAndUpdate({id: id}, {$inc:{views:1}}, {new: true}, (err, report) => {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
-      } else if (report.length != 1) {
+      } else if (report.length !== 1) {
         return res.send({success:true, message:'Success, Report found',data:report});
       }
   });
@@ -53,7 +53,7 @@ module.exports = (app) => {
     Report.findOne({ id: id }).populate(populateQuery).exec((err,report)=> {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
-      } else if (report.length != 1) {
+      } else if (report.length !== 1) {
         return res.send({success:true, message:'Success, Report found',data:report});
       };
   
@@ -246,9 +246,9 @@ module.exports = (app) => {
 
   app.put('/library/brokenLink',(req,res,next)=>{
     const {body } = req;
-      const {uid,web} = body;
+    const {uid,web} = body;
   //  brokenLinkTester.displayBrokenLink(null,req,uid);
-  console.log(body);
+    console.log(body);
     brokenLinkTester.displayBrokenLink_back_tool(web,req,uid);
 
     res.send({response:true,error:''});

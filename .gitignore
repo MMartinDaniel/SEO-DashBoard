@@ -3,7 +3,7 @@ dist/
 
 #webshot
 client/public/assets/img/webshots
-
+sitemaps/
 
 # Config file
 config/config.js

@@ -1,5 +1,6 @@
 import React from 'react';
 import socketIOClient  from "socket.io-client";
+import { getFromStorage , setInStorage} from "../../utils/storage";
 
 class ItemProgress extends React.Component {
     constructor(props) {
@@ -20,18 +21,49 @@ class ItemProgress extends React.Component {
     }
     componentWillMount() {
         const {id} = this.props.data;
-        let socket = socketIOClient("http://localhost:80"); 
-
+        let socket = socketIOClient("http://localhost:80");
         socket.on(id, data =>{
-            console.log(data);
-          
-            let {current } = this.state;
-            this.setState({current: current + 1, total_item: data });
-            
+            let item;
+            const items = getFromStorage('static-progress');
+            var index = items.findIndex(x => x.id == id);
+            console.log("index:");
+            console.log(index);
+            if(index > -1){
+                const current = items[index].current;
+                item = {id:id, current:current + 1, total_item:data};
+                items[index] = item;
+            }else{
+                item = {id:id, current: 1, total_item:data}
+                items.push(item);
+            }
+            setInStorage('static-progress',items);
+            this.setState({current: item.current, total_item: data });
         });
+
+      
+        /*
+        componentWillMount() {
+            const {id} = this.props.data;
+            let socket = socketIOClient("http://localhost:80");
+            console.log("stats"); 
+            socket.on(id, data =>{
+                const items = getFromStorage('static-progress');
+                console.log(data);
+                let {current } = this.state;
+    
+                item = {id:id, current:current + 1, total_item:data}
+                var index = items.findIndex(x => x.id == item.id);
+                items[index] = item;
+                items.push(item);
+                setInStorage('static-progress',items);
+    
+                this.setState({current: current + 1, total_item: data });
+            });
+         */
 
         
     }
+
 
     tick() {
         const {start_formated}= this.state;
@@ -48,11 +80,18 @@ class ItemProgress extends React.Component {
 
     componentDidMount() {
         clearInterval(this.timer);
+        const {id} = this.props.data;
         this.timer = setInterval(this.tick.bind(this), 1000);
+        const items = getFromStorage('static-progress');
+        var index = items.findIndex(x => x.id == id);
+        console.log("index:" + index);
+        if(index > -1){
+            this.setState({current:items[index].current,total_item: items[index].total_item});
+        }
+
     }
     componentWillUnmount () {
         clearInterval(this.timer)
-        
       }
       removeFromJobsQueue(){
         const {id} = this.props.data;
@@ -61,13 +100,15 @@ class ItemProgress extends React.Component {
 
 
     render() {
+        console.log(getFromStorage('static-progress'));
         let {elapsed_time,current,total_item} = this.state;
         let {website,basename} = this.props;
-  
         let value = (current/total_item)*100;
         value = `${value}%`;
         
-
+        if(total_item === 0){
+            total_item = '?';
+        }
         return (
             <>
             <div className={`${basename}card-wrap`}>

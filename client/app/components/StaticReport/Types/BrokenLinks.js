@@ -96,6 +96,7 @@ class BrokenLinks extends Component {
 
                     </div>
                 </div>
+                {(chartData.length > 0) && (
                 <div>
                     <div className={"minify-performance bk-chart"} >
                        <div className="normal-size"> 
@@ -116,7 +117,8 @@ class BrokenLinks extends Component {
 
                         </p>
                         </div> 
-                </div> 
+                </div> )
+              }
             </Slider>
             <div className={"status-arrow"}>
             <i onClick={this.next} className="fas  fa-chevron-right top-arrow status-arrow__right"/>

@@ -168,6 +168,7 @@ class LoginPage extends Component {
         console.log('json',json);
         if(json.success){
           setInStorage('static',{token:json.token, website:'http://instantes.net', uid:json.uid});
+          setInStorage('static-progress',[]);
           this.setState({
             signInError: json.message,
             isLoading: false,

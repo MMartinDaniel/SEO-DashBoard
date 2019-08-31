@@ -65,13 +65,16 @@ module.exports = {
         newJob.uid = uid;
         newJob.website = web;
         newJob.save();
+        io.emit('update_job',"update_job");
+
         let result_1;
         let perf = [];
-      
+        let counterstatus = 0;
         let total_options = 0;
         options.forEach((item)=>{
             if(item) total_options++;
         })
+
   /*      io.on("test", data =>{
             console.log("received");
             console.log(data);
@@ -148,8 +151,9 @@ module.exports = {
                   //  newReport.resources = data_get['network-requests'];
              
                 console.log("["+ item_index +"]: Done");
-                resolve(result);
 
+                resolve(result);
+                 
             });
         }
   
@@ -158,16 +162,16 @@ module.exports = {
             i++;
             promises.push(api_call(i));
         });
-        promises[0].then(array => { options[0] ? io.emit(id,total_options) : null });
-        promises[1].then(array => { options[1] ?  io.emit(id,total_options) : null });    
-        promises[2].then(array => { options[2] ?  io.emit(id,total_options) : null });      
-        promises[3].then(array => { options[3] ?  io.emit(id,total_options) : null });     
-        promises[4].then(array => { options[4] ?  io.emit(id,total_options) : null });     
-        promises[5].then(array => { options[5] ?  io.emit(id,total_options) : null });  
-        promises[6].then(array => { options[6] ?  io.emit(id,total_options) : null });   
-        promises[7].then(array => { options[7] ?  io.emit(id,total_options) : null });    
-        promises[8].then(array => { options[8] ?  io.emit(id,total_options) : null });      
-        promises[9].then(array => { options[9] ?  io.emit(id,total_options) : null });     
+        promises[0].then(array => { if(options[0] ){  io.emit(id,total_options);counterstatus++;}});
+        promises[1].then(array => { if(options[1] ){  io.emit(id,total_options);counterstatus++;}});    
+        promises[2].then(array => { if(options[2] ){  io.emit(id,total_options);counterstatus++;}});      
+        promises[3].then(array => { if(options[3] ){  io.emit(id,total_options);counterstatus++;}});     
+        promises[4].then(array => { if(options[4] ){  io.emit(id,total_options);counterstatus++;}});     
+        promises[5].then(array => { if(options[5] ){  io.emit(id,total_options);counterstatus++;}});  
+        promises[6].then(array => { if(options[6] ){  io.emit(id,total_options);counterstatus++;}});   
+        promises[7].then(array => { if(options[7] ){  io.emit(id,total_options);counterstatus++;}});    
+        promises[8].then(array => { if(options[8] ){  io.emit(id,total_options);counterstatus++;}});      
+        promises[9].then(array => { if(options[9] ){  io.emit(id,total_options);counterstatus++;}});     
 
         Promise.all(promises).then((results)=>{
             console.log(results[8]);
@@ -183,7 +187,6 @@ module.exports = {
             ];
         newReport.resources = res[0]['network-requests'];
         newReport.user = uid;
-        newReport.email = "fake@email.com";
         newReport.id = id;
         newReport.date = start_date;
         newReport.website = web;

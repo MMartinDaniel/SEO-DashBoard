@@ -137,9 +137,10 @@ p{
         }
     }
     &name{
-        grid-column:2/8;
+        grid-column: 2/12;
         color: #ffffff;
         font-weight: 300;
+        word-break: break-all;
         bottom: 0;
     }
     &favicon{

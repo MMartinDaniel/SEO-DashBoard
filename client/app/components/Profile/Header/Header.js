@@ -51,7 +51,8 @@ class Header extends Component {
   
 
     render() {
-        const {picture,userData,name,subtitle,image,reportscount} = this.state;
+        let {picture,userData,name,subtitle,image,reportscount} = this.state;
+        if(reportscount === undefined){reportscount = 0;};
         const {basename,stats,nreports,nogenerate,placeh} = this.props;
         console.log("userdata:");
         console.log(userData);

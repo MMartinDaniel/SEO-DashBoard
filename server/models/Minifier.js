@@ -30,7 +30,6 @@ module.exports = {
                 } else {
                   count = res_size.length
                 }
-
                 stats = {
                   ...item,
                   minifiedSize: count,
@@ -40,12 +39,14 @@ module.exports = {
                 };
               }else{
                 result =  new CleanCSS(options).minify(body);
+                if(result !== undefined){
                 stats = {
                   ...item,
                   minifiedSize: result.stats.minifiedSize,
                   originalSize: result.stats.originalSize,
                   efficiency: result.stats.efficiency
                 };
+                }
               }
              resolve(stats);
             });

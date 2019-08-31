@@ -31,7 +31,7 @@ class Minify extends Component {
 
         console.log(data.length);
         data.map(function(item){
-
+        if(item.originalSize){
             if(item.originalSize > item.minifiedSize){ 
                 if ( item.efficiency > 0.05){
                     total_saving+= item.originalSize - item.minifiedSize;
@@ -41,6 +41,7 @@ class Minify extends Component {
            // total_saving += (item.originalSize < item.minifiedSize) ? item.originalSize : item.minifiedSize;
             total_size+=item.originalSize;
             total_items++;
+        }
         });
 
        // total_saving = total_size - total_saving;
@@ -82,6 +83,7 @@ class Minify extends Component {
                                       if (parseFloat(item.efficiency) < -0.02 && parseFloat(item.efficiency) > -0.98) minified=false ;};
                                     let icon = null;
                                     let type = 0;
+                                    if(item.deadlink !== undefined){
                                     if(item.deadlink.resourceType === 'Stylesheet'){
                                         icon = "icons8-css3-48.png"
                                         type =2;
@@ -93,6 +95,9 @@ class Minify extends Component {
                                     return (
                                             <Tile key={i} icon={icon} item={item} type={type} minified={minified} />
                                     );
+                                    }else{
+                                        return null;
+                                    }
                                 })
 
                                 : null
