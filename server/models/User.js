@@ -12,7 +12,8 @@ var userSchema = new Schema({
     receivedreports:{type:[],required:false},
     image:{type:String,required:false},
     subtitle:{type:String,required:false},
-    excluded_words:{type:[],requred:false},
+    excluded_words:{type:[],required:false},
+    alarm:{type:[],required:false},
 });
 
 userSchema.methods.encryptPassword = function(password){

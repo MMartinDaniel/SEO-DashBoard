@@ -105,6 +105,12 @@ p{
             margin-right: 10px;
             color: #ffffff78;
         }
+        .mail-two{
+            right: 75px;
+            background: 0;
+            border: 0;
+            outline: 0;
+        }
 
         .mail{
             right: 35px;
@@ -163,10 +169,11 @@ p{
         top: 0;
         left: 0;
         background-color: #000000c7;
+        position: fixed;
     }
     &__div{
         margin: 0 auto;
-        width: 400px;
+        width: 500px;
         background:#ffffff00;
         height: 100px;
         border-radius: 20px;
@@ -188,7 +195,6 @@ p{
             background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
             box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
             text-align: center;
-            margin-left: 10px;
             font-size: 13px;
             color: #fff;
             height: 35px;
@@ -197,7 +203,7 @@ p{
             moz-transition: all .4s ease-in-out;
             transition: all .4s ease-in-out;
         }
-        input[type='submit']{
+        input[type='submit'],.exit-btn{
             background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
             box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
             text-align: center;
@@ -211,20 +217,30 @@ p{
             transition: all .4s ease-in-out;
         
         }
+        .exit-btn{
+            width:40px;
+            background-image: linear-gradient(to top, #ff0844 0%, #ff3737 100%);
+            box-shadow: 0 4px 15px 0 #ff124a;
+            float: left;
+        }
     }
 }
 
 
 }
 
-
+.alarmdiv{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
 @for $i from 1 through length($colors) {
     .profile__CardGrid__card-wrap:nth-child(#{length($colors)}n+#{$i}) {
             background: nth($colors, $i)
     }
 }
 
-.profile__popup{
+.profile__popup,.profile__CardGrid____AlarmPop{
 
     &__wrapper{
         width: 100%;
@@ -658,4 +674,29 @@ p{
 
 .profile-form .profile__popup__pic{
     margin:0 auto;
+}
+
+.mail_personaldata__inner {
+    margin-top: 200px;
+    width: calc(22% - 0px);
+}
+.alarmdiv {
+    button, select {
+        text-transform: none;
+        border: 0;
+        border-bottom: 1px solid #cecece;
+        padding: 5px;
+        outline: 0;
+    }
+}
+
+.mail_personaldata__inner{
+    height: 400px;
+}
+
+.alarm-on{
+    color:green !important;
+}
+.alarm-off{
+    color:red !important;
 }

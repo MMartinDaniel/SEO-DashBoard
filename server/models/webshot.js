@@ -86,9 +86,18 @@ module.exports = {
     if(!pattern.test(url)) {
       url = "http://" + url;
     }
-    //generamos las distintas imagenes, y las guardamos
     var file = id+".jpeg";
     var location = 'client/public/assets/img/webshots/';
+    try {
+      fs.unlinkSync(location+"phone-"+file);
+      fs.unlinkSync(location+"tablet-"+file);
+      fs.unlinkSync(location+"desktop-"+file);
+      //file removed
+    } catch(err) {
+      console.error(err)
+    }
+    //generamos las distintas imagenes, y las guardamos
+ 
     captureWebsite.file(url, location+"phone-"+file, {
       emulateDevice: 'iPhone X',
       quality: 0.1,
