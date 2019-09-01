@@ -1,7 +1,10 @@
 const User = require('../../models/User');
+const Alarm = require('../../models/Alarm');
 const UserSession = require('../../models/UserSession');
 const multer = require("multer");
-
+const Report_Generator = require("../../models/Report_task");
+const Report = require("../../models/Report");
+const fetch = require('node-fetch');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -28,6 +31,74 @@ const upload = multer({
   },
   fileFilter: fileFilter
 });
+
+function checkifJob() {
+  Alarm.find({}, function(err, alarms) {
+    var d = new Date();
+    var m = d.getMinutes();
+    var h = d.getHours();
+    alarms.forEach(function(alarm) {
+      if(alarm.minute === m && alarm.hour === h && alarm.active === true){
+          let report_data = null;
+          console.log("report:");
+          console.log(alarm.id);
+          Report.findOne({ id: alarm.id }).exec((err,report)=> {
+            console.log("report:");
+            if (err) {
+            } else if (report.length !== 1) {
+              report_data = {web:report.website,uid:report.user,options:report.options};
+              let diff = alarm.lastExecuted - d;
+              let execute = false;
+              var DaysDiff_i = (diff / (1000 * 3600 * 24)).toFixed(3);
+              console.log(DaysDiff_i);
+              if(alarm.lastExecuted === null){
+                console.log("executing first time....");
+                execute = true;
+              }else if(alarm.type === "Monthly" && DaysDiff_i <= -30.00 ){
+                console.log("executing monthly...");
+                execute = true;
+              }else if(alarm.type === "Weekly" && DaysDiff_i <= -7.00){
+                console.log("execting weekly...");
+                execute = true;
+
+              }else if(alarm.type === "Daily" && DaysDiff_i <= -1.00){
+                console.log("Executing Daily...");
+                execute = true;
+               }
+               
+               if(execute){
+                Alarm.findOneAndUpdate({id:alarm.id}, { lastExecuted: Date() }, {new: true}, function(err, alarms) {});
+                console.log(report_data);
+                fetch('http://localhost/library/fullReport_alarm',{
+                  method:'POST',
+                  headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    web:report_data.web,
+                    uid:report_data.uid,
+                    options:report_data.options,
+                    id:report.id
+                  })
+                  })
+               }
+               execute = false;
+
+            };
+          });
+        
+
+      }
+    });
+
+  });
+
+}
+setInterval(checkifJob, 10000); 
+
+
+
 module.exports = (app) => {
 
   app.post('/api/account/profileData',upload.single("img"),(req,res,next)=>{
@@ -62,7 +133,74 @@ module.exports = (app) => {
   
 
   });
+  
+  app.post('/api/account/alarm/',(req,res,next)=>{
+    console.log(req.body);
+    const {body} = req;
+    const {id,uid,hour,minute,type,onoff} = body;
+    Alarm.findOneAndUpdate({id: id}, {uid:uid,hour:hour,minute:minute,type:type,active:onoff }, {new: true}, (err, alarm) => {
+      console.log(alarm);
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (alarm !== null && alarm.length != 1) {
+        return res.send({success:true, message:'Success, Report found',data:alarm});
+      }
+      
+      const newAlarm = new Alarm();
 
+      newAlarm.id = id;
+      newAlarm.uid = uid;
+      newAlarm.hour = hour;
+      newAlarm.type = type;
+      newAlarm.active = onoff;
+      newAlarm.minute = minute;
+      newAlarm.lastExecuted = '';
+      newAlarm.save((err,doc)=>{
+        if(err){
+          return res.send({
+            success:false,
+            message:'Error: Server error'
+          });
+        }
+        return res.send({
+          success:true,
+          message:'Valid creating',
+          data: ''
+        });
+      })
+
+
+   });
+  });
+
+  app.get('/api/account/alarm',(req,res,next)=>{
+    console.log(req.body);
+    const { query } = req;
+    let {id} = query;
+    Alarm.findOne({id: id}, (err, alarm) => {
+      console.log(alarm);
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (alarm !== null && alarm.length != 1) {
+        return res.send({success:true, message:'Success, Alarm found',data:alarm});
+      }
+   });
+  });
+
+
+
+
+  app.delete('/api/account/alarm/:id',(req,res,next)=>{
+
+    const { id } = req.params;
+
+    Alarm.remove({ id: id }, function(err) {
+      if (!err) {
+      }else {
+        return res.send({success:true,message: "Error: Server Error",});
+      }
+  });
+  });
   app.post('/api/account/signin',(req,res,next)=>{
     const {body} = req;
     let {email,password} = body;

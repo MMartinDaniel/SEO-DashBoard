@@ -24,6 +24,12 @@ module.exports = (app) => {
       res.send({response:true,data:data});
   });
 
+  app.post('/library/fullReport_alarm', async (req,res,next)=>{
+    const {body} = req;
+    const data = await report.generateReport_alarm(body,req);
+    res.send({response:true,data:data});
+});
+
   app.post('/library/spellcheck', async (req,res,next)=>{
     const {body} = req;
     const { url,hash,excluded_words } = body;
@@ -39,7 +45,7 @@ module.exports = (app) => {
     Report.findOneAndUpdate({id: id}, {$inc:{views:1}}, {new: true}, (err, report) => {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
-      } else if (report.length !== 1) {
+      } else if (report !== null && report.length !== 1) {
         return res.send({success:true, message:'Success, Report found',data:report});
       }
   });
@@ -53,7 +59,7 @@ module.exports = (app) => {
     Report.findOne({ id: id }).populate(populateQuery).exec((err,report)=> {
       if (err) {
         return res.end({success:false, message:'Error: Server error',data: []});
-      } else if (report.length !== 1) {
+      } else if (report !== null && report.length !== 1) {
         return res.send({success:true, message:'Success, Report found',data:report});
       };
   
