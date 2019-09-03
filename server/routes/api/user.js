@@ -167,7 +167,7 @@ module.exports = (app) => {
   app.post('/api/account/profileData',upload.single("img"),(req,res,next)=>{
     const {body} = req;
     const {uid,fullname,subtitle,password} = body;
-    if(password === ""){
+    if(password === "" || password === undefined){
     User.findOneAndUpdate({_id: uid}, { image: uid+req.file.originalname, name:fullname,subtitle:subtitle }, {new: true}, (err, user) => {
       console.log(user);
       if (err) {

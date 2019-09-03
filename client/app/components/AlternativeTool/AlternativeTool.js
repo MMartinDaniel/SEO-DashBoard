@@ -148,7 +148,8 @@ class AlternativeTool extends Component {
       percentage: '0',
       data: {imgAlt:{}},
       url:'',
-      info_data: {}
+      info_data: {},
+      finalurl: '',
     };
 
     this.checkAlternative = this.checkAlternative.bind(this);
@@ -209,12 +210,12 @@ componentWillMount() {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       }
-    }).then(data => data.json()).then( data =>   this.setState({data: data.data,loading:false}));
+    }).then(data => data.json()).then( data =>   this.setState({data: data.data,loading:false,finalurl:this.state.url}));
 
   }
 
   render(){
-    const { messages , loading,data,info_data,url} = this.state;
+    const { messages , loading,data,info_data,url,finalurl} = this.state;
     console.log(data);
     return (<>
       <div className='main-tab'>
@@ -237,7 +238,7 @@ componentWillMount() {
               <div className="card-body">
                 {
                   ( data.imgAlt !== null && (data.imgAlt.length > 0) ) ? 
-                  <ReportImageAlt name={"Images with no alternative"} url={url} details={data.imgAlt}  />
+                  <ReportImageAlt name={"Images with no alternative"} url={finalurl} details={data.imgAlt}  />
                   : null
                 }
                   </div>
