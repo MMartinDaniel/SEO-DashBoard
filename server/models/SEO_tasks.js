@@ -143,7 +143,7 @@ module.exports = {
     };
     console.log( "keywords " + count);
     if(count === 0){
-      keywords = "Keywords meta tag not found on website or is empty";
+      keywords = "Keywords meta tag ha sido encontrado";
     }
     return {data:keywords, count:count, status:'success',errors:''};
   },

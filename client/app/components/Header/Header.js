@@ -42,7 +42,7 @@ class Header extends Component {
       <header>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="#"><img className="logo"
-                                                    src='assets/img/logo-white.png'></img><strong>S</strong>tatic</a>
+                                                    src='assets/img/logo-white.png'></img><strong></strong></a>
         
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
