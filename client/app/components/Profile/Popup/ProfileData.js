@@ -141,7 +141,7 @@ class ProfileData extends Component {
                             <input ref='file' style={{display: "none"}}  onChange={this.changePic} id="filemodifyinput" name="avatar" type="file"/> 
                             <input type="text" value={this.state.name} onChange={this.handleName} placeholder="Nombre" ></input>
                             <input type="text" value={this.state.subtitle} onChange={this.handleSubtitle} placeholder={"Apellidos"} ></input>
-                            <label className={'cpassword'}>Change Password</label>
+                            <label className={'cpassword'}>Cambiar Contraseña</label>
                             <input type="password" value={this.state.newpass1} onChange={this.handlepass1} placeholder={"Contraseña"} ></input>
                             <input type="password" value={this.state.newpass2} onChange={this.handlepass2} placeholder={"Confirmar Contraseña"} ></input>
                         <div className={`${basename}__button--wrap`}>

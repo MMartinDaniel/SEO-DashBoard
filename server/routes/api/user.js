@@ -6,6 +6,16 @@ const Report_Generator = require("../../models/Report_task");
 const Report = require("../../models/Report");
 const fetch = require('node-fetch');
 var bcrypt = require('bcrypt-nodejs');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+
+  service: 'gmail',
+  auth: {
+    user: 'staticautoreply@gmail.com',
+    pass: 'autoreply123'
+  }
+});
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -15,6 +25,7 @@ const storage = multer.diskStorage({
     cb(null, req.body.uid + file.originalname);
   }
 });
+
 
 const fileFilter = (req, file, cb) => {
   // reject a file
@@ -68,7 +79,20 @@ function checkifJob() {
                }
                
                if(execute){
+                console.log(report);
+                console.log(report.user);
+                User.findOne({_id:report.user}),(err,user)=>{
+                  console.log("admin:"+ user.email);
+                  console.log("error:"+user);
+                  console.log(user);
+                  if(err){
+                    console.log(err);
+                  }else if( user !== null && user.length != 1 ){
+                    own = user.email;
+                  }
+                }
                 Alarm.findOneAndUpdate({id:alarm.id}, { lastExecuted: Date() }, {new: true}, function(err, alarms) {});
+
                 console.log(report_data);
                 fetch('http://localhost/library/fullReport_alarm',{
                   method:'POST',
@@ -83,6 +107,44 @@ function checkifJob() {
                     id:report.id
                   })
                   })
+                  //const {email,id,uid,website,own} = body; 
+        
+                  let own;
+                  User.findById(report.user, function (err, user) { 
+                    console.log("adminn:"+user.email);
+                    if(err){
+                      console.log(err);
+                    }else if( user !== null && user.length != 1 ){
+                      own = user.email;
+                      report.asignedUsers.forEach((item,i)=>{
+                        let email = item;
+                        let from = {website:report.website,id:report.id,uid:report.user, date: Date.now(),email:own};
+                        User.update( { email: email }, { $addToSet: { receivedreports: from }}, function(err) {
+                          if (err) {
+                            return res.send({success:true,message: "Error: Server Error",});
+                          }
+                        });
+                        var mailOptions = {
+                          from: 'staticautoreply@gmail.com',
+                          to: email,
+                          subject: 'Te ha enviado un informe',
+                          html: "Se ha enviado un reporte para su revision para la web  " + report.website + ", accede con el siguiente enlace <a href='http://localhost:8080/Report/"+report.id+"?email="+email+"'>Enlace</a>",
+                        };
+    
+                        transporter.sendMail(mailOptions, function(error, info){
+                          if (error) {
+                            console.log(error);
+                          } else {
+                            console.log('Email sent: ' + info.response);
+                          }
+                        });
+    
+                      })
+
+                    }
+                  });
+
+                
                }
                execute = false;
 
