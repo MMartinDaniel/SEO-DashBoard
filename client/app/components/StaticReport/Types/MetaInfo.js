@@ -21,23 +21,23 @@ class MetaInfo extends Component {
         let {meta} = data;
         let meta_item = [];
         
-        meta_item['viewport'] = "ViewPort not found";
-        meta_item['robots'] = "robots not found";
-        meta_item['author'] = "author not found";
-        meta_item['Cache-Control'] =  "Cache-Control not found";
-        meta_item['Expires'] = "Expires not found";
-        meta_item['google-analytics'] =  "google-analytics not found";
-        meta_item['og:title'] = "og:title not found";
-        meta_item['og:description'] =  "og:description not found";
-        meta_item['og:url'] =  "og:url not found";
-        meta_item['og:image'] =  "og:image not found";
-        meta_item['twitter:title'] =  "twitter:title not found";
-        meta_item['twitter:description'] =  "twitter:description not found";
-        meta_item['twitter:image'] =  "twitter:image not found";
-        meta_item['twitter:card'] = "twitter:card not found";
-        meta_item['copyright'] =  "copyright not found";
-        meta_item['rating'] = "rating not found";
-        meta_item['Content-Type'] = "Content-Type not found";
+        meta_item['viewport'] = "ViewPort no encontrado";
+        meta_item['robots'] = "robots no encontrado";
+        meta_item['author'] = "author no encontrado";
+        meta_item['Cache-Control'] =  "Cache-Control no encontrado";
+        meta_item['Expires'] = "Expires no encontrado";
+        meta_item['google-analytics'] =  "google-analytics no encontrado";
+        meta_item['og:title'] = "og:title no encontrado";
+        meta_item['og:description'] =  "og:description no encontrado";
+        meta_item['og:url'] =  "og:url no encontrado";
+        meta_item['og:image'] =  "og:image no encontrado";
+        meta_item['twitter:title'] =  "twitter:title no encontrado";
+        meta_item['twitter:description'] =  "twitter:description no encontrado";
+        meta_item['twitter:image'] =  "twitter:image no encontrado";
+        meta_item['twitter:card'] = "twitter:card no encontrado";
+        meta_item['copyright'] =  "copyright no encontrado";
+        meta_item['rating'] = "rating no encontrado";
+        meta_item['Content-Type'] = "Content-Type no encontrado";
 
         meta.forEach((item)=>{
           switch(item.name){
@@ -73,9 +73,9 @@ class MetaInfo extends Component {
                 <div>
                     <div className={"metaInfo-title"}>
 
-                            <div className={"metaInfo-item"}><h5>Title</h5><p> {(data.title) ? data.title : "No title was found or it is empty"} </p></div> 
-                            <div   className={"metaInfo-item"} ><h5>Description</h5><p> {(data.description) ? data.description : "No description was found, or description is empty"} </p></div> 
-                            <div className={"metaInfo-item"} ><h5>Keywords</h5><p> {(data.keywords) ? data.keywords : "No keywords were found, or keywords meta is empty"} </p> </div> 
+                            <div className={"metaInfo-item"}><h5>Titulo</h5><p> {(data.title) ? data.title : "No hay titulo o esta vacio"} </p></div> 
+                            <div   className={"metaInfo-item"} ><h5>Descripción</h5><p> {(data.description) ? data.description : "Sin descripcion o descripcion vacia"} </p></div> 
+                            <div className={"metaInfo-item"} ><h5>Keywords</h5><p> {(data.keywords) ? data.keywords : "Sin palabras clave, o no asignadas"} </p> </div> 
                             <div className={"metaInfo-item"} ><h5>Favicon(s)</h5>
                                 <div className={"favicon-grid"}>
                             { 
@@ -110,7 +110,7 @@ class MetaInfo extends Component {
                                 })
                             }
                             {
-                             (data.favicon.length === 0) ? "No favicons found" : null
+                             (data.favicon.length === 0) ? "No favicons encontrados" : null
                             }
                             </div>
                           </div>
@@ -127,9 +127,9 @@ class MetaInfo extends Component {
 
                     </div>
                     <div className={"explanation"}>
-                        <h6>Description</h6>
-                        <p>Metadata regarding title is one of the most important things to consider when we want a to show a clear vision of what your website is, setting a proper 
-                           <code className="highlighter-rouge"> Title</code> metatag followed by a very detailed <code className="highlighter-rouge">Description</code> as well as a set of <code className="highlighter-rouge">Keywords</code> that can tell users which type of content your website is offering. Using this meta properly can ensure us that the target user is gonna increase since an overview of your web is properly given. </p>
+                        <h6>Descripción</h6>
+                           <p>Metadatos sobre los titulos son uno de los aspectos mas importantes a considerar cuando queremos mostrar una vision clara de lo que nuestro sitio web es, asignar una metaetiqueta
+                           <code className="highlighter-rouge"> Titulo</code>seguida de una <code className="highlighter-rouge">Descripción</code> y una serie de <code className="highlighter-rouge">Keywords</code> puede decirnos mucho de lo que el sitio web ofrece. Usar estas metaetiquetas nos asegura que el usuario "target" va aumentar debido a que una vista previa generar es dada antes de entrar </p>
                     </div> 
                 </div> 
                 <div>
@@ -151,13 +151,13 @@ class MetaInfo extends Component {
 
                     </div>
                     <div className={"explanation"}>
-                        <h6>Description</h6>
+                        <h6>Descripción</h6>
                         <p>
-                          <code className="highlighter-rouge"> Cache-Control</code> meta is very important, this tells if the page should be cacheable, within high trafic websites, this is a meta tag that should be controlled.
-                          <code className="highlighter-rouge"> Expires </code> meta tells the search enginge when will the content in the page expire, this tag must be set to a date 
-                         <code className="highlighter-rouge"> Robots </code>  meta controls the behavior of the search engine that is going to crawl and index our pages, it applies to all search engines.
-                         <code className="highlighter-rouge">ViewPort </code> meta  tells the browser how it should render a page using a mobile device, the presence of this meta indicates google that this web is mobile friendly.
-                         <code className="highlighter-rouge">Rating</code> meta tells wether the page is rated as adult content or not, this tag is very useful if we want to have control over SafeSearch
+                        <code className="highlighter-rouge"> Cache-Control</code>Este meta es muy importante, y nos dice si la pagina debe de ser cacheada, en paginas con mucho trafico, este meta debe de ser controlado siempre.
+                          <code className="highlighter-rouge"> Expires </code> Este meta dice al buscador cuando el contenido de la pagina expira, por lo cual debe de ser asignado un tiempo maximo apropiado
+                         <code className="highlighter-rouge"> Robots </code> Este meta controla el comportamiento del buscador que va a visitar nuetra pagina e indexarla, sirve para todos los buscadores.
+                         <code className="highlighter-rouge">ViewPort </code> Este meta dice al navegador como deberia de renderizar la pagina usando un dispositivo movil, la presencia de este meta indica a google si esta web es mobile friendly o no.
+                         <code className="highlighter-rouge">Rating</code> Este meta dice si la pagina contienen contenido para adultos, es bastante util cuando queremos que herramientas como SafeSearch funcionen correctamente.
                         
                         </p>
                     </div> 
@@ -172,8 +172,8 @@ class MetaInfo extends Component {
 
                     </div>
                     <div className={"explanation  extra-m"}>
-                        <h6>Description</h6>
-                        <p>   <code className="highlighter-rouge"> OpenGraph</code> and <code className="highlighter-rouge"> Twitter</code>  Metadatas are very used nowadays, these tags are used by social media websites such as Facebook or Twitter, this way you can make sure that your content is displayed as you want, and that the information that will be displayed is the correct one. This way you can increase the conversion rate due to more appealing content.</p>
+                        <h6>Descripción</h6>
+                        <p>   <code className="highlighter-rouge"> OpenGraph</code> y <code className="highlighter-rouge"> Twitter</code> Estos metadatos son extremadamente usados hoy en dia, devido a las redes sociales como Facebook o Twitter,de desta forma podemos asegurar que nuestra pagina vaya a ser mostrada como queremos y que la información que vaya a ser mostrada es la correcta. De esta forma podemos incrementar la conversion de los usuarios debido a contenido mas interesante</p>
                     </div> 
                 </div>
                 <div>
@@ -186,8 +186,8 @@ class MetaInfo extends Component {
 
                     </div>
                     <div className={"explanation  extra-m"}>
-                        <h6>Description</h6>
-                        <p>   <code className="highlighter-rouge"> OpenGraph</code> and <code className="highlighter-rouge"> Twitter</code>  Metadatas are very used nowadays, these tags are used by social media websites such as Facebook or Twitter, this way you can make sure that your content is displayed as you want, and that the information that will be displayed is the correct one. This way you can increase the conversion rate due to more appealing content.</p>
+                        <h6>Descripción</h6>
+                        <p>   <code className="highlighter-rouge"> OpenGraph</code> y <code className="highlighter-rouge"> Twitter</code> Estos metadatos son extremadamente usados hoy en dia, devido a las redes sociales como Facebook o Twitter,de desta forma podemos asegurar que nuestra pagina vaya a ser mostrada como queremos y que la información que vaya a ser mostrada es la correcta. De esta forma podemos incrementar la conversion de los usuarios debido a contenido mas interesante</p>
                     </div> 
                 </div>
 

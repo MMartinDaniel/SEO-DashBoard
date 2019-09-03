@@ -50,10 +50,10 @@ class Header extends Component {
                 <Link className="nav-link"  to="/"><i className={"fas fa-home"}></i></Link>
                 <Link className="nav-link"  to="/reports"><i className={"fas fa-file-contract"}></i></Link>
                 <Link className="nav-link"  to="/received"><i className={"fas fa-file-invoice"}></i></Link>
-                <a onClick={this.logout} className="nav-link logut-right" href="#">Logout <span className="sr-only">(current)</span></a>
+                <a onClick={this.logout} className="nav-link logut-right" href="#">Salir <span className="sr-only">(current)</span></a>
               </li>
               <li className="nav-item hiddesm">
-                <a onClick={this.logout} className="nav-link logut-right" href="#">Logout <span className="sr-only">(current)</span></a>
+                <a onClick={this.logout} className="nav-link logut-right" href="#">Salir <span className="sr-only">(current)</span></a>
               </li>
             </ul> 
           </div>

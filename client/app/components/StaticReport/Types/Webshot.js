@@ -42,8 +42,8 @@ class Webshot extends Component {
                         </div>
                     </div>
                     <div className={"explanation extra-s"}>
-                        <h6>Description</h6>
-                        <p>Preview of how the web will look when accesing it via Tablet.</p>
+                        <h6>Descripción</h6>
+                        <p>Vista previa de como se veria mediante el uso de Tablet</p>
                     </div> 
                 </div> 
                 <div>
@@ -58,8 +58,8 @@ class Webshot extends Component {
                         </div>
                     </div>
                     <div className={"explanation extra-s"}>
-                        <h6>Description</h6>
-                        <p>Preview of how the web will look when accesing it via mobile.</p>
+                        <h6>Descripción</h6>
+                        <p>Vista previa de como se veria mediante el uso de Mobiles</p>
                     </div> 
                 </div> 
                 <div>
@@ -75,8 +75,8 @@ class Webshot extends Component {
                         </div>
                     </div>
                     <div className={"explanation extra-s"}>
-                        <h6>Description</h6>
-                        <p>Preview of how the web will look when accesing it via a desktop computer or either a laptop.</p>
+                        <h6>Descripción</h6>
+                        <p>Vista previa de como se veria mediante el uso de un ordenador sobremesa o portatil</p>
                     </div>
                 </div>
             </Slider>

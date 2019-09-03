@@ -37,17 +37,18 @@ class Alternative extends Component {
                     <div className={"minify-performance"} >
                        <div className="normal-size">
                             <h3>{data.length}</h3>
-                            <h5>Total Images</h5>
+                            <h5>Total Imagenes</h5>
                        </div>
                        <div className="minify-size">
                             <h3 className={`noalt-${color}`}>{total}</h3>
-                            <h5>Images with alternative</h5>
+                            <h5>Imagenes con texto alternativo</h5>
 
                         </div>
                     </div>
                     <div className={"explanation extra-m"}>
-                        <h6>Description</h6>
-                        <p>Alternatives are used to increase accesibility to people with disabilities, using screen readers to have a clear explanation of what is the image about. Generally this screen readers are based in promter that tells blind people what is currently happening on the page meanwhile they are scrolling, if not, the screen reading will skip the image, and our content will not be shown to these kind of people. </p>
+                        <h6>Descripción</h6>
+                        <p>El texto alternativo es usado para incrementar la accesibilidad a la gente con discapacidad, dado que usan lectores para tener una explicación de la imagen en cuestión. Generalmente este lector de pantalla son basados en "promter" que narran lo que va pasando mientras se va bajando por la pagina, si no, el lector se saltará la imagen, y el contenido no será mostrado a este tipo de gente. </p>
+
                         </div> 
                 </div> 
                 <div>
@@ -137,7 +138,7 @@ class Tile extends Component{
                 <div className='noalt-item-title'> 
                     <div className={"pic-wrapper"} ><a href={finalUrl } target="_blank"><img src={finalUrl}/></a> </div>
                     <div className="noalt-tile-text">
-                        <p className="noalt-tile-name">{( item.alt === "" ) ? "No alternative set" : item.alt}</p>
+                        <p className="noalt-tile-name">{( item.alt === "" ) ? "Sin texto alternativo" : item.alt}</p>
                     </div>
                 </div>
                 

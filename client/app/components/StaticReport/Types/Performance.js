@@ -26,27 +26,27 @@ class Performance extends Component {
         let {data,headers} = this.props;
         const {settings} = this.props;
         console.log(this.props);
-         let mb = (data[5]) ? this.bytesToSize(data[5]) : " No network requests found";
+         let mb = (data[5]) ? this.bytesToSize(data[5]) : " No network requests encontradas";
         return (
             <>
             <Slider  ref={c => (this.slider = c)} {...settings}>
                 <div>
                     <div className={"report-performance"} >
-                        <div className={"metaInfo-item"}><h5>Cache Control</h5><p> {(headers[0].cachecontrol) ? headers[0].cachecontrol : "No cache control header found"} </p></div> 
-                        <div className={"metaInfo-item"}><h5>Content-Encoding</h5><p> {(headers[0].contentencoding) ? headers[0].contentencoding: "No Content Encoding header found"} </p></div> 
-                        <div className={"metaInfo-item"}><h5>Total Network Request Size</h5><p> {mb} </p></div>
-                        <div className={"metaInfo-item"}><h5>HTTP Request Status</h5><p> {(headers[0].status) ? headers[0].status : "No HTTP status found"} </p> </div>
-                        <div className={"metaInfo-item"}><h5>Url</h5><p> {(headers[0].url) ? headers[0].url : "No url found"} </p> </div>
+                        <div className={"metaInfo-item"}><h5>Cache Control</h5><p> {(headers[0].cachecontrol) ? headers[0].cachecontrol : "No cache control header encontrado"} </p></div> 
+                        <div className={"metaInfo-item"}><h5>Content-Encoding</h5><p> {(headers[0].contentencoding) ? headers[0].contentencoding: "No Content Encoding header encontrado"} </p></div> 
+                        <div className={"metaInfo-item"}><h5>Total tamaño peticiones de red</h5><p> {mb} </p></div>
+                        <div className={"metaInfo-item"}><h5>Codigo de estado HTTP</h5><p> {(headers[0].status) ? headers[0].status : "No HTTP status encontrado"} </p> </div>
+                        <div className={"metaInfo-item"}><h5>Url</h5><p> {(headers[0].url) ? headers[0].url : "No url encontrada"} </p> </div>
 
                          
                     </div>
                     <div className={"explanation m-t"}>
-                        <h6>Description</h6>
+                        <h6>Descripción</h6>
                         <p>
-                        <code className="highlighter-rouge">Cache Control</code> header is used to specify directives for caching, the options can be set as public, private, no-cache and only-if-cached, this header is followed by a expiration time of the cache<br></br>
-                        <code className="highlighter-rouge">Content-Encoding</code> is used to determine if the content is compressed, when present, its value defines the type of compression applied<br></br>
-                        <code className="highlighter-rouge">Total Network Request Size</code> Is the total of network resources that this website requires when loading<br></br>
-                        <code className="highlighter-rouge">HTTP request Status</code> refers to the HTTP response got when  accesing the URL. 
+                        <code className="highlighter-rouge">Cache Control</code>Este header especifica las directivas para el cachado, puede ser asignado a public, private, no-cache y only-if-cached, este header es seguido por un valor maximo de expiración<br></br>
+                        <code className="highlighter-rouge">Content-Encoding</code> Este header es usado para detemrinar si el contenido esta comprimido o no, cuando está presenta este valor define que tipo de compresion se ha aplicado<br></br>
+                        <code className="highlighter-rouge">Total tamaño peticiones de red</code> Es el total del tamaño de peticiones de red<br></br>
+                        <code className="highlighter-rouge">Codigo de estado HTTP</code> Se refiere a la respuesta obtenida al realizar la peticion HTTP. 
                         </p>
                         </div> 
                 </div> 
@@ -64,14 +64,14 @@ class Performance extends Component {
                         </div>
                     </div>
                     <div className={"explanation m-t-s"}>
-                        <h6>Description</h6>
+                        <h6>Descripción</h6>
                         <p>
-                            <code className="highlighter-rouge">First Contentful Paint</code> marks the time at which the first text or image is painted.<br></br>
-                            <code className="highlighter-rouge"> Speed Index </code>shows how quickly the contents of a page are visibly populated.<br></br>
-                            <code className="highlighter-rouge"> Time to interactive</code> is the amount of time it takes for the page to become fully interactive.<br></br>
-                            <code className="highlighter-rouge">First Meaningful Paint</code>  measures when the primary content of a page is visible.<br></br>
-                            <code className="highlighter-rouge">First CPU Idle</code>  marks the first time at which the page's main thread is quiet enough to handle input.<br></br>
-                            <code className="highlighter-rouge">Maximum potential First Input Delay</code>  that your users could experience is the duration, in milliseconds, of the longest task.<br></br>
+                            <code className="highlighter-rouge">First Contentful Paint</code> este tiempo muestra el tiempo en el que el primer texto o imagen se ha plasmado.<br></br>
+                            <code className="highlighter-rouge"> Speed Index </code> muestra como de rapido el contenido de la pagina es visiblemente populado.<br></br>
+                            <code className="highlighter-rouge"> Time to interactive</code>Es el tiempo total que tarda la pagina en ser interactiva<br></br>
+                            <code className="highlighter-rouge">First Meaningful Paint</code> es el tiempo en el que el contenido principal es visible<br></br>
+                            <code className="highlighter-rouge">First CPU Idle</code> es el tiempo en el que el hilo de la pagina puede manejar inputs.<br></br>
+                            <code className="highlighter-rouge">Maximum potential First Input Delay</code>  es el tiempo que el la tarea maxima es llevada a cabo.<br></br>
                         </p>
                     </div>
                 </div>

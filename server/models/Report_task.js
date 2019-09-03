@@ -193,6 +193,8 @@ module.exports = {
         newReport.minify = results[4];
         newReport.imgAlt = results[8];
         newReport.options = options;
+        newReport.viewedby = [];
+        newReport.asignedUsers = [];
         newReport.headers = results[5];
         newReport.sitemap = res[1];
         newReport.brokenLinks = results[3];
@@ -444,6 +446,15 @@ module.exports = {
         newReport.options = options;
         newReport.headers = results[5];
         newReport.sitemap = res[1];
+        newReport.viewedby = [];
+        
+        Report.findOne({id: id}, (err, report) => {
+            if (err) {
+            } else if (report !== null && report.length != 1) {
+                newReport.asignedUsers = report.asignedUsers;
+            }
+         });
+
         newReport.brokenLinks = results[3];
         newReport.views = 0;
         if(results[0]){ newReport.htag = results[0]; };

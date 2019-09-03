@@ -94,8 +94,8 @@ class BrokenChecker extends Component {
 
           <div className="loading-card">
               { loading
-                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL" disabled></input><input type="submit"onClick={this.checkBrokenLinks}  value={`${percentage}%         `} disabled></input> </form>
-                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insert URL"></input><input type="submit"onClick={this.checkBrokenLinks}  value="Generate"></input> </form>
+                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insertar URL" disabled></input><input type="submit"onClick={this.checkBrokenLinks}  value={`${percentage}%         `} disabled></input> </form>
+                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insertar URL"></input><input type="submit"onClick={this.checkBrokenLinks}  value="Generar"></input> </form>
                       }
 
                 <div className={loading ? 'spinner-border float-right text-secondary spinner-white spinner-activated' : ' spinner-border float-right text-secondary  spinner-white spinner-deactivated' } id="spinner" role="status">
@@ -103,7 +103,7 @@ class BrokenChecker extends Component {
                 </div>
           </div>
            
-            <h5 className="card-header">Broken Links Table</h5>
+            <h5 className="card-header">Herramienta enlaces rotos</h5>
             <div className="card-body">
                 <ReactTable
                 data={messages}

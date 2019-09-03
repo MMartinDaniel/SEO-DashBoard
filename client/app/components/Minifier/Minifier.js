@@ -111,26 +111,26 @@ class Minifier extends Component {
 
               <div className="loading-card">
               { loading
-                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit"onClick={this.checkMinify}  value={"         "} disabled></input> </form>
-                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insert URL"></input><input type="submit"onClick={this.checkMinify}  value="Generate"></input> </form>
+                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insertar URL"></input><input type="submit"onClick={this.checkMinify}  value={"         "} disabled></input> </form>
+                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insertar URL"></input><input type="submit"onClick={this.checkMinify}  value="Generar"></input> </form>
                       }
 
                 <div className={loading ? 'spinner-border float-right text-secondary spinner-white spinner-activated' : ' spinner-border float-right text-secondary  spinner-white spinner-deactivated' } id="spinner" role="status">
                   <span className="sr-only"></span>
                 </div>
               </div>
-              <h5 className="card-header">Resources Minification tool</h5>
+              <h5 className="card-header">Minificador CSS y JS</h5>
               <div className="card-body">
 
                     <table className='minifier-table'>
                       <thead>
                       <tr>
-                        <th>Type</th>
-                        <th>Resource</th>
-                        <th>Size</th>
-                        <th>Minified Size</th>
-                        <th>% Saved</th>
-                        <th>Minify</th>
+                        <th>Tipo</th>
+                        <th>Recurso</th>
+                        <th>Tamaño</th>
+                        <th>Tamaño Minificado</th>
+                        <th>% Ahorrado</th>
+                        <th>Minificar</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -166,7 +166,7 @@ class Minifier extends Component {
                             <td>{info_data[i].minifiedSize}</td>
                             <td><div className="minified yesm">{Math.abs(Math.floor((info_data[i].efficiency)*100))}%</div></td>
 
-                            <td><a  href={"/api/minifier/minify?url="+ item.where+"&type="+type }><div className="minify-button">Minify</div></a></td>
+                            <td><a  href={"/api/minifier/minify?url="+ item.where+"&type="+type }><div className="minify-button">Minificar</div></a></td>
                           </tr>;
                          }
                           })

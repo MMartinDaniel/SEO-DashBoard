@@ -11,6 +11,7 @@ var userSchema = new Schema({
     repcounter:{type:Number,required:false},
     receivedreports:{type:[],required:false},
     image:{type:String,required:false},
+    admin:{type:Boolean,required:false},
     subtitle:{type:String,required:false},
     excluded_words:{type:[],required:false},
     alarm:{type:[],required:false},

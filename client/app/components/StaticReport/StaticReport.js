@@ -29,9 +29,34 @@ class StaticReport extends Component {
     }
 
     componentWillMount() {
-       const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        let email;
+        let id;
+        if (window.location.href.indexOf('?') > -1){
+            let first_part = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            let second = first_part.substring(first_part.lastIndexOf('?') + 1);
+            email = second.substring(second.lastIndexOf('=') + 1);
+    
+            let id_first = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            id = id_first.substring(0, id_first.indexOf('?'));
+        }else{
+            id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 
+        }
+
+     
         fetch('/library/user/Report/increaseCounter/'+id);
+        fetch('/libraries/seeReport',{
+            method:'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+              id: id,
+            })
+          });
+
         fetch('/library/user/Report/'+id).then(response => response.json())
         .then(json => {
             console.log(json);
@@ -129,17 +154,17 @@ StaticReport.propTypes = {
 };
 
 const TABS =[
-    {src:"../assets/img/icon/32x32.png", title: "Tags Information", subtitle: "Information about tags" },
-    {src:"../assets/img/icon/ssl.png", title: "SSL Information", subtitle: "Information about SSL Certificate" },
-    {src:"../assets/img/icon/meta.png", title: "Meta Information Results", subtitle: "Information about meta tags and Preview" },
-    {src:"../assets/img/icon/broken.png", title: "BrokenLinks Information", subtitle: "Information about brokenlinks" },
-    {src:"../assets/img/icon/minify2.png", title: "Minify Information", subtitle: "Information Minification savings" },
-    {src:"../assets/img/icon/performance.png", title: "Performance Results", subtitle: "Headers & PageSpeed Insights" },
-    {src:"../assets/img/icon/sitemap.png", title: "Indexation Information", subtitle: "Information Sitemap and robots files" },
-    {src:"../assets/img/icon/resources.png", title: "Resources Information", subtitle: "Information about webpage sizing"  },
-    {src:"../assets/img/icon/alternative.png", title: "Alternative Information", subtitle: "Information about Alternative metadata" },
+    {src:"../assets/img/icon/32x32.png", title: "Información de Tags", subtitle: "Información sobre tags" },
+    {src:"../assets/img/icon/ssl.png", title: "Información sobre SSL", subtitle: "Información sobre Certificados SSL " },
+    {src:"../assets/img/icon/meta.png", title: "Resultados sobre MetaInformación", subtitle: "Información sobre meta tags y Preview" },
+    {src:"../assets/img/icon/broken.png", title: "Información de enlaces rotos", subtitle: "Información sobre enlaces rotos" },
+    {src:"../assets/img/icon/minify2.png", title: "Información sobre Minificación", subtitle: "Información sobre ahorro usando minificación " },
+    {src:"../assets/img/icon/performance.png", title: "Resultados sobre optimización", subtitle: "Headers & PageSpeed Insights" },
+    {src:"../assets/img/icon/sitemap.png", title: "Resultados sobre indexación", subtitle: "Información  sobre sitemap y Robots.txt" },
+    {src:"../assets/img/icon/resources.png", title: "Información sobre recursos", subtitle: "Información sobre tamaño de la web"  },
+    {src:"../assets/img/icon/alternative.png", title: "Información sobre texto alternativo", subtitle: "Información sobre texto alternativo" },
 
-   {src:"../assets/img/icon/screenshot.png", title: "Mobile Friendly", subtitle: "Information about responsiveness" },
+   {src:"../assets/img/icon/screenshot.png", title: "Mobile Friendly", subtitle: "Información sobre responsive" },
     
   ];
 

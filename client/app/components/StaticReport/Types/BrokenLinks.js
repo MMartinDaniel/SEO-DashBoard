@@ -57,16 +57,17 @@ class BrokenLinks extends Component {
                     <div className={"minify-performance"} >
                        <div className="normal-size">
                             <h3>{total}</h3>
-                            <h5>Total link visited</h5>
+                            <h5>Total enlaces visitados</h5>
                        </div>
                        <div className="minify-size">
                             <h3 className="not-found-link">{total_broken}</h3>
-                            <h5>Total unsuccessful requests </h5>
+                            <h5>Total peticiones fallidas </h5>
                         </div>
                     </div>
                     <div className={"explanation bk-explanation"}>
-                        <h6>Description</h6>
-                        <p>Broken links is something that will affect every web that is being updated from time to time, we can't have a control of external website status, so is important to have a control with the links that are being linked in the content. Broken link cause frustration to users of the site, since is content that should be available is not, specially if that link is relevant or needed in order to proceed with another process.</p>
+                        <h6>Descripción</h6>
+                        <p>Los enlaces rotos son algo que afectará a cada sitio web que sea actualizado cada cierto tiempo, no podemos tener un control sobre el estado de enlaces externos, es importante tener un control de estos enlaces que estan siendo usados en el contenido. Los enlaces rotos causan frustración a los usuarios del sitio que los usan, dado que el contenido que deberia estar disponible no lo está, especialmente si el enlace es relevante para otro uso</p>
+
                         </div> 
                 </div> 
                 <div>
@@ -91,7 +92,7 @@ class BrokenLinks extends Component {
                                     );
                                 })
 
-                                :  <p> No broken Links found</p>
+                                :  <p> Enlaces rotos no encontrados</p>
                             }
 
                     </div>
@@ -100,7 +101,7 @@ class BrokenLinks extends Component {
                 <div>
                     <div className={"minify-performance bk-chart"} >
                        <div className="normal-size"> 
-                       <h5 >Bad request by type </h5>
+                       <h5 >Bad request por tipo </h5>
 
                         <div className={'bk-chart'}>  <Pie data={chartData}  />
                                                         </div>
@@ -108,12 +109,12 @@ class BrokenLinks extends Component {
                       
                     </div>
                     <div className={"explanation bk-explanation"}>
-                        <h6>HTTP request status code guide</h6>
+                        <h6>Guia codigos de estado HTTP</h6>
                         <p>
-                        <code className="highlighter-rouge">2XX</code> requests that are successful.<br></br>
-                        <code className="highlighter-rouge">3XX</code> requests are Redirections<br></br>
-                        <code className="highlighter-rouge">4XX</code> requests are errors by client Side.<br></br>
-                        <code className="highlighter-rouge">5XX</code> requests are errors by Server Side.<br></br>
+                        <code className="highlighter-rouge">2XX</code> Peticiones exitosas .<br></br>
+                        <code className="highlighter-rouge">3XX</code> Peticiones que son redirecciones<br></br>
+                        <code className="highlighter-rouge">4XX</code> Peticiones fallidas de lado de cliente<br></br>
+                        <code className="highlighter-rouge">5XX</code> Peticiones fallidas de lado del servidor<br></br>
 
                         </p>
                         </div> 
@@ -145,7 +146,7 @@ class Tile extends Component{
                     <p className="status-deadlink">{item.status}</p>
                     <div className="broken-tile-text">
                         <p className="broken-tile-name"><a href={item.deadlink}>{item.deadlink}</a></p>
-                        <p className="broken-tile-saving">Location: <a href={item.where}>{item.where}</a></p>
+                        <p className="broken-tile-saving">Localización: <a href={item.where}>{item.where}</a></p>
                     </div>
                 </div>
                 

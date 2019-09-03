@@ -159,14 +159,14 @@ class SpellChecker extends Component {
 
                     <div className="loading-card">
                       { loading
-                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit" onClick={this.checkSpelling}  value={"         "} disabled></input> </form>
-                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insert URL"></input><input type="submit" onClick={this.checkSpelling}  value="Check Spelling"></input> </form>
+                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insertar URL"></input><input type="submit" onClick={this.checkSpelling}  value={"         "} disabled></input> </form>
+                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insertar URL"></input><input type="submit" onClick={this.checkSpelling}  value="Corregir"></input> </form>
                       }
                       <div className={loading ? 'spinner-border float-right spinner-white spinner-activated' : 'spinner-border float-right spinner-white spinner-deactivated' } id="spinner" role="status">
                         <span className="sr-only"></span>
                       </div>
                     </div>
-                    <div className="card-header"><h5>Spell Checker tool</h5>
+                    <div className="card-header"><h5>Corrector Ortografico</h5>
                     </div> 
                     <div className="card-body">
                         <div className='spell-results'>
@@ -186,7 +186,7 @@ class SpellChecker extends Component {
                   <div className="card" >
                     <div className="loading-card">
                     </div>
-                    <div className="card-header"><h5>Your Dictionary</h5>
+                    <div className="card-header"><h5>Tu diccionario</h5>
                     </div> 
                     <div className="card-body">
                         <div className='spell-excluded-results'>
@@ -195,7 +195,7 @@ class SpellChecker extends Component {
                         data_excluded.map((word,i)=>{
                              return <p onClick={() => this.removeWord(word)} key={i}>{word} </p>;
                         })
-                         :  <p>No words added</p>
+                         :  <p>Sin palabras</p>
                     }
                     </div>
                     </div>

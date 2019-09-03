@@ -75,7 +75,7 @@ class ItemProgress extends React.Component {
         hours = hours-(days*24);
         minutes = minutes-(days*24*60)-(hours*60);
         seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
-        this.setState({elapsed_time: `${hours} Hours, ${minutes} Minutes, ${seconds} seconds` });
+        this.setState({elapsed_time: `${hours} Horas, ${minutes} Minutos, ${seconds} segundos` });
     }
 
     componentDidMount() {
@@ -117,7 +117,7 @@ class ItemProgress extends React.Component {
                 </div>
                 <div className={`${basename}item-progress`}>
                     <div className={`${basename}progress-bg`}>
-                    <span  className={`${basename}progress-bg-left`} >Elapsed Time: {elapsed_time} </span>
+                    <span  className={`${basename}progress-bg-left`} >Tiempo transcurrido: {elapsed_time} </span>
                      <span  className={`${basename}progress-bg-right`}>({current}/{total_item})</span>
                       
                         <div className={`${basename}progress-bg-html`} style={{width:value}}>
@@ -127,7 +127,7 @@ class ItemProgress extends React.Component {
                 </div>
             </div>
             <div className={`${basename}delete`}>
-                   <button onClick={this.removeFromJobsQueue}>Delete</button>
+                   <button onClick={this.removeFromJobsQueue}>Borrar</button>
             </div>
     
             </>
