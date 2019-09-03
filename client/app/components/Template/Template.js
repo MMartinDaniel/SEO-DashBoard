@@ -15,13 +15,13 @@ class Template extends Component {
   }
 
   render() {
-    const {tabs} = this.props;
+    const {tabs,stats} = this.props;
 
     return (
       <>
         <Header/>
         <div id='wrapper' className="toggled">
-          <Sidebar tabs={tabs}/>
+          <Sidebar stats={stats} tabs={tabs}/>
           <div id='page-content-wrapper'>
             <div className="'container-fluid">
               <main>

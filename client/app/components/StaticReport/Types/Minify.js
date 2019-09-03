@@ -59,17 +59,17 @@ class Minify extends Component {
                     <div className={"minify-performance"} >
                        <div className="normal-size">
                             <h3>{total_size}</h3>
-                            <h5>Total Size</h5>
+                            <h5>Tamaño Total</h5>
                        </div>
                        <div className="minify-size">
                             <h3 className="saving">{total_saving}</h3>
-                            <h5>Estimated Space saving</h5>
+                            <h5>Ahorro estimado</h5>
 
                         </div>
                     </div>
                     <div className={"explanation  extra-m"}>
-                        <h6>Description</h6>
-                        <p>The <code className="highlighter-rouge">size </code> of the website is quite important when  performance is required,  having a small number of network request and those being small sized can lead in to a very fast website. <code className="highlighter-rouge">Minify</code> files that can be reduced in size means we can achieve better results. Minifying files is very easy, since it can be done automatically, and is not a manual task. </p>
+                        <h6>Descripción</h6>
+                        <p>El <code className="highlighter-rouge">tamaño </code> de un sitio web es bastante importante cuando queremos rendimiento, tener un número pequeño de peticiones de red y estas ser de pequeño tamaño nos puede ayudar a tener un sitio muy rapido. <code className="highlighter-rouge">Minificar</code> archivos que pueden ser reducidos en tamaño significa que tendremos mejores resultados. Es muy facil minificar estos archivos y generalmente suele ser una tarea automatica. </p>
                         </div> 
                 </div> 
                 <div>
@@ -136,9 +136,9 @@ class Tile extends Component{
                         <p className="minify-tile-name">{item.name}</p>
                         {
                             (!minified) ? 
-                                 <p className="minify-tile-saving">Saving:  <span className={color}>{val}%</span></p>
+                                 <p className="minify-tile-saving">Ahorro:  <span className={color}>{val}%</span></p>
                             : 
-                            <p className="minify-tile-saving alminified"><span className={"green"}>Minified</span></p>
+                            <p className="minify-tile-saving alminified"><span className={"green"}>Minificado</span></p>
                         }
                        
                     </div>

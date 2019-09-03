@@ -39,18 +39,18 @@ class Indexation extends Component {
                     <div className={"minify-performance"} >
                        <div className="normal-size">
                             <h3>{total}</h3>
-                            <h5>Total Url's in Sitemap</h5>
+                            <h5>Total Url's en Sitemap</h5>
                        </div>
                        <div className="normal-size">
-                            <h3>  <Link to={"/library/sitemap/"+id}  style={pStyle} className='site-down' target="_blank" >Download</Link></h3>
-                            <h5>Download the Sitemap</h5>
+                            <h3>  <Link to={"/library/sitemap/"+id}  style={pStyle} className='site-down' target="_blank" >Descargar</Link></h3>
+                            <h5>Descargar el sitemap</h5>
                        </div>
                     </div>
                     <div className={"explanation ptop"}>
-                        <h6>Description</h6>
-                        <p><code className="highlighter-rouge">Sitemap</code> is in general very related to how Google indexes pages, the Sitemap XML help Google by making his life easier due to some pages are doesn't have other pages pointing to them.
-                        It is a good practice to use the <a href='https://search.google.com/search-console/'><code className="highlighter-rouge">Google Search Console</code></a>  to see if your pages has been actually been indexed by Google.
-                        <br></br>Sitemaps also keep tract of the amount of links that a website has, making it easy to access all links within a website.
+                        <h6>Descripción</h6>
+                        <p>El <code className="highlighter-rouge">Sitemap</code> esta muy relacionado con como Google indexa las paginas, el sitemap XML ayuda a google haciendo su vida mas facil debido a que algunas paginas no tienen otras paginas que las referencien
+                        Es una buena practica usar <a href='https://search.google.com/search-console/'><code className="highlighter-rouge">Google Search Console</code></a>  Para ver si tu pagina ha sido indexada por google.
+                        <br></br>El Sitemap tambien tiene información sobre la cantidad de paginas que el sitio web tiene, haciendolo mas facil para visitar el sitio.
                         </p>
                     </div> 
                 </div> 
@@ -58,7 +58,7 @@ class Indexation extends Component {
                     <div className={"metaInfo-title"}>
                     <h6>Robots</h6>
                     {(!robots || (robots.length <= 1)) ?
-                        (<p>Robots.txt not found</p>
+                        (<p>Robots.txt no encontrados</p>
                     ) : null
                 }
 
@@ -77,9 +77,9 @@ class Indexation extends Component {
                      )) }
                     </div>
                     <div className={"explanation "}>
-                        <h6>Description</h6>
+                        <h6>Descripcion</h6>
                         <p><code className="highlighter-rouge">Robots.txt </code>
-                        is a file that tells search engines that crawls websites which pages or files can or can not request from a certain web. This kind of files is used to avoid overloading the site with request. It is mainly used to manage crawler traffic and exclude parts of your website. This file should be place on the root of the web.
+                        Es un archivo que dice a los buscadores que visitan la pagina que pages o que archivos no deben ser indexados de una determinada web. Este tipo de archivos es usado para evitar sobrecargar el sitio con peticiones. Generalmente es usado para adminstrar el trafico y excluir las partes del sitio. Este Archivo debe de ser colocado en la raiz del archivo.
                         </p>
                     </div> 
                     

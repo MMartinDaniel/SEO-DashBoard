@@ -5,6 +5,7 @@ const multer = require("multer");
 const Report_Generator = require("../../models/Report_task");
 const Report = require("../../models/Report");
 const fetch = require('node-fetch');
+var bcrypt = require('bcrypt-nodejs');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -54,14 +55,14 @@ function checkifJob() {
               if(alarm.lastExecuted === null){
                 console.log("executing first time....");
                 execute = true;
-              }else if(alarm.type === "Monthly" && DaysDiff_i <= -30.00 ){
+              }else if(alarm.type === "Mensual" && DaysDiff_i <= -30.00 ){
                 console.log("executing monthly...");
                 execute = true;
-              }else if(alarm.type === "Weekly" && DaysDiff_i <= -7.00){
+              }else if(alarm.type === "Semanal" && DaysDiff_i <= -7.00){
                 console.log("execting weekly...");
                 execute = true;
 
-              }else if(alarm.type === "Daily" && DaysDiff_i <= -1.00){
+              }else if(alarm.type === "Diaria" && DaysDiff_i <= -1.00){
                 console.log("Executing Daily...");
                 execute = true;
                }
@@ -103,7 +104,8 @@ module.exports = (app) => {
 
   app.post('/api/account/profileData',upload.single("img"),(req,res,next)=>{
     const {body} = req;
-    const {uid,fullname,subtitle} = body;
+    const {uid,fullname,subtitle,password} = body;
+    if(password === ""){
     User.findOneAndUpdate({_id: uid}, { image: uid+req.file.originalname, name:fullname,subtitle:subtitle }, {new: true}, (err, user) => {
       console.log(user);
       if (err) {
@@ -112,7 +114,20 @@ module.exports = (app) => {
 
         return res.send({success:true, message:'Success, Report found',data:user});
       }
-  });
+      });
+    }else{
+      let newpass = bcrypt.hashSync(password,bcrypt.genSaltSync(5,null));
+
+      User.findOneAndUpdate({_id: uid}, { image: uid+req.file.originalname, name:fullname,subtitle:subtitle, password:newpass }, {new: true}, (err, user) => {
+        console.log(user);
+        if (err) {
+          return res.end({success:false, message:'Error: Server error',data: []});
+        } else if (user.length != 1) {
+  
+          return res.send({success:true, message:'Success, Report found',data:user});
+        }
+        });
+    }
   
 
   });
@@ -120,7 +135,8 @@ module.exports = (app) => {
     console.log("calling here");
     console.log(req.body);
     const {body} = req;
-    const {uid,fullname,subtitle} = body;
+    const {uid,fullname,subtitle,password} = body;
+    if(password === ""){
     User.findOneAndUpdate({_id: uid}, {name:fullname,subtitle:subtitle }, {new: true}, (err, user) => {
       console.log(user);
       if (err) {
@@ -129,7 +145,19 @@ module.exports = (app) => {
 
         return res.send({success:true, message:'Success, Report found',data:user});
       }
-  });
+    });
+    }else{
+      let newpass = bcrypt.hashSync(password,bcrypt.genSaltSync(5,null));
+      User.findOneAndUpdate({_id: uid}, {name:fullname,subtitle:subtitle, password:newpass }, {new: true}, (err, user) => {
+        console.log(user);
+        if (err) {
+          return res.end({success:false, message:'Error: Server error',data: []});
+        } else if (user.length != 1) {
+  
+          return res.send({success:true, message:'Success, Report found',data:user});
+        }
+      });
+  }
   
 
   });
@@ -237,6 +265,8 @@ module.exports = (app) => {
           message:'Valid Sign in',
           token: doc._id,
           uid: user._id,
+          admin: user.admin,
+          email: user.email,
         });
       })
     });
@@ -306,6 +336,7 @@ module.exports = (app) => {
         newUser.password = newUser.encryptPassword(password);
         newUser.image = "";
         newUser.name = "";
+        newUser.admin = false;
         newUser.subtitle = "";
         newUser.save((err,user)=>{
           if(err){

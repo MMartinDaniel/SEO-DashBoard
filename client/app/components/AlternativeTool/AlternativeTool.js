@@ -25,7 +25,7 @@ class ReportImageAlt extends Component {
                 <thead>
                   <tr>
                     <th>Thumbnail</th>
-                    <th>Alt text</th>
+                    <th>Texto Alternativo</th>
                     <th className={'rright'}  >Url</th>
                   </tr>
                 </thead>
@@ -123,7 +123,7 @@ class ReportImageAlt extends Component {
                       <td className={(item.alt !== undefined && item.alt !== "" ) ? 'alt-report yes-alt' : 'alt-report no-alt'} ><img className={'formated'} src={finalUrl}/></td>
                       <td className='alt-name'>{item.alt}</td>
                       <td className='url-name'><a target="_blank" href={finalUrl}>
-                        <div className="alt-button">Inspect Image</div>
+                        <div className="alt-button">Inspeccionar</div>
                       </a></td>
                     </tr>;
 
@@ -225,15 +225,15 @@ componentWillMount() {
 
               <div className="loading-card">
               { loading
-                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit"onClick={this.checkAlternative}  value={"         "} disabled></input> </form>
-                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insert URL"></input><input type="submit"onClick={this.checkAlternative}  value="Generate"></input> </form>
+                        ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insertar URL"></input><input type="submit"onClick={this.checkAlternative}  value={"         "} disabled></input> </form>
+                        :   <form onSubmit={this.formPreventDefault}><input type="text" value={this.state.url} onChange={this.changeURL} placeholder="Insertar URL"></input><input type="submit"onClick={this.checkAlternative}  value="Generar"></input> </form>
                       }
 
                 <div className={loading ? 'spinner-border float-right text-secondary spinner-white spinner-activated' : ' spinner-border float-right text-secondary  spinner-white spinner-deactivated' } id="spinner" role="status">
                   <span className="sr-only"></span>
                 </div>
               </div>
-              <h5 className="card-header">Missing Alternative Tool</h5>
+              <h5 className="card-header">Herramienta texto alternativo</h5>
               <div className="card-body">
                 {
                   ( data.imgAlt !== null && (data.imgAlt.length > 0) ) ? 

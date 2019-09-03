@@ -9,6 +9,7 @@ const User = require("../../models/User");
 var nodemailer = require('nodemailer');
 const Spellcheck = require("../../models/SpellCheck");
 var transporter = nodemailer.createTransport({
+
   service: 'gmail',
   auth: {
     user: 'staticautoreply@gmail.com',
@@ -65,11 +66,71 @@ module.exports = (app) => {
   
   })});
 
+  app.get('/libraries/seenReport',(req,res,next)=>{
+    const { id } = req.query;
+    console.log(id);
+    Report.findOne({ id: id }).exec((err,report)=> {
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (report !== null && report.length!== 1) {
+        return res.send({success:true, message:'Success, Report found',data:report.viewedby});
+      };
+    })
+  });
+  app.get('/libraries/AsignedReport',(req,res,next)=>{
+    const { id } = req.query;
+    console.log(id);
+    Report.findOne({ id: id }).exec((err,report)=> {
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (report !== null && report.length!== 1) {
+        return res.send({success:true, message:'Success, Report found',data:report.asignedUsers});
+      };
+    })
+  });
+
+  app.post('/libraries/seeReport',(req,res,next)=>{
+    const { email,id } = req.body;
+    Report.update({ id: id },{ $addToSet: { viewedby: email }}, function(err){
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (report !== null && report.length !== 1) {
+        return res.send({success:true, message:'Success, Report found',data:report});
+      };
+  
+  })});
+
+  app.post('/libraries/AsignReport',(req,res,next)=>{
+    const { email,id } = req.body;
+    Report.update({ id: id },{ $addToSet: { asignedUsers: email }}, function(err,report){
+      if (err) {
+        return res.end({success:false, message:'Error: Server error',data: []});
+      } else if (report !== null && report.length !== 1) {
+        return res.send({success:true, message:'Success, Report found',data:[]});
+      };
+  
+  })});
+
+
+  app.delete ('/libraries/AsignReport',(req,res,next)=>{
+    const {body} = req;
+    const {email,id} = body;  
+    Report.update( { id: id }, { $pull: { asignedUsers:  email  } }, function(err){
+      if (err) {
+        return res.send({success:true,message: "Error: Server Error",});
+      }else {
+        return res.send({success:true,message: "Success: Removed",data:[]});
+      }
+    } )
+  });
+
+
+
   app.post('/library/user/email',(req,res,next)=>{
     const {body} = req;
-    const {email,id,uid,website} = body;   
+    const {email,id,uid,website,own} = body;   
     console.log(body);
-    let from = {website:website,id:id,uid:uid, date: Date.now(),email:email};
+    let from = {website:website,id:id,uid:uid, date: Date.now(),email:own};
     User.update( { email: email }, { $addToSet: { receivedreports: from }}, function(err) {
       if (err) {
         return res.send({success:true,message: "Error: Server Error",});
@@ -78,8 +139,8 @@ module.exports = (app) => {
    var mailOptions = {
     from: 'staticautoreply@gmail.com',
     to: email,
-    subject: 'Sent you a report',
-    html: "Sent you a report, to check it please click on the following <a href='http://localhost:8080/Report/"+id+"'>Link</a>",
+    subject: 'Te ha enviado un informe',
+    html: "Se ha enviado un reporte para su revision para la web  " +website + ", accede con el siguiente enlace <a href='http://localhost:8080/Report/"+id+"?email="+email+"'>Enlace</a>",
   };
   
   transporter.sendMail(mailOptions, function(error, info){

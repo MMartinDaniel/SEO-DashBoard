@@ -24,19 +24,19 @@ class Ssl extends Component {
             <>
                 <div>
                     <div className={"metaInfo-title"}>
-                        <div className={"metaInfo-item"}><h5>Issuer</h5><p> {(data.issuer) ? data.issuer : "No issuer found"} </p></div> 
-                        <div className={"metaInfo-item"}><h5>Serial Number</h5><p> {(data.SerialNumber) ? data.SerialNumber: "No serial Number found"} </p></div> 
-                        <div className={"metaInfo-item"}><h5>Subject Alt Name</h5><p> {(data.subjectaltname) ? data.subjectaltname : "No subject alt name found"} </p> </div>
-                        <div className={"metaInfo-item"}><h5>Fingerprint</h5><p> {(data.fingerprint) ? data.fingerprint : "no fingerprint found"} </p> </div> 
-                        <div className={"metaInfo-item"}><h5>Valid from</h5><p>{(data.valid_from) ? data.valid_from : "No valid SSL certificate found" }</p></div>
-                        <div className={"metaInfo-item"}><h5>Valid from</h5><p>{(data.valid_to) ? data.valid_to : "No valid SSL certificate found"}</p></div>
+                        <div className={"metaInfo-item"}><h5>Emisor</h5><p> {(data.issuer) ? data.issuer : "No emisor encontrado"} </p></div> 
+                        <div className={"metaInfo-item"}><h5>Número de serie</h5><p> {(data.SerialNumber) ? data.SerialNumber: "No Numero de serie encontrado"} </p></div> 
+                        <div className={"metaInfo-item"}><h5>SAN</h5><p> {(data.subjectaltname) ? data.subjectaltname : "No nombre subject alternativo encontrado"} </p> </div>
+                        <div className={"metaInfo-item"}><h5>Huella Digital</h5><p> {(data.fingerprint) ? data.fingerprint : "no huella digital encontrada"} </p> </div> 
+                        <div className={"metaInfo-item"}><h5>Valido desde</h5><p>{(data.valid_from) ? data.valid_from : "No certificado SSL valido encontrado" }</p></div>
+                        <div className={"metaInfo-item"}><h5>Valido hasta</h5><p>{(data.valid_to) ? data.valid_to : "No certificado SSL valido encontrado"}</p></div>
                     </div> 
                     <div className={"explanation"}>
-                        <h6>Description</h6>
-                        <p>SSL Certificates are very important if you want to give a secure image to the users visiting your website, 
-                          specially when <code className="highlighter-rouge"> sensitive data </code> is being used. Using a SSL certificate keep data secure between servers,
-                           as well as increasing your Google Ranking through customer trust and improving <code className="highlighter-rouge"> conversion rates</code>
-                          SSL also affirm that your identify is real, when a SSL certification is installed, there is a <code className="highlighter-rouge">Certificate Authority</code> that validates that the indentify is correct and real.
+                        <h6>Descripción</h6>
+                           <p>Los certificados SSL son muy importantes si queremos dar seguridad a los usuarios del sitio web, 
+                          especialmente cuando tenemos <code className="highlighter-rouge"> datos privados </code> . Usar un certificado SSL mantiene la transferencia de datos segura entre servidores,
+                         al igual que incrementar el ranking de Google debido a mejorar la confianza y la <code className="highlighter-rouge"> tasa de conversion </code>
+                         Un certificado SSL tambien afirma que nuestra identidad es real, cuando un certificado esta instalado, hay un <code className="highlighter-rouge">Certificate Authority</code> que la valida.
                            </p>
                     </div>
                 </div>

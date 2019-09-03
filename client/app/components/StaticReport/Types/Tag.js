@@ -19,8 +19,8 @@ class Tag extends Component {
        
         let {data} = this.props;
         const {settings} = this.props;
-        (data.canonical === ""  || !data.canonical) ? data.canonical = "No canonical tag found" : null;
-        (data.lang === ""  || !data.lang) ? data.lang = "No lang tag found" : null;
+        (data.canonical === ""  || !data.canonical) ? data.canonical = "No canonical tag encontrado" : null;
+        (data.lang === ""  || !data.lang) ? data.lang = "No lang tag encontrado" : null;
 
         return (
             <>
@@ -46,11 +46,11 @@ class Tag extends Component {
                         </div>
                     </div> 
                     <div className={"explanation"}>
-                        <h6>Description</h6>
-                        <p>H tags, expecially the <code className="highlighter-rouge">H1</code> tag are very important to determine the main topic that the page is going to talk about. then  <code className="highlighter-rouge">H2</code> to <code className="highlighter-rouge">H6</code> which define a deeper and more concrete information about the main topic.<br>
-                        </br>H1 tags are also very important for people with <a href='https://en.wikipedia.org/wiki/Visual_impairment'><code className="highlighter-rouge">Visual Impairment</code></a> since screen readers use H tags to describe the content of the current page. And since Google is very concerned about usability, this tags are really important. 
+                        <h6>Descripción</h6>
+                        <p>H tags, especialmente <code className="highlighter-rouge">H1</code> son muy importantes ya que dicen sobre que va a ir el contenido de la pagina. Entonces  <code className="highlighter-rouge">H2</code> a <code className="highlighter-rouge">H6</code> refinan más la información de esta pagina.<br>
+                        </br>H1 tags son muy importantes para la gente con <a href='https://en.wikipedia.org/wiki/Visual_impairment'><code className="highlighter-rouge">Discapacidad visual</code></a> dado que los lectores usan las etiquetas H para describir el contenido de la pagina. Google presta bastante atención a la usabilidad, por lo cual estos tags son muy importantes
                         <br></br>
-                        <br></br><code className="highlighter-rouge">Canonical</code> tags are very useful in terms of ranking, due to they specify which domain is important and which domain you actually want Google to rank.
+                        <br></br><code className="highlighter-rouge">Canonical</code> tags son bastante importantes y util en terminos de rankings, dado que especifican la URL y dominio.
 </p>
                         
                         </div> 

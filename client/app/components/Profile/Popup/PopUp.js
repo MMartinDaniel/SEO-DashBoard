@@ -69,11 +69,11 @@ class PopUp extends Component {
                 <form onSubmit={(e) => e.preventDefault()}>
                 <div className={`${basename}__inner`}>
                     <div className={`${basename}__header`}>
-                        <div className={`${basename}__cropped`}><span>New Report</span></div>
-                        <input required type='text' onChange={this.handleChange} value={this.state.website} placeholder='Website URL'></input>
+                        <div className={`${basename}__cropped`}><span>Nuevo Reporte</span></div>
+                        <input required type='text' onChange={this.handleChange} value={this.state.website} placeholder='Url del sitio'></input>
                     </div>
                     <div className={`${basename}__options-body`}>
-                        <h3>Options</h3><span className={(!atLeastOne) ? "form-visible form-validator" : "form-hidden form-validator" }>Please, select at least one option.</span>
+                        <h3>Opciones</h3><span className={(!atLeastOne) ? "form-visible form-validator" : "form-hidden form-validator" }>Por favor, selecciona una opcion.</span>
                         <div className={`${basename}__options-wrapper`}>
                             {
                                 TABS.map((item, i)=>{
@@ -89,8 +89,8 @@ class PopUp extends Component {
                             }    
                         </div>
                         <div className={`${basename}__button--wrap`}>
-                            <input type='submit' className={`${basename}__button`}  onClick={this.sendReport} value='Generate Report' />
-                            <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Close </button>       
+                            <input type='submit' className={`${basename}__button`}  onClick={this.sendReport} value='Generar Reporte' />
+                            <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Cerrar </button>       
                         </div>                   
                     </div>
                 </div>
@@ -106,12 +106,12 @@ const TABS =[
     {name:"SSL",        value:1, icon: 'ssl.png'},
     {name:"MetaTag",     value:2,icon: 'meta.png'},
     {name:"BrokenLinks",  value:3,icon: 'broken.png'},
-    {name:"Minify",         value:4,icon: 'minify2.png'},
-    {name:"Headers & Performance",  value:5, icon: 'performance.png'},
-    {name:"Indexation",  value:6, icon: 'sitemap.png'},
-    {name:"Resources",  value:7, icon: 'resources.png'},
-    {name:"Alternative",  value:8,icon: 'alternative.png'},
-    {name:"ScreenShot",  value:9,icon: 'screenshot.png'},
+    {name:"Minificacion",         value:4,icon: 'minify2.png'},
+    {name:"Headers & Optimizacion",  value:5, icon: 'performance.png'},
+    {name:"Indexacion",  value:6, icon: 'sitemap.png'},
+    {name:"Recursos",  value:7, icon: 'resources.png'},
+    {name:"Alternativo",  value:8,icon: 'alternative.png'},
+    {name:"Pantallazo",  value:9,icon: 'screenshot.png'},
     
     
   ];

@@ -29,18 +29,18 @@ class AnalysisTable extends Component{
       <>
         <div className="card-deck m-b-30 phonr-res">
           <div className={`card ${basename}`}>
-            <h5 className={`card-header  `}>Report Status Table</h5>
+            <h5 className={`card-header  `}>Tabla de estado de reportes</h5>
             <div className="card-body">
-              <p> Latest  <code className="highlighter-rouge"> 10</code> Created Reports</p>
+              <p> Ultimos  <code className="highlighter-rouge"> 10</code> Reportes creados</p>
               <div className="table-responsive">
                 <table className="table">
                   <thead>
                   <tr>
-                    <th>Website</th>
-                    <th>Report ID</th>
-                    <th>Created</th>
+                    <th>Sitio Web</th>
+                    <th>ID Reporte</th>
+                    <th>Creado</th>
 
-                    <th>Seen</th>
+                    <th>Visto</th>
                   </tr>
                   </thead>
                   <tbody>

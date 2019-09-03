@@ -106,28 +106,29 @@ class Resources extends Component {
                 <div>
                     <div className='resource-container'>
                         <div id='pie-chart-container'>
-                            <h6 className='chart-name'>Content amount by type</h6>
+                            <h6 className='chart-name'>Contenido por tipo</h6>
                             <Pie data={chartData}  />
 
                         </div>
                     </div>
                     <div className={"explanation"}>
-                        <h6>Description</h6>
-                        <p>Content Size is one of the most important thing when we want faster load times in our page, reducing the size decrease drastically the loading time, thats why tracking which files are too big in size, and try to reduce them using <code className="highlighter-rouge"> Minifiers </code> among other tools, can lead in a better experience for users.</p>
+                        <h6>Descripción</h6>
+                        <p>El tamaño del contenido es una de las cosas mas importantes cuando queremos tiempos de carga rapidos, reducir el tamaño significa reducir drastricamente el tiempo de carga, es por eso por lo que controlar los archivos que son demasiados grantes en tamaño, e intentar reducirlos mediante minificacion, entre otras herramientas va a afectar positivamente en la experiencia de los usuarios</p>
+
                     </div> 
                 </div> 
                 <div>
                 <div className='resource-container'>
                         <div id='pie-chart-container'>
-                            <h6 className='chart-name'>Content Size by type</h6>
+                            <h6 className='chart-name'>Tamaño del contenido por tipo</h6>
                             <Pie data={dataCha}  />
 
                          
                         </div>
                     </div>
                     <div className={"explanation"}>
-                        <h6>Description</h6>
-                        <p>Content Size is one of the most important thing when we want faster load times in our page, reducing the size decrease drastically the loading time, thats why tracking which files are too big in size, and try to reduce them using <code className="highlighter-rouge"> Minifiers </code> among other tools, can lead in a better experience for users.</p>
+                        <h6>Descripción</h6>
+                        <p>El tamaño del contenido es una de las cosas mas importantes cuando queremos tiempos de carga rapidos, reducir el tamaño significa reducir drastricamente el tiempo de carga, es por eso por lo que controlar los archivos que son demasiados grantes en tamaño, e intentar reducirlos mediante minificacion, entre otras herramientas va a afectar positivamente en la experiencia de los usuarios</p>
                     </div> 
                     
                 </div>

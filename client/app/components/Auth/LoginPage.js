@@ -167,7 +167,7 @@ class LoginPage extends Component {
       .then(json => {
         console.log('json',json);
         if(json.success){
-          setInStorage('static',{token:json.token, website:'http://instantes.net', uid:json.uid});
+          setInStorage('static',{token:json.token, website:'http://instantes.net', uid:json.uid,admin:json.admin,email:json.email});
           setInStorage('static-progress',[]);
           this.setState({
             signInError: json.message,
@@ -192,7 +192,7 @@ class LoginPage extends Component {
 
     let message = "";
     if(isLoading){
-      message = <p>Loading...</p>;
+      message = <p>cargando...</p>;
     }
     if(token) {
       window.location.reload();
@@ -211,9 +211,9 @@ class LoginPage extends Component {
 
                <form onSubmit={this.avoidSubmit}>
                 <input type='email' value={signInEmail} placeholder={"email"} onChange={this.onTextboxChangeSignInEmail} required/>
-                <input type='password' value={signInPassword} placeholder={"password"} onChange={this.onTextboxChangeSignInPassword} required/>
-                <input type='submit'  className="loginButton" onClick={this.onSignIn} value='Sign in'/>
-                <p className='dont-account'>don't have an account? <a onClick={this.swapLogin} >sign up</a> </p>
+                <input type='password' value={signInPassword} placeholder={"contraseña"} onChange={this.onTextboxChangeSignInPassword} required/>
+                <input type='submit'  className="loginButton" onClick={this.onSignIn} value='Entrar'/>
+                <p className='dont-account'>No tienes cuenta? <a onClick={this.swapLogin} >registrate</a> </p>
                 </form>
 
               </div>
@@ -237,16 +237,16 @@ class LoginPage extends Component {
 
             <form onSubmit={this.avoidSubmit}>
               <input type='email'
-                        placeholder="Register email"
+                        placeholder="Registrar email"
                         value={signUpEmail}
                         onChange={this.onTextboxChangeSignUpEmail} required />
                   <input type='password'
-                        placeholder="register password"
+                        placeholder="registrar password"
                         value={signUpPassword}
                         onChange={this.onTextboxChangeSignUpPassword} required/>
-                  <input type='submit'  className="registerButton" onClick={this.onSignUp} value='Sign Up'/>
+                  <input type='submit'  className="registerButton" onClick={this.onSignUp} value='Registrarse'/>
                 </form>
-                  <p className='dont-account'>do you have an account? <a onClick={this.swapLogin} >Login</a> </p>
+                  <p className='dont-account'>Tienes una cuenta? <a onClick={this.swapLogin} >Logeate</a> </p>
   
               </div>
             </div>

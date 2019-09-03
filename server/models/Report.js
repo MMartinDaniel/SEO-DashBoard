@@ -16,11 +16,13 @@ var reportSchema = new Schema({
     metadata: {type:mongoose.Schema.Types.ObjectId, ref: 'metadata',required:false},
     imgAlt:{type:[],required:false},
     resources:{type:[],required:false},
+    asignedUsers:{type:[],required:false},
     date:{type:Date,require:false},
     minify:{type:[],required:false},
     options:{type:[],required:false},
     headers:{type:[],required:false},
     views:{type:Number,required:false},
+    viewedby:{type:[],requried:false},
 
 });
 

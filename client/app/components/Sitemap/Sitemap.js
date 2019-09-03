@@ -92,21 +92,21 @@ changeURL(){
 
             <div className="loading-card">
                 { loading
-                    ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit" onClick={this.createSiteMap} value={"         "} readOnly disabled></input> </form>
-                    :   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insert URL"></input><input type="submit" onClick={this.createSiteMap}   value="Generate" readOnly></input> </form>
+                    ?   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insertar URL"></input><input type="submit" onClick={this.createSiteMap} value={"         "} readOnly disabled></input> </form>
+                    :   <form onSubmit={this.formPreventDefault}><input type="text" onChange={this.changeURL} value={this.state.url} placeholder="Insertar URL"></input><input type="submit" onClick={this.createSiteMap}   value="Generar" readOnly></input> </form>
                 }
 
                 <div className={loading ? 'spinner-border float-right text-secondary spinner-white spinner-activated' : ' spinner-border float-right text-secondary  spinner-white spinner-deactivated' } id="spinner" role="status">
                     <span className="sr-only"></span>
                 </div>
             </div>
-            <h5 className="card-header">Generate SiteMap 
+            <h5 className="card-header">Generar SiteMap 
                 <Link to={"library/sitemap/"+uid} target="_blank" >
                 { alreadyGenerated && !loading ?  <i id="sitemap-download" className="fas fa-download"/> : "" }
               </Link>
             </h5>
             <div className="card-body" >
-                <div className='subtext' >An XML sitemap lists a website’s important pages, making sure Google can find and crawl them all, and helping it understand your website structure</div>
+                <div className='subtext' >Un sitemap es una listado de las paginas mas importantes de un sitio web, de esta forma podemos dar por hecho que Google va a encontrar estas paginas, recorrerlas y visitarlas</div>
                 <div className='subtext-icon'  >
                     { loading ?  <p>{percentage}%</p> :( alreadyGenerated ?  <i className="far fa-check-circle"/> : <i className="fas fa-ban"/> ) }
 

@@ -46,16 +46,18 @@ render(){
 };
 //const App = ({ children }) => ();
 const TABS =[
-  {name:'DashBoard',icon:'fas fa-home',url:''},
-  {name:'My Reports',icon:'fas fa-file-contract',url:'reports'},
-  {name:'Received Reports',icon:'fas fa-file-invoice',url:'received'},
-  {name:'Utils'},
-  {name:'Broken Link Checker',icon:'fas fa-code',url:'brokenLinks'},
-  // {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
-  {name:'Missing Alternative',icon:'fas fa-low-vision',url:'alternative'},
-  {name:'SiteMap Generator',icon:'fas fa-sitemap',url:'sitemap'},
-  {name:'CSS & JS Minifier',icon:'fas fa-file-archive',url:'Minifier'},
+  {name:'DashBoard',icon:'fas fa-home',url:'',noadmin:false},
+  {name:'Mis Reportes',icon:'fas fa-file-contract',url:'reports',noadmin:false},
+  {name:'Reportes Recibidos',icon:'fas fa-file-invoice',url:'received',noadmin:true},  
+  {name:'Crear Usuario',icon:'fas fa-user-plus',url:'',noadmin:false},
 
-  {name:'Spell Checker',icon:'fas fa-spell-check',url:'SpellingCheck'},
+  {name:'Herramientas'},
+  {name:'Buscador enlaces rotos',icon:'fas fa-code',url:'brokenLinks',noadmin:true},
+  // {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
+  {name:'Detector Texto Alternativo',icon:'fas fa-low-vision',url:'alternative',noadmin:true},
+  {name:'Generar SiteMap',icon:'fas fa-sitemap',url:'sitemap',noadmin:true},
+  {name:'Minificador de CSS & JS ',icon:'fas fa-file-archive',url:'Minifier',noadmin:true},
+
+  {name:'Corrector Ortografico',icon:'fas fa-spell-check',url:'SpellingCheck',noadmin:true},
 ];
 export default App;
