@@ -29,15 +29,15 @@ class AnalysisTable extends Component{
       <>
         <div className="card-deck m-b-30 phonr-res">
           <div className={`card ${basename}`}>
-            <h5 className={`card-header  `}>Tabla de estado de reportes</h5>
+            <h5 className={`card-header  `}>Tabla de estado de Informes</h5>
             <div className="card-body">
-              <p> Ultimos  <code className="highlighter-rouge"> 10</code> Reportes creados</p>
+              <p> Ultimos  <code className="highlighter-rouge"> 10</code> Informe creados</p>
               <div className="table-responsive">
                 <table className="table">
                   <thead>
                   <tr>
                     <th>Sitio Web</th>
-                    <th>ID Reporte</th>
+                    <th>ID Informe</th>
                     <th>Creado</th>
 
                     <th>Visto</th>

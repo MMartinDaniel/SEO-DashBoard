@@ -24,11 +24,14 @@ class Home extends Component {
     };
 
   }
-  componentWillMount() {
-
-    
+  componentWillMount() {    
     this.updateTable();
 }
+  componentDidMount(){
+    if(!this.state.stats.admin){
+      this.props.history.push('/received');
+    }
+  }
   updateTable(){
     const {uid} = this.state.stats;
     console.log(uid);

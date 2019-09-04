@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const isRelativeUrl = require('is-relative-url');
 var Crawler = require('simplecrawler');
 const request = require('request');
+
 let plimit = require('p-limit');
 var port = 80;
 var exclude = ['gif', 'jpg', 'jpeg', 'png', 'ico', 'bmp', 'ogg', 'webp',
@@ -453,7 +454,11 @@ module.exports = {
               resolve(null);
               }).catch((err)=>{
                 try{
-                  resolve({url:url,status:err.response.status});
+                  if( err.code ==='UNABLE_TO_VERIFY_LEAF_SIGNATURE'){
+                    resolve(null);
+                  }else{
+                    resolve({url:url,status:err.response.status});
+                  }
                 }catch(err){
                   resolve({url:url,status:404});
                 }
@@ -609,7 +614,11 @@ module.exports = {
                   resolve(null);
                   }).catch((err)=>{
                     try{
-                      resolve({url:url,status:err.response.status});
+                      if( err.code ==='UNABLE_TO_VERIFY_LEAF_SIGNATURE'){
+                        resolve(null);
+                      }else{
+                        resolve({url:url,status:err.response.status});
+                      }
                     }catch(err){
                       resolve({url:url,status:404});
                     }

@@ -49,9 +49,9 @@ import { getFromStorage } from '../utils/storage';
         <div className='col-lg-12'>
           <div className="card-deck m-b-30">
             <div className={`card ${basename}`}>
-              <h5 className={`card-header  `}>Tabla de reportes recibidos</h5>
+              <h5 className={`card-header  `}>Tabla de Informes recibidos</h5>
               <div className="card-body">
-                <p> <code className="highlighter-rouge"> Ultimos </code> Reportes recibidos </p>
+                <p> <code className="highlighter-rouge"> Ultimos </code> Informes recibidos </p>
                 <div className="table-responsive">
                   <table className="table">
                     <thead>

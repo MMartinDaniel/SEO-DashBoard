@@ -116,7 +116,7 @@ class Sidebar extends Component {
 
             {
               tabs.map((item) => {
-                if(item.name === "Herramientas"){ return <li key={item.name} className="sidebar-brand"><a href="#">{item.name}</a> </li> 
+                if(item.name === "Herramientas" && admin){ return <li key={item.name} className="sidebar-brand"><a href="#">{item.name}</a> </li> 
                 }else if(item.name === "Crear Usuario" && admin){
                   return <li key={item.name}><a className={"cc-u"}  onClick={this.toggle} ><i className={item.icon}/><span>{item.name}</span></a></li>
                 }else{ 

@@ -52,7 +52,7 @@ class ProgressTable extends React.Component {
         return (
             <>
             <div className={`${basename}wrapper card` } >
-                <h2 className={`${basename}heading`}>Reportes en Progreso</h2>
+                <h2 className={`${basename}heading`}>Informes en Progreso</h2>
                 <div className={`${basename}table`}>
                 { 
                     (onProgress.length > 0) ?

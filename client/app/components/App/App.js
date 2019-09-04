@@ -47,17 +47,17 @@ render(){
 //const App = ({ children }) => ();
 const TABS =[
   {name:'DashBoard',icon:'fas fa-home',url:'',noadmin:false},
-  {name:'Mis Reportes',icon:'fas fa-file-contract',url:'reports',noadmin:false},
-  {name:'Reportes Recibidos',icon:'fas fa-file-invoice',url:'received',noadmin:true},  
+  {name:'Mis Informes',icon:'fas fa-file-contract',url:'reports',noadmin:false},
+  {name:'Informes Recibidos',icon:'fas fa-file-invoice',url:'received',noadmin:true},  
   {name:'Crear Usuario',icon:'fas fa-user-plus',url:'',noadmin:false},
 
-  {name:'Herramientas'},
-  {name:'Buscador enlaces rotos',icon:'fas fa-code',url:'brokenLinks',noadmin:true},
+  {name:'Herramientas',noadmin:false},
+  {name:'Buscador enlaces rotos',icon:'fas fa-code',url:'brokenLinks',noadmin:false},
   // {name:'SEO checker',icon:'fas fa-universal-access',url:'scanner'},
-  {name:'Detector Texto Alternativo',icon:'fas fa-low-vision',url:'alternative',noadmin:true},
-  {name:'Generar SiteMap',icon:'fas fa-sitemap',url:'sitemap',noadmin:true},
-  {name:'Minificador de CSS & JS ',icon:'fas fa-file-archive',url:'Minifier',noadmin:true},
+  {name:'Detector Texto Alternativo',icon:'fas fa-low-vision',url:'alternative',noadmin:false},
+  {name:'Generar SiteMap',icon:'fas fa-sitemap',url:'sitemap',noadmin:false},
+  {name:'Minificador de CSS & JS ',icon:'fas fa-file-archive',url:'Minifier',noadmin:false},
 
-  {name:'Corrector Ortografico',icon:'fas fa-spell-check',url:'SpellingCheck',noadmin:true},
+  {name:'Corrector Ortografico',icon:'fas fa-spell-check',url:'SpellingCheck',noadmin:false},
 ];
 export default App;

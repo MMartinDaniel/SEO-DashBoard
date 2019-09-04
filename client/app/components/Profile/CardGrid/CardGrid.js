@@ -396,6 +396,7 @@ class CardGrid extends React.Component {
         }
 
         this.toggle = this.toggle.bind(this);
+        this.sendall = this.sendall.bind(this);
 
     }
 
@@ -427,6 +428,19 @@ class CardGrid extends React.Component {
 
     }
 
+    
+    sendall(){
+        fetch('/library/user/sendallmail',{
+            method:'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                uid: this.props.stats.uid
+            })}).then(res => res.json()).then(data =>{})
+    }
+
     render() {
         let {cards,basename,stats} = this.props;
         let { toggle, toggleAlarm,toggleSeen,toggleAsignados } = this.state;
@@ -439,7 +453,10 @@ class CardGrid extends React.Component {
          {(toggleAsignados) && ( <AsignedPop basename={basename} toggleAsignados={this.toggleAsignados.bind(this)} website={this.state.website} id={this.state.id} uid={this.props.stats.uid} />  ) }
 
             <div className={`${basename}wrapper card` } >
-                <h2 className={`${basename}heading`}>Tus Reportes</h2>
+                <h2 className={`${basename}heading`}>Tus Informes </h2>
+                <h2 className={`${basename}heading sendall` } onClick={this.sendall} ><i className="fas fa-mail-bulk"></i> Enviar todos los informes</h2>
+
+
                 {   (cards.length > 0) ?
                     cards.map((item, i) =>{
                      //  return <Link key={i} className={`${basename}__item`} to={"Report/"+ item.id} target="_blank" ><Card key={i} data={item} basename={basename}/></Link>
