@@ -125,6 +125,58 @@ module.exports = (app) => {
   });
 
 
+  app.post('/library/user/sendallmail',(req,res,next)=>{
+    const {body} = req;
+    const {uid} = body;   
+
+    User.findById(uid, function (err, user) { 
+      if(err){
+        console.log(err);
+      }else if( user !== null && user.length != 1 ){
+        console.log("user:"+user.email);
+        user.reports.forEach(informe => {
+          console.log('informe:' + informe);
+          Report.findOne({ id: informe }).exec((err,report)=> {
+            if(err){
+
+            }else if(report !== null && report.length != 1){
+              report.asignedUsers.forEach(rep_user=>{
+
+                    let from = {website:report.website,id: report.id,uid: user.uid, date: Date.now(),email:user.email};
+                      User.update( { email: rep_user }, { $addToSet: { receivedreports: from }}, function(err) {
+                        if (err) {
+                          return res.send({success:true,message: "Error: Server Error",});
+                        }
+                    });
+                    var mailOptions = {
+                      from: 'staticautoreply@gmail.com',
+                      to: rep_user,
+                      subject: 'Te ha enviado un informe',
+                      html: "Se ha enviado un informe para su revision para la web  " +report.website + ", accede con el siguiente enlace <a href='http://localhost:8080/Report/"+report.id+"?email="+rep_user+"'>Enlace</a>",
+                    };
+                    
+                    transporter.sendMail(mailOptions, function(error, info){
+                      if (error) {
+                        console.log(error);
+                      } else {
+                        console.log('Email sent: ' + info.response);
+                      }
+                    });
+              })
+              
+            }
+
+          });
+        });
+      }
+    });
+
+
+  return res.send({success:true,message: "Success: sent",});
+  });
+
+
+
 
   app.post('/library/user/email',(req,res,next)=>{
     const {body} = req;
@@ -140,7 +192,7 @@ module.exports = (app) => {
     from: 'staticautoreply@gmail.com',
     to: email,
     subject: 'Te ha enviado un informe',
-    html: "Se ha enviado un reporte para su revision para la web  " +website + ", accede con el siguiente enlace <a href='http://localhost:8080/Report/"+id+"?email="+email+"'>Enlace</a>",
+    html: "Se ha enviado un informe para su revision para la web  " +website + ", accede con el siguiente enlace <a href='http://localhost:8080/Report/"+id+"?email="+email+"'>Enlace</a>",
   };
   
   transporter.sendMail(mailOptions, function(error, info){

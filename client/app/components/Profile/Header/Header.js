@@ -83,14 +83,14 @@ class Header extends Component {
                     <p>{(subtitle !== "") ? subtitle : "Sin Apellidos definidos"}</p>
                 </div>
                 <div className={`${basename}__reportes`}>
-                    <strong>{(placeh) ? "Reportes Recividos" : "Reportes Generados" }</strong>
+                    <strong>{(placeh) ? "Informes Recibidos" : "Informes Generados" }</strong>
 
                     <p>{(placeh) ? nreports :reportscount}</p>
                 </div>
                 {
                 (!nogenerate) ?  
                     <div className={`${basename}__button--wrap`}>
-                        <button onClick={this.toggle} className={`${basename}__button`}>Generar Reporte</button>
+                        <button onClick={this.toggle} className={`${basename}__button`}>Generar Informe</button>
                     </div>
                     : null
                 }

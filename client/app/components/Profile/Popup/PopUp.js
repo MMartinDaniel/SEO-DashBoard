@@ -69,7 +69,7 @@ class PopUp extends Component {
                 <form onSubmit={(e) => e.preventDefault()}>
                 <div className={`${basename}__inner`}>
                     <div className={`${basename}__header`}>
-                        <div className={`${basename}__cropped`}><span>Nuevo Reporte</span></div>
+                        <div className={`${basename}__cropped`}><span>Nuevo Informe</span></div>
                         <input required type='text' onChange={this.handleChange} value={this.state.website} placeholder='Url del sitio'></input>
                     </div>
                     <div className={`${basename}__options-body`}>
@@ -89,7 +89,7 @@ class PopUp extends Component {
                             }    
                         </div>
                         <div className={`${basename}__button--wrap`}>
-                            <input type='submit' className={`${basename}__button`}  onClick={this.sendReport} value='Generar Reporte' />
+                            <input type='submit' className={`${basename}__button`}  onClick={this.sendReport} value='Generar Informe' />
                             <button   onClick={this.props.toggle} className={`${basename}__button red-report`}  >Cerrar </button>       
                         </div>                   
                     </div>
