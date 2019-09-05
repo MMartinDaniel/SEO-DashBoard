@@ -1,13 +1,13 @@
-# MERN-boilerplate
+# SEO-DASHBOARD
 
-This is a boilerplate project using the following technologies:
+Proyecto de fin de grado, hecho con:
 - [React](https://facebook.github.io/react/) and [React Router](https://reacttraining.com/react-router/) for the frontend
 - [Express](http://expressjs.com/) and [Mongoose](http://mongoosejs.com/) for the backend
 - [Sass](http://sass-lang.com/) for styles (using the SCSS syntax)
 - [Webpack](https://webpack.github.io/) for compilation
 
 
-### Installation
+### Instalacion
 
 	npm install
 	npm install -g nodemon
@@ -38,9 +38,8 @@ npm install
 ```
 
 
-## Running
+## Run
 
-Make sure to add a `config.js` file in the `config` folder. See the example there for more details.
 
 Production mode:
 
