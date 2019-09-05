@@ -1453,3 +1453,82 @@ footer{
 }
 }
 
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+  .profile__popup__wrapper, .profile__CardGrid____AlarmPop__wrapper{
+    height: 100%;
+    margin-top: 0;
+  }
+
+  .profile__popup__item {
+    width: 100px;
+    height: 100px;
+  }
+  .profile__popup__icon-grid img {
+
+    margin-top: 10px;
+}
+.profile__popup__icon-grid span, .profile__CardGrid____AlarmPop__icon-grid span {
+   margin-top:0;
+}
+.profile__popup__options-body {
+
+  height: 74%;
+}
+.profile__popup__button--wrap {
+   margin-top: 0;
+}
+.personaldata__inner {
+  height: 531px;
+}
+.profile__popup__inner {
+  width: calc(40% - 0px);
+  height: 530px;
+}
+
+.profile-form{
+  .profile__popup__header{
+    height: 97px;
+  }
+
+}
+.imobile{
+  width: calc(60% - 0px);
+  height: 530px;
+}
+.profile__popup__options-body {
+  height: 89%;
+}
+
+.profile__popup__cropped, .profile__CardGrid____AlarmPop__cropped {
+
+  width: 214px;
+}
+
+.personaldata__inner__crear {
+  margin-top: 100px;
+  height: 437px;
+  width: calc(25% - 0px);
+}
+.personaldata__inner__crear {
+  margin-top: 100px;
+  height: 258px;
+  width: calc(32% - 0px);
+}
+.profile__popup__options-body {
+  height: 77%;
+}
+
+.crear_user{
+  height: 74%;
+}
+.mail_personaldata__inner {
+  margin-top: 31px;
+  width: calc(37% - 0px);
+}
+.mail_personaldata__inner__asign {
+  height: 500px;
+  margin-top: 31px;
+  width: calc(37% - 0px);
+}
+}

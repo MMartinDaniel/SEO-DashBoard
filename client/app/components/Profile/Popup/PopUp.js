@@ -67,7 +67,7 @@ class PopUp extends Component {
         return (<>
             <div className={`${basename}__wrapper` } >
                 <form onSubmit={(e) => e.preventDefault()}>
-                <div className={`${basename}__inner`}>
+                <div className={`${basename}__inner imobile`}>
                     <div className={`${basename}__header`}>
                         <div className={`${basename}__cropped`}><span>Nuevo Informe</span></div>
                         <input required type='text' onChange={this.handleChange} value={this.state.website} placeholder='Url del sitio'></input>
