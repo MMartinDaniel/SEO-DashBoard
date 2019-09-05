@@ -26,7 +26,7 @@ This is a boilerplate project using the following technologies:
 	Registro de usuario:
 	peticion POST a http://localhost/api/account/signup
 		{email:'test',password:'test'};
-
+	entrar en la DB y activar el campo de administrador
 	entrar en localhost:8080/login y logearse con los datos de arriba.
 
 ## Requirements
