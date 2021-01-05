@@ -21,7 +21,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0-beta.42",
     "autoprefixer": "^8.2.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.0.6",
     "bcrypt-nodejs": "0.0.3",
     "capture-website": "^0.4.0",
